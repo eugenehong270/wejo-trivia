@@ -1,36 +1,11 @@
-### «Human-readable of the endpoint»
-
-* Endpoint path: «path to use»
-* Endpoint method: «HTTP method»
-* Query parameters:
-  * «name»: «purpose»
-
-* Headers:
-  * Authorization: Bearer token
-
-* Request shape (JSON):
-    ```json
-    «JSON-looking thing that has the
-    keys and types in it»
-    ```
-
-* Response: «Human-readable description
-            of response»
-* Response shape (JSON):
-    ```json
-    «JSON-looking thing that has the
-    keys and types in it»
-    ```
-
-
 ### Log in
 
 * Endpoint path: /token
 * Endpoint method: POST
 
 * Request shape (form):
-  * username: string
-  * password: string
+  * username: varchar
+  * password: varchar
 
 * Response: Account information and a token
 * Response shape (JSON):
@@ -39,11 +14,9 @@
       "account": {
         «key»: type»,
       },
-      "token": string
+      "token": varchar
     }
     ```
-
-
 
 ### Log out
 
@@ -59,39 +32,114 @@
     true
     ```
 
-### Trivia Questions
+### Sign up
+
+* Endpoint path: /token
+* Endpoint method: POST
+
+* Headers:
+  * Authorization: Bearer token
+
+* Request shape (form):
+  * username: varchar
+  * password: varchar
+  * email: varchar
+
+* Response: Always true
+* Response shape (JSON):
+    ```json
+    {
+      "username": varchar,
+      "password": varchar,
+      "email": varchar
+    }
+    ```
+
+### Retrieve Trivia Questions
 
 Endpoint path: /questions
 Endpoint method : GET
 
 Query parameters:
-    amount: number
-    category: id
+    * category: id
+    * difficulty: varchar
 
 Headers:
     content_type: application/json
 
-
 Response shape:
    "results": [
 		{
-			"category": "History",
-			"type": "boolean",
-			"difficulty": "hard",
-			"question": "Japan was part of the Allied Powers during World War I.",
-			"correct_answer": "True",
+			"category": varchar,
+			"type": varchar,
+			"difficulty": varchar,
+			"question": varchar,
+			"correct_answer": varchar,
 			"incorrect_answers": [
-				"False"
+				varchar, varchar, etc.
 			]
 
+### Create Game Score
 
-
-### User Score
-
-Endpoint path: /userscore
+Endpoint path: /gamescores/create/
 Endpoint method : POST
 
 Headers:
     content_type: application/json
 
-request shape (JSON):
+Request Shape (form):
+  * username: varchar
+  * points: smallint
+  * difficulty: varchar
+  * category: varchar
+
+Headers:
+    content_type: application/json
+
+Response Shape(JSON):
+  {
+    "username": varchar,
+    "points": smallint,
+    "difficulty": varchar,
+    "category": varchar
+    "date" : date
+  }
+
+## Retrieve Game Scores
+
+Endpoint path: /gamescores/get/
+Endpoint method: GET
+
+Headers:
+    content_type: application/json
+
+Request Shape (?):
+  ???
+
+Response Shape(JSON):
+  games = [
+    {
+      "id" : serial,
+      "username" : varchar,
+      "points" : smallint,
+      "difficulty" : varchar,
+      "category" : varchar,
+      "date" : date
+    },
+  ]
+
+## Retrieve Users ???
+Endpoint path: /users
+Endpoint method: GET
+
+Headers:
+    content_type: application/json
+
+Response Shape(JSON):
+  users = [
+    {
+      "id" : serial,
+      "username" : varchar,
+      "total_points" : smallint,
+    },
+  ]
