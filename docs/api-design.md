@@ -34,11 +34,8 @@
 
 ### Sign up
 
-* Endpoint path: /token
+* Endpoint path: /signup
 * Endpoint method: POST
-
-* Headers:
-  * Authorization: Bearer token
 
 * Request shape (form):
   * username: varchar
@@ -55,6 +52,25 @@
     }
     ```
 
+### Retrieve All Categories
+
+Endpoint path: /categories
+Endpoint method : GET
+
+Query parameters:
+    * id: smallint
+    * name: varchar
+
+Headers:
+    content_type: application/json
+
+Response shape(JSON):
+'{   "categories": [
+		{
+			"id": smallint,
+      "name": varchar
+			]
+}'
 ### Retrieve Trivia Questions
 
 Endpoint path: /questions
@@ -67,8 +83,8 @@ Query parameters:
 Headers:
     content_type: application/json
 
-Response shape:
-   "results": [
+Response shape(JSON):
+'{   "results": [
 		{
 			"category": varchar,
 			"type": varchar,
@@ -78,46 +94,41 @@ Response shape:
 			"incorrect_answers": [
 				varchar, varchar, etc.
 			]
-
+}'
 ### Create Game Score
 
-Endpoint path: /gamescores/create/
+Endpoint path: /gamescores/
 Endpoint method : POST
 
 Headers:
-    content_type: application/json
+    * Authorization: Bearer token
+    * content_type: application/json
 
 Request Shape (form):
-  * username: varchar
   * points: smallint
   * difficulty: varchar
-  * category: varchar
-
-Headers:
-    content_type: application/json
+  * category: id
 
 Response Shape(JSON):
   {
     "username": varchar,
     "points": smallint,
     "difficulty": varchar,
-    "category": varchar
+    "category": id
     "date" : date
   }
 
-## Retrieve Game Scores
+## Retrieve Leader Game Scores
 
-Endpoint path: /gamescores/get/
+Endpoint path: /gamescores/leaders
 Endpoint method: GET
 
 Headers:
-    content_type: application/json
-
-Request Shape (?):
-  ???
+    * Authorization: Bearer token
+    * content_type: application/json
 
 Response Shape(JSON):
-  games = [
+'{  'leaders':  [
     {
       "id" : serial,
       "username" : varchar,
@@ -127,19 +138,25 @@ Response Shape(JSON):
       "date" : date
     },
   ]
+}'
+## Retrieve User Game Scores
 
-## Retrieve Users ???
-Endpoint path: /users
+Endpoint path: /gamescores/me/
 Endpoint method: GET
 
 Headers:
-    content_type: application/json
+    * Authorization: Bearer token
+    * content_type: application/json
 
 Response Shape(JSON):
-  users = [
+'{  'my_games': [
     {
       "id" : serial,
       "username" : varchar,
-      "total_points" : smallint,
+      "points" : smallint,
+      "difficulty" : varchar,
+      "category" : varchar,
+      "date" : date
     },
   ]
+}'
