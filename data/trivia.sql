@@ -1,6 +1,6 @@
 CREATE TABLE users (
     id SERIAL NOT NULL UNIQUE,
-    username TEXT NOT NULL UNIQUE,
+    username TEXT NOT NULL UNIQUE
 );
 
 CREATE TABLE games (
@@ -10,4 +10,4 @@ CREATE TABLE games (
     difficulty VARCHAR(6) NOT NULL,
     points INTEGER NOT NULL,
     user_id INTEGER REFERENCES users("id") ON DELETE CASCADE
-)
+);

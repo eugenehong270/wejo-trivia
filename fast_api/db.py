@@ -11,11 +11,10 @@ class GameQueries:
                     """
                     SELECT u.id AS user_id, u.username, g.date,
                         g.id AS game_id, g.category,
-                        g.difficulty, g.score AS high_score,
-
+                        g.difficulty, g.points AS high_score
                     FROM users u
-                    JOIN games g ON(u.id = g.user_id);
-                    ORDER BY g.score
+                    JOIN games g ON(u.id = g.user_id)
+                    ORDER BY g.points
                     """,
                 )
                 games = []
@@ -31,8 +30,8 @@ class GameQueries:
                 cur.execute(
                     """
                     SELECT u.id AS user_id, u.username,
-                    g.id AS game_id, g.date, g.category,
-                    g.difficulty, g.score
+                        g.id AS game_id, g.date, g.category,
+                        g.difficulty, g.points
                     FROM users u
                     JOIN games g ON(u.id = g.user_id)
                     WHERE g.id = %s
@@ -84,7 +83,7 @@ class GameQueries:
             for i, column in enumerate(description):
                 if column.name in game_fields:
                     game[column.name] = row[i]
-                game["id"] = game["game_id"]
+            game["id"] = game["game_id"]
 
             user = {}
             user_fields = [
