@@ -1,0 +1,1 @@
+11/14/22: Today we went over the design of the project and refined some portions of the project. These included redundancies, parts that became unecessary due to design, and stretch goals. We plan to learn more about FastAPI before moving on.
