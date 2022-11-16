@@ -1,0 +1,204 @@
+import os
+from psycopg_pool import ConnectionPool
+
+pool = ConnectionPool(conninfo=os.environ["DATABASE_URL"])
+
+class GameQueries:
+    def get_games(self):
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT u.id AS user_id, u.username, g.date,
+                        g.id AS game_id, g.category,
+                        g.difficulty, g.score AS high_score,
+
+                    FROM users u
+                    JOIN games g ON(u.id = g.user_id);
+                    ORDER BY g.score
+                    """,
+                )
+                games = []
+                rows = cur.fetchall()
+                for row in rows:
+                    game = self.game_record_to_dict(row, cur.description)
+                    games.append(game)
+                return games
+
+    def get_game(self, game_id):
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT u.id AS user_id, u.username,
+                    g.id AS game_id, g.date, g.category,
+                    g.difficulty, g.score
+                    FROM users u
+                    JOIN games g ON(u.id = g.user_id)
+                    WHERE g.id = %s
+                    """,
+                    [game_id],
+                )
+                row = cur.fetchone()
+                return self.game_record_to_dict(row, cur.description)
+
+
+    def create_game(self, game):
+        id = None
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    INSERT INTO games (
+                        date, category, difficulty, points, user_id
+                    )
+                    VALUES (%s, %s, %s, %s, %s)
+                    RETURNING id
+                    """,
+                    [
+                        game.date,
+                        game.category,
+                        game.difficulty,
+                        game.points,
+                        game.user_id,
+                    ],
+                )
+
+                row = cur.fetchone()
+                id = row[0]
+        if id is not None:
+            return self.get_game(id)
+
+    def game_record_to_dict(self, row, description):
+        game = None
+        if row is not None:
+            game = {}
+            game_fields = [
+                "game_id",
+                "date",
+                "category",
+                "difficulty",
+                "points",
+                "user_id",
+            ]
+            for i, column in enumerate(description):
+                if column.name in game_fields:
+                    game[column.name] = row[i]
+                game["id"] = game["game_id"]
+
+            user = {}
+            user_fields = [
+                "user_id",
+                "username"
+            ]
+            for i, column in enumerate(description):
+                if column.name in user_fields:
+                    user[column.name] = row[i]
+                user["id"] = user["user_id"]
+
+            game["user"] = user
+        return game
+
+
+class UserQueries:
+    def get_all_users(self):
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT id, username
+                    FROM users
+                    ORDER BY username
+                """
+                )
+
+                results = []
+                for row in cur.fetchall():
+                    record = {}
+                    for i, column in enumerate(cur.description):
+                        record[column.name] = row[i]
+                    results.append(record)
+
+                return results
+
+    def get_user(self, id):
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT id, username
+                    FROM users
+                    WHERE id = %s
+                """,
+                    [id],
+                )
+
+                record = None
+                row = cur.fetchone()
+                if row is not None:
+                    record = {}
+                    for i, column in enumerate(cur.description):
+                        record[column.name] = row[i]
+
+                return record
+
+    def create_user(self, data):
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                params = [
+                    data.username,
+                ]
+                cur.execute(
+                    """
+                    INSERT INTO users (username)
+                    VALUES (%s)
+                    RETURNING id, username
+                    """,
+                    params,
+                )
+
+                record = None
+                row = cur.fetchone()
+                if row is not None:
+                    record = {}
+                    for i, column in enumerate(cur.description):
+                        record[column.name] = row[i]
+
+                return record
+
+    def update_user(self, user_id, data):
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                params = [
+                    data.username,
+                    user_id,
+                ]
+                cur.execute(
+                    """
+                    UPDATE users
+                    SET username = %s
+                    WHERE id = %s
+                    RETURNING id, username
+                    """,
+                    params,
+                )
+
+                record = None
+                row = cur.fetchone()
+                if row is not None:
+                    record = {}
+                    for i, column in enumerate(cur.description):
+                        record[column.name] = row[i]
+
+                return record
+
+    def delete_user(self, user_id):
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    DELETE FROM users
+                    WHERE id = %s
+                    """,
+                    [user_id],
+                )
