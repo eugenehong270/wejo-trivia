@@ -19,6 +19,10 @@ class UsersOut(BaseModel):
     users: list[UserOut]
 
 
+class UserOutWithPassword(UserOut):
+    hashed_password: str
+
+
 @router.get("/api/users", response_model=UsersOut)
 def users_list(queries: UserQueries = Depends()):
     return {

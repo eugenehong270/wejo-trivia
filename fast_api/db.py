@@ -1,5 +1,8 @@
 import os
 from psycopg_pool import ConnectionPool
+from pydantic import BaseModel
+
+# from routers.users import UserOutWithPassword, UserIn
 
 pool = ConnectionPool(conninfo=os.environ["DATABASE_URL"])
 
@@ -129,16 +132,16 @@ class UserQueries:
 
                 return results
 
-    def get_user(self, id):
+    def get_user(self, username):
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     """
                     SELECT id, username
                     FROM users
-                    WHERE id = %s
+                    WHERE username = %s
                 """,
-                    [id],
+                    [username],
                 )
 
                 record = None
@@ -150,7 +153,7 @@ class UserQueries:
 
                 return record
 
-    def create_user(self, data):
+    def create_user(self, data, hashed_password: str):
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 params = [
