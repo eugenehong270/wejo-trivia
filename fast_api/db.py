@@ -3,6 +3,7 @@ from psycopg_pool import ConnectionPool
 
 pool = ConnectionPool(conninfo=os.environ["DATABASE_URL"])
 
+
 class GameQueries:
     def get_games(self):
         with pool.connection() as conn:
@@ -10,11 +11,12 @@ class GameQueries:
                 cur.execute(
                     """
                     SELECT u.id AS user_id, u.username, g.date,
-                        g.id AS game_id, g.category,
-                        g.difficulty, g.points AS high_score
+                        g.id AS game_id, g.date, g.category,
+                        g.difficulty, g.points
                     FROM users u
                     JOIN games g ON(u.id = g.user_id)
-                    ORDER BY g.points
+
+                    ORDER BY g.points DESC
                     """,
                 )
                 games = []
@@ -38,9 +40,9 @@ class GameQueries:
                     """,
                     [game_id],
                 )
+
                 row = cur.fetchone()
                 return self.game_record_to_dict(row, cur.description)
-
 
     def create_game(self, game):
         id = None
@@ -68,6 +70,17 @@ class GameQueries:
         if id is not None:
             return self.get_game(id)
 
+    def delete_game(self, game_id):
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    DELETE FROM games
+                    WHERE id = %s
+                    """,
+                    [game_id],
+                )
+
     def game_record_to_dict(self, row, description):
         game = None
         if row is not None:
@@ -78,7 +91,6 @@ class GameQueries:
                 "category",
                 "difficulty",
                 "points",
-                "user_id",
             ]
             for i, column in enumerate(description):
                 if column.name in game_fields:
@@ -86,10 +98,7 @@ class GameQueries:
             game["id"] = game["game_id"]
 
             user = {}
-            user_fields = [
-                "user_id",
-                "username"
-            ]
+            user_fields = ["user_id", "username"]
             for i, column in enumerate(description):
                 if column.name in user_fields:
                     user[column.name] = row[i]

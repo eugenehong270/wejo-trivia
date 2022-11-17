@@ -8,3 +8,7 @@ I'll be chronicling our progress here, as we weave together user authentication,
 2022-11-14
 Today we finished our api endpoint markdown and began planning our project implementation. I set up API Endpoint, React/Redux frontend, and Documentation boards on Trello and led the standup/standown. In tandem with our design overview, we worked individually through the FastAPI tutorial videos to familiarize ourselves with the new framework.
 I find FastAPI / PostgreSQL to be quite dense so far, and am looking forward to completing more tutorials and getting a few of our endpoints up and running by the end of the week. Excited to learn about authorization bearer tokens, and will try to get a basic version of the game working in React by next week.
+
+2022-11-16
+We focused on getting the game and user databases up and running today using PostgreSQL and FastAPI. It was not easy, and I felt rather frustrated along the way, but we got there! After lunch, I led a codealong where we built our FastAPI routers, db, sql and main.py files from scratch and tested our endpoints. Of course we ran into bugs along the way, but with each other's help, and some much appreciated instructor guidance, we got our CRUD (mostly) functioning for the users and games apis.
+Next up on our list for the week is authorization and authentication. Eugene and Ovidiu will be leading a code along to implement auth into our backend on Friday.

@@ -20,7 +20,7 @@ class GameOut(BaseModel):
     category: str
     difficulty: str
     points: int
-    user_id: int
+    user: UserOut
 
 class GamesOut(BaseModel):
     games: list[GameOut]
@@ -32,11 +32,11 @@ def get_game(
     response: Response,
     queries: GameQueries = Depends(),
 ):
-    record = queries.get_game(game_id)
-    if record is None:
+    game = queries.get_game(game_id)
+    if game is None:
         response.status_code = 404
     else:
-        return record
+        return game
 
 @router.get("/api/games", response_model=GamesOut)
 def get_games(queries: GameQueries = Depends()):
