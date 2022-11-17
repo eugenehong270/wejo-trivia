@@ -116,7 +116,7 @@ class UserQueries:
                     """
                     SELECT id, username
                     FROM users
-                    ORDER BY username
+                    ORDER BY id
                 """
                 )
 

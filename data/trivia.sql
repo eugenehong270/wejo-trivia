@@ -11,3 +11,4 @@ CREATE TABLE games (
     points INTEGER NOT NULL,
     user_id INTEGER REFERENCES users("id") ON DELETE CASCADE
 );
+
