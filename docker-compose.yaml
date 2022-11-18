@@ -12,6 +12,7 @@ services:
       - ./fast_api:/app
     environment:
       DATABASE_URL: postgresql://trivia:trivia@db/trivia
+      SIGNING_KEY: f9e6de79d378f063a372206326e59c36737f2b65f45d3765fd3856e16f7a993d6c90f5aa844692ec2895cd6c0051951b91dd97022fb227060ed04acee8e8d73a
 
   db:
     build:

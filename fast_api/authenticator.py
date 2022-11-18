@@ -1,7 +1,7 @@
 import os
 from fastapi import Depends
 from jwtdown_fastapi.authentication import Authenticator
-from routers.users import UserOutWithPassword, UserOut
+from routers.users import UserIn, UserOut
 from db import UserQueries
 
 
@@ -11,26 +11,19 @@ class UserAuthenticator(Authenticator):
         username: str,
         users: UserQueries,
     ):
-        # Use your repo to get the user based on the
-        # username (which could be an email)
         return users.get_user(username)
 
     def get_account_getter(
         self,
         users: UserQueries = Depends(),
     ):
-        # Return the users. That's it.
         return users
 
-    def get_hashed_password(self, user: UserOutWithPassword):
-        # Return the encrypted password value from your
-        # user object
-        return user.hashed_password
+    def get_hashed_password(self, user: UserIn):
+        return user.get("password")
 
-    def get_account_data_for_cookie(self, user: UserOut):
-        # Return the username and the data for the cookie.
-        # You must return TWO values from this method.
-        return user.username, UserOut(**user.dict())
+    def get_account_data_for_cookie(self, user: UserIn):
+        return user.get("username"), UserOut(**user)
 
 
 authenticator = UserAuthenticator(os.environ["SIGNING_KEY"])

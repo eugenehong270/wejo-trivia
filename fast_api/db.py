@@ -1,13 +1,12 @@
 import os
 from psycopg_pool import ConnectionPool
-from pydantic import BaseModel
-
-# from routers.users import UserOutWithPassword, UserIn
 
 pool = ConnectionPool(conninfo=os.environ["DATABASE_URL"])
 
 
 class GameQueries:
+    #leaderboard by single game vs total (avg) points per user?
+    #look into point scheme functionality using if "difficulty" conditions
     def get_games(self):
         with pool.connection() as conn:
             with conn.cursor() as cur:
@@ -132,12 +131,12 @@ class UserQueries:
 
                 return results
 
-    def get_user(self, username):
+    def get_user(self, username: str):
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     """
-                    SELECT id, username
+                    SELECT id, username, password
                     FROM users
                     WHERE username = %s
                 """,
@@ -153,29 +152,29 @@ class UserQueries:
 
                 return record
 
-    def create_user(self, data, hashed_password: str):
+    def create_user(self, data, hashed_password):
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 params = [
-                    data.username,
+                    data.username, hashed_password
                 ]
                 cur.execute(
                     """
-                    INSERT INTO users (username)
-                    VALUES (%s)
-                    RETURNING id, username
+                    INSERT INTO users (username, password)
+                    VALUES (%s, %s)
+                    RETURNING id, username, password
                     """,
                     params,
                 )
 
-                record = None
+                # Why do we set user = None here?
+                user = None
                 row = cur.fetchone()
                 if row is not None:
-                    record = {}
+                    user = {}
                     for i, column in enumerate(cur.description):
-                        record[column.name] = row[i]
-
-                return record
+                        user[column.name] = row[i]
+                return user
 
     def update_user(self, user_id, data):
         with pool.connection() as conn:
