@@ -11,11 +11,7 @@ from authenticator import authenticator
 
 from pydantic import BaseModel
 
-from routers.users import (
-    UserIn,
-    UserOut,
-    DuplicateUserError,
-)
+from routers.users import UserIn, UserOut, DuplicateUserError
 
 from db import UserQueries
 
@@ -43,13 +39,14 @@ async def create_user(
     response: Response,
     queries: UserQueries = Depends(),
 ):
+    # converting the user's inputted password into a hashed password
     hashed_password = authenticator.hash_password(data.password)
     try:
         user = queries.create_user(data, hashed_password)
     except DuplicateUserError:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Cannot create an account with those credentials",
+            detail="Username already exists",
         )
     form = UserForm(username=data.username, password=data.password)
     token = await authenticator.login(response, request, form, queries)

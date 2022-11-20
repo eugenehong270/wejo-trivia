@@ -5,7 +5,7 @@ from db import UserQueries
 
 router = APIRouter()
 
-
+# shape of user data going in to database
 class UserIn(BaseModel):
     username: str
     password: str
@@ -42,11 +42,6 @@ def get_user(
         response.status_code = 404
     else:
         return record
-
-
-@router.post("/api/users/", response_model=UserOut)
-def create_user(user_in: UserIn, queries: UserQueries = Depends()):
-    return queries.create_user(user_in)
 
 
 @router.put("/api/users/{user_id}", response_model=UserOut)

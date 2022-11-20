@@ -12,3 +12,6 @@ I find FastAPI / PostgreSQL to be quite dense so far, and am looking forward to 
 2022-11-16
 We focused on getting the game and user databases up and running today using PostgreSQL and FastAPI. It was not easy, and I felt rather frustrated along the way, but we got there! After lunch, I led a codealong where we built our FastAPI routers, db, sql and main.py files from scratch and tested our endpoints. Of course we ran into bugs along the way, but with each other's help, and some much appreciated instructor guidance, we got our CRUD (mostly) functioning for the users and games apis.
 Next up on our list for the week is authorization and authentication. Eugene and Ovidiu will be leading a code along to implement auth into our backend on Friday.
+
+2022-11-18
+Yesterday and today we went through the JWTDown auth tutorial for Galvanize's auth dependency. Though there were several differing examples of implementation, we managed to get a working User authentication/authorization functionality, including login, logout and signup endpoints. As a team, we talked about where our individual levels of understanding are, and how to best move forward so that everyone can uniquely contribute to the project development.
