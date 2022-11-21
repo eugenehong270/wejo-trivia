@@ -5,8 +5,8 @@ pool = ConnectionPool(conninfo=os.environ["DATABASE_URL"])
 
 
 class GameQueries:
-    #leaderboard by single game vs total (avg) points per user?
-    #look into point scheme functionality using if "difficulty" conditions
+    # leaderboard by single game vs total (avg) points per user?
+    # look into point scheme functionality using if "difficulty" conditions
     def get_games(self):
         with pool.connection() as conn:
             with conn.cursor() as cur:
@@ -155,9 +155,7 @@ class UserQueries:
     def create_user(self, data, hashed_password):
         with pool.connection() as conn:
             with conn.cursor() as cur:
-                params = [
-                    data.username, hashed_password
-                ]
+                params = [data.username, hashed_password]
                 cur.execute(
                     """
                     INSERT INTO users (username, password)

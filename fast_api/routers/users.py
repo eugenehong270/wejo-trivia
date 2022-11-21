@@ -20,8 +20,8 @@ class UsersOut(BaseModel):
     users: list[UserOut]
 
 
-class UserOutWithPassword(UserOut):
-    hashed_password: str
+class DuplicateUserError(ValueError):
+    pass
 
 
 @router.get("/api/users", response_model=UsersOut)
