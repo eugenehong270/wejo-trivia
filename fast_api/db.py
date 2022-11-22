@@ -5,8 +5,31 @@ pool = ConnectionPool(conninfo=os.environ["DATABASE_URL"])
 
 
 class GameQueries:
-    #leaderboard by single game vs total (avg) points per user?
-    #look into point scheme functionality using if "difficulty" conditions
+    # leaderboard by single game vs total (avg) points per user?
+    # look into point scheme functionality using if "difficulty" conditions
+    def get_user_games(self, user_id):
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT u.id AS user_id, u.username, g.date,
+                        g.id AS game_id, g.date, g.category,
+                        g.difficulty, g.points
+                    FROM users u
+                    JOIN games g ON(u.id = g.user_id)
+                    WHERE g.user_id = %s
+
+                    ORDER BY g.date DESC
+                    """,
+                    [user_id],
+                )
+                games = []
+                rows = cur.fetchall()
+                for row in rows:
+                    game = self.game_record_to_dict(row, cur.description)
+                    games.append(game)
+                return games
+
     def get_games(self):
         with pool.connection() as conn:
             with conn.cursor() as cur:
@@ -46,7 +69,7 @@ class GameQueries:
                 row = cur.fetchone()
                 return self.game_record_to_dict(row, cur.description)
 
-    def create_game(self, game):
+    def create_game(self, user_id, game):
         id = None
         with pool.connection() as conn:
             with conn.cursor() as cur:
@@ -63,7 +86,7 @@ class GameQueries:
                         game.category,
                         game.difficulty,
                         game.points,
-                        game.user_id,
+                        user_id,
                     ],
                 )
 
@@ -155,9 +178,7 @@ class UserQueries:
     def create_user(self, data, hashed_password):
         with pool.connection() as conn:
             with conn.cursor() as cur:
-                params = [
-                    data.username, hashed_password
-                ]
+                params = [data.username, hashed_password]
                 cur.execute(
                     """
                     INSERT INTO users (username, password)

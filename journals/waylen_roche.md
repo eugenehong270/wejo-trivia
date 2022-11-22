@@ -15,3 +15,8 @@ Next up on our list for the week is authorization and authentication. Eugene and
 
 2022-11-18
 Yesterday and today we went through the JWTDown auth tutorial for Galvanize's auth dependency. Though there were several differing examples of implementation, we managed to get a working User authentication/authorization functionality, including login, logout and signup endpoints. As a team, we talked about where our individual levels of understanding are, and how to best move forward so that everyone can uniquely contribute to the project development.
+
+2022-11-21
+Over the weekend, I began exploring Redux through several YouTube tutorial videos. Today, the team planned out our week based on learning Redux, finishing up auth on the backend, and implementing a basic React frontend representation of user data. I am feeling motivated to get as much of our mvps done before next week as possible, so we can work on stretch goals and ultimately deployment.
+
+
