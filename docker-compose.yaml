@@ -29,7 +29,7 @@ services:
 
   ghi:
     image: node:lts-bullseye
-    command: /bin/bash run.sh
+    command: bash -c "npm install && npm start"
     working_dir: /app
     volumes:
       - ./ghi:/app
@@ -41,3 +41,5 @@ services:
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
       REACT_APP_SAMPLE_SERVICE_API_HOST: http://localhost:8000
+      CHOKIDAR_USEPOLLING: true # create-ui-app <= 5.x
+      WATCHPACK_POLLING: true # create-ui-app >= 5.x
