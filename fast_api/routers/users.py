@@ -10,21 +10,26 @@ class UserIn(BaseModel):
     username: str
     password: str
 
+
 class UserOut(BaseModel):
     id: int
     username: str
 
+
 class UsersOut(BaseModel):
     users: list[UserOut]
 
+
 class DuplicateUserError(ValueError):
     pass
+
 
 @router.get("/api/users", response_model=UsersOut)
 def users_list(queries: UserQueries = Depends()):
     return {
         "users": queries.get_all_users(),
     }
+
 
 @router.get("/api/users/{user_id}", response_model=UserOut)
 def get_user(
