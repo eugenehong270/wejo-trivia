@@ -1,11 +1,14 @@
 import './App.css';
-import LandingPage from "./LandingPage"
+
+import {LandingPage, UserForm, Timer} from './components'
 
 function App() {
 
   return (
     <div>
+      <Timer />
       <LandingPage />
+      <UserForm />
     </div>
   );
 }

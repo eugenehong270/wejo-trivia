@@ -3,13 +3,13 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const usersApi = createApi({
   reducerPath: 'users',
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.WEJO,
+    baseUrl: process.env.REACT_APP_FAST_API,
   }),
- tagTypes: ['UserList'],
+ tagTypes: ['Token'],
  endpoints: builder => ({
     getUsers: builder.query({
       query: () => '/api/users',
-      providesTags: ['UserList'],
+      providesTags: ['Token'],
     }),
     createuser: builder.mutation({
       query: data => ({
@@ -17,7 +17,7 @@ export const usersApi = createApi({
         body: data,
         method: 'post',
       }),
-      invalidatesTags: ['UserList'],
+      invalidatesTags: ['Token'],
     }),
   }),
 })

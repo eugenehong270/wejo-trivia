@@ -20,3 +20,7 @@ Yesterday and today we went through the JWTDown auth tutorial for Galvanize's au
 Over the weekend, I began exploring Redux through several YouTube tutorial videos. Today, the team planned out our week based on learning Redux, finishing up auth on the backend, and implementing a basic React frontend representation of user data. I am feeling motivated to get as much of our mvps done before next week as possible, so we can work on stretch goals and ultimately deployment.
 
 
+2022-11-22
+Today we continued to explore Redux Toolkit. I finished up wrapping the backend API endpoints for create game score and get games in authenticator reqs. In the second half of the day, the team explored the repo from the earlier lecture on Redux, talking through most of the code. Eugene then lead the code along to begin implementing Redux Toolkit in our project repo.
+
+

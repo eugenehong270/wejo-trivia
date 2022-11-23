@@ -29,7 +29,7 @@ services:
 
   ghi:
     image: node:lts-bullseye
-    command: bash -c "npm install && npm start"
+    command: /bin/bash run.sh
     working_dir: /app
     volumes:
       - ./ghi:/app
@@ -40,6 +40,4 @@ services:
       NODE_ENV: development
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
-      WEJO: http://localhost:8000
-      CHOKIDAR_USEPOLLING: true # create-ui-app <= 5.x
-      WATCHPACK_POLLING: true # create-ui-app >= 5.x
+      REACT_APP_FAST_API: http://localhost:8000

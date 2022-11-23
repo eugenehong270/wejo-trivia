@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { triviaScoreSlice } from './triviaScoreSlice'
 import { usersApi } from './usersApi'
-import { gamesApi } from './gamesApi'
+import { triviaQuestionsApi } from './triviaQuestionsApi'
+import { triviaCategoriesApi } from './triviaCategoriesApi'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
 
 export const store = configureStore({
     reducer: {
-        [gamesApi.reducerPath]: gamesApi.reducer,
+        [triviaQuestionsApi.reducerPath]: triviaQuestionsApi.reducer,
         [usersApi.reducerPath]: usersApi.reducer,
         [triviaCategoriesApi.reducerPath]: triviaCategoriesApi.reducer,
         [triviaQuestionsApi.reducerPath]: triviaQuestionsApi.reducer,
@@ -14,7 +15,7 @@ export const store = configureStore({
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
-            .concat(gamesApi.middleware)
+            .concat(triviaQuestionsApi.middleware)
             .concat(usersApi.middleware),
 })
 

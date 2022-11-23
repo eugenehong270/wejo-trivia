@@ -5,12 +5,12 @@ const initialState = [
   { category: '', difficulty: '', points: 0 },
 ]
 
-const gameSlice = createSlice({
+export const triviaScoreSlice = createSlice({
     name: 'game',
     initialState,
     reducers: {
         updateScore(state, action) {
-            const
+            const { gameId, userId } = action.payload
         }
     }
 })
