@@ -11,7 +11,7 @@ export const usersApi = createApi({
       query: () => '/api/users',
       providesTags: ['Token'],
     }),
-    createuser: builder.mutation({
+    createUser: builder.mutation({
       query: data => ({
         url: '/api/users',
         body: data,
