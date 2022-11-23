@@ -1,22 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { triviaScoreSlice } from './triviaScoreSlice'
-import { usersApi } from './usersApi'
-import { triviaQuestionsApi } from './triviaQuestionsApi'
-import { triviaCategoriesApi } from './triviaCategoriesApi'
+import { apiSlice } from './api'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
+import { userSlice } from './userSlice'
 
 export const store = configureStore({
     reducer: {
-        [triviaQuestionsApi.reducerPath]: triviaQuestionsApi.reducer,
-        [usersApi.reducerPath]: usersApi.reducer,
-        [triviaCategoriesApi.reducerPath]: triviaCategoriesApi.reducer,
-        [triviaQuestionsApi.reducerPath]: triviaQuestionsApi.reducer,
-        [triviaScoreSlice.reducerPath]: triviaScoreSlice.reducer,
+        [apiSlice.reducerPath]: apiSlice.reducer,
+        [userSlice.name]: userSlice.reducer
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware()
-            .concat(triviaQuestionsApi.middleware)
-            .concat(usersApi.middleware),
+            .concat(apiSlice.middleware),
 })
 
 setupListeners(store.dispatch)
