@@ -36,6 +36,7 @@ export const apiSlice = createApi({
     }),
     login: builder.mutation({
       query: info => {
+        console.log(info);
         let formData = null;
         if (info instanceof HTMLElement) {
           formData = new FormData(info);
@@ -117,7 +118,7 @@ export const apiSlice = createApi({
           formData.append('points', score.points);
         }
         return {
-          url: '/token',
+          url: '/api/games',
           method: 'post',
           body: formData,
           credentials: 'include',

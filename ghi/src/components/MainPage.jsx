@@ -9,11 +9,6 @@ const LandingPage = () => {
   return (
     <>
       <LoginModal />
-        <div>
-          <button onClick={() => dispatch(showModal(LOG_IN_MODAL))} className="button is-light">
-            Log in
-          </button>
-        </div>
     </>
   )
 }
