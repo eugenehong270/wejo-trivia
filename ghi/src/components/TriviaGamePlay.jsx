@@ -1,8 +1,9 @@
 import React from 'react'
+import { Timer } from './'
 
 const TriviaGamePlay = () => {
   return (
-    <div>TriviaGamePlay</div>
+    <Timer />
   )
 }
 

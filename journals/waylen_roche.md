@@ -23,4 +23,5 @@ Over the weekend, I began exploring Redux through several YouTube tutorial video
 2022-11-22
 Today we continued to explore Redux Toolkit. I finished up wrapping the backend API endpoints for create game score and get games in authenticator reqs. In the second half of the day, the team explored the repo from the earlier lecture on Redux, talking through most of the code. Eugene then lead the code along to begin implementing Redux Toolkit in our project repo.
 
-
+2022-11-23
+Today was a hard push to get a login component up and running in conjunction with the redux store and user endpoint reducers. With some help from Nick, some extra research, and some grit and determination, we got there. Successfully able to login and navigate to another component, storing token in state.
