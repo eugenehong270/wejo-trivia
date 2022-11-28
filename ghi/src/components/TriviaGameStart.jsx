@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import axios from "axios"; // responsible for http requests, fetching data
-import './trivia.css';
+import '../trivia.css';
 import correct_audio from '../assets/audio/correct.mp3';
 import wrong_audio from '../assets/audio/wrong.mp3';
 import parse from 'html-react-parser'; // coverts html into string
 
 function App() {
-  let [data, setData] = useState([]); // -> The whole json response from API Trivia 
+  let [data, setData] = useState([]); // -> The whole json response from API Trivia
   let [count, setCount] = useState(0);
   let [score, setScore] = useState(0);
   let [quizStarted, setQuizStarted] = useState(false); // Showing Start quiz if false, showing questions and answers if True
@@ -28,7 +28,7 @@ function App() {
   let correct_audio_obj = new Audio(correct_audio); // get Audio objects
   let wrong_audio_obj = new Audio(wrong_audio);
   async function getApiData() {
-    const api_link = "https://opentdb.com/api.php?amount=10"; // get all json data  
+    const api_link = "https://opentdb.com/api.php?amount=10&category=11"; // get all json data
     await axios.
       get(api_link).then((response) => {
         setData(response.data);

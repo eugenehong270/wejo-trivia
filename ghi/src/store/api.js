@@ -92,7 +92,6 @@ export const apiSlice = createApi({
         return tags;
       }
     }),
-    // NOT SURE ABOUT THIS PART
     getUserGames: builder.query({
       query: () => `/api/user/games`,
       providesTags: data => {

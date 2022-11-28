@@ -5,6 +5,7 @@ import BulmaInput from "./BulmaInput";
 import TriviaGameStart from "./TriviaGameStart"
 import TriviaGamePlay from "./TriviaGamePlay";
 import TriviaGameEnd from "./TriviaGameEnd"
+import Soundtrack from "./Soundtrack";
 
 export {
     MainPage,
@@ -13,5 +14,6 @@ export {
     BulmaInput,
     TriviaGameStart,
     TriviaGamePlay,
-    TriviaGameEnd
+    TriviaGameEnd,
+    Soundtrack
 }

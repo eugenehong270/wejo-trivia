@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Timer = () => {
     const Ref = useRef(null);
-    const [timer, setTimer] = useState('00:10');
+    const [timer, setTimer] = useState('00:15');
     const navigate = useNavigate()
 
 
@@ -34,7 +34,7 @@ const Timer = () => {
 
 
     const clearTimer = (e) => {
-        setTimer('00:10');
+        setTimer('00:15');
         if (Ref.current) clearInterval(Ref.current);
         const id = setInterval(() => {
             startTimer(e);
@@ -44,7 +44,7 @@ const Timer = () => {
 
     const getDeadTime = () => {
         let deadline = new Date();
-        deadline.setSeconds(deadline.getSeconds() + 10);
+        deadline.setSeconds(deadline.getSeconds() + 15);
         return deadline;
     }
 
