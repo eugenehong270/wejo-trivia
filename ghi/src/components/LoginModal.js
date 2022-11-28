@@ -26,6 +26,7 @@ function LoginModal() {
         setError(result.error);
     }},[navigate, result])
 
+
   return (
     <div className={modalClass} key="login-modal">
       <div className="modal-background"></div>
@@ -47,14 +48,25 @@ function LoginModal() {
               </div>
             </div>
             <div className="field is-grouped">
+
+
               <div className="control">
                 <button className="button is-primary">Submit</button>
               </div>
+
+
               <div className="control">
                 <button
                   type="button"
                   onClick={() => dispatch(showModal(null))}
                   className="button">Cancel</button>
+
+              <h4>Don't have an account? Signup now!</h4>
+
+              <div className="control">
+                <button className="button">Create Account</button>
+              </div>
+
               </div>
             </div>
           </form>
