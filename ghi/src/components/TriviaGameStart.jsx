@@ -64,33 +64,27 @@ function App() {
     return new Promise((res) => setTimeout(res, delay));
   };
 
-  const getQuestion = async () => {
+  const getQuestion = () => {
     try {
       setIsAnswerSelected(false);
 
+      setQuestion([]);
+      setDifficulty('');
+      setCorrectAnswer('');
+      setPossibleAnswers([]);
+
       // Object destructuring syntax JS
       const {
-        question: currentQuestion,
-        incorrect_answers: possibleAnswers,
+        question,
+        incorrect_answers,
         difficulty,
-        correct_answer: correctAnswer
+        correct_answer,
       } = data?.results[count];
 
-      // let triviaPart = data["results"][count]; // the current json of question, answeers, difficulty, etc..
-
-      // let currentQuestion = triviaPart["question"];
-      // let possibleAnswers = triviaPart["incorrect_answers"];
-      // let difficulty = triviaPart["difficulty"];
-      // let correctAnswer = triviaPart["correct_answer"];
-
-      possibleAnswers.push(correctAnswer);
-
-      const shuffledAnswers = shuffle(possibleAnswers);
-
-      setQuestion(currentQuestion);
+      setQuestion(question);
       setDifficulty(difficulty);
-      setCorrectAnswer(correctAnswer);
-      setPossibleAnswers(shuffledAnswers);
+      setCorrectAnswer(correct_answer);
+      setPossibleAnswers(shuffle([...incorrect_answers, correct_answer]));
     } catch (e) {
       console.log("Game ended");
       setGameEnded(true);
