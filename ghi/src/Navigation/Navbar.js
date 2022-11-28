@@ -6,6 +6,9 @@ function Nav() {
       <NavLink className="navbar-brand" to="/trivia">
         WEJO Trivia
       </NavLink>
+      <NavLink className="navbar-brand" to="/trivia/signup">
+        Sign Up
+      </NavLink>
     </nav>
   );
 }
