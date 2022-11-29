@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-function Nav() {
+function Navbar() {
   return (
     <nav>
       <NavLink className="navbar-brand" to="/trivia">
@@ -13,4 +13,4 @@ function Nav() {
   );
 }
 
-export default Nav;
+export default Navbar;
