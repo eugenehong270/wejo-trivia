@@ -1,22 +1,20 @@
 import "./App.css";
 import SignUp from "./SignUp";
-import Nav from "./Navigation/Navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import {MainPage, UserProfile, TriviaGameStart, TriviaGamePlay, TriviaGameEnd} from './components'
+import {MainPage, Navbar, UserProfile, TriviaGame, SignupModal, Leaderboard} from './components'
 
 function App() {
   return (
     <BrowserRouter>
-      <Nav />
+      <Navbar />
       <div className="container">
         <Routes>
-          <Route path="/trivia" element={<MainPage />} />
-          <Route path="/trivia/signup" element={<SignUp />} />
-          <Route path="trivia/start" element={<TriviaGameStart />} />
-          <Route path="trivia/play" element={<TriviaGamePlay />} />
-          <Route path="trivia/end" element={<TriviaGameEnd />} />
+          <Route path="trivia" element={<MainPage />} />
+          <Route path="user/signup" element={<SignupModal />} />
+          <Route path="trivia/start" element={<TriviaGame />} />
           <Route path="user/profile" element={<UserProfile />} />
+          <Route path="trivia/leaderboard" element={<Leaderboard />} />
         </Routes>
       </div>
     </BrowserRouter>

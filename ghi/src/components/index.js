@@ -1,21 +1,21 @@
 import MainPage from "./MainPage";
-import UserForm from "./UserForm"
+import SignupModal from "./SignupModal"
 import Timer from "./Timer";
 import BulmaInput from "./BulmaInput";
-import TriviaGameStart from "./TriviaGameStart"
-import TriviaGamePlay from "./TriviaGamePlay";
-import TriviaGameEnd from "./TriviaGameEnd"
+import TriviaGame from "./TriviaGame"
 import Soundtrack from "./Soundtrack";
 import UserProfile from "./UserProfile";
+import Leaderboard from "./Leaderboard";
+import Navbar from "./Navbar";
 
 export {
     MainPage,
-    UserForm,
+    SignupModal,
     Timer,
     BulmaInput,
-    TriviaGameStart,
-    TriviaGamePlay,
-    TriviaGameEnd,
+    TriviaGame,
     Soundtrack,
-    UserProfile
+    UserProfile,
+    Leaderboard,
+    Navbar
 }
