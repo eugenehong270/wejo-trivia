@@ -5,17 +5,17 @@ export const apiSlice = createApi({
   reducerPath: 'users',
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_FAST_API,
-    prepareHeaders: (headers, { getState }) => {
+    prepareHeaders: async (headers, { getState }) => {
       const selector = apiSlice.endpoints.getToken.select();
-      const { data: tokenData } = selector(getState());
+      const { data: tokenData } = selector(await getState());
       if (tokenData && tokenData.access_token) {
         headers.set('Authorization', `Bearer ${tokenData.access_token}`);
       }
       return headers;
     }
   }),
- tagTypes: ['User', 'Games', 'Token'],
- endpoints: builder => ({
+  tagTypes: ['User', 'Games', 'Token'],
+  endpoints: builder => ({
     signUp: builder.mutation({
       query: data => ({
         url: '/api/users',
@@ -31,12 +31,11 @@ export const apiSlice = createApi({
         try {
           await queryFulfilled;
           dispatch(clearForm());
-        } catch (err) {}
+        } catch (err) { }
       },
     }),
     login: builder.mutation({
       query: info => {
-        console.log(info);
         let formData = null;
         if (info instanceof HTMLElement) {
           formData = new FormData(info);
@@ -60,7 +59,7 @@ export const apiSlice = createApi({
         try {
           await queryFulfilled;
           dispatch(clearForm());
-        } catch (err) {}
+        } catch (err) { }
       },
     }),
     logOut: builder.mutation({
@@ -79,51 +78,51 @@ export const apiSlice = createApi({
       }),
       providesTags: ['Token'],
     }),
-     getGames: builder.query({
-      query: () => `/api/games`,
+    getGames: builder.query({
+      query: () => ({
+        url: '/api/games',
+        credentials: 'include'
+      }),
       providesTags: data => {
-        const tags = [{type: 'Games', id: 'LIST'}];
+        const tags = [{ type: 'Games', id: 'LIST' }];
         if (!data || !data.games) return tags;
 
         const { games } = data;
         if (games) {
-          tags.concat(...games.map(({ id }) => ({type: 'Games', id})));
+          tags.concat(...games.map(({ id }) => ({ type: 'Games', id })));
         }
         return tags;
       }
     }),
     getUserGames: builder.query({
-      query: () => `/api/user/games`,
+      query: () => ({
+        url: '/api/user/games',
+        credentials: 'include'
+      }),
       providesTags: data => {
-        const tags = [{type: 'Games', id: 'LIST'}];
+        const tags = [{ type: 'Games', id: 'LIST' }];
         if (!data || !data.games) return tags;
 
         const { games } = data;
         if (games) {
-          tags.concat(...games.map(({ id }) => ({type: 'Games', id})));
+          tags.concat(...games.map(({ id }) => ({ type: 'Games', id })));
         }
         return tags;
       }
     }),
     addScore: builder.mutation({
-      query: score => {
-        let formData = null
-        if (score instanceof HTMLElement) {
-          formData = new FormData(score);
-        } else {
-          formData = new FormData();
-          formData.append('category', score.category);
-          formData.append('difficulty', score.difficulty);
-          formData.append('points', score.points);
-        }
-        return {
-          url: '/api/games',
-          method: 'post',
-          body: formData,
-          credentials: 'include',
-        };
-      }
-    })
+      query: data => ({
+        url: '/api/games',
+        body: {
+          date: data.formattedDate,
+          category: data.category,
+          difficulty: data.queryDifficulty,
+          points: data.score
+        },
+        method: 'post',
+      }),
+      invalidatesTags: ['Games']
+    }),
   }),
 })
 

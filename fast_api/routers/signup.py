@@ -7,11 +7,11 @@ from fastapi import (
     Request,
 )
 from jwtdown_fastapi.authentication import Token
-from authenticator import authenticator
+from .auth import authenticator
 
 from pydantic import BaseModel
 
-from routers.users import UserIn, UserOut, DuplicateUserError
+from .users import UserIn, UserOut, DuplicateUserError
 
 from db import UserQueries
 
@@ -51,3 +51,15 @@ async def create_user(
     form = UserForm(username=data.username, password=data.password)
     token = await authenticator.login(response, request, form, queries)
     return UserToken(user=user, **token.dict())
+
+@router.get("/token", response_model=UserToken | None)
+async def get_token(
+    request: Request,
+    user: dict = Depends(authenticator.try_get_current_account_data)
+) -> UserToken | None:
+    if user and authenticator.cookie_name in request.cookies:
+        return {
+            "access_token": request.cookies[authenticator.cookie_name],
+            "type": "Bearer",
+            "user": user
+        }

@@ -6,6 +6,7 @@ import TriviaGameStart from "./TriviaGameStart"
 import TriviaGamePlay from "./TriviaGamePlay";
 import TriviaGameEnd from "./TriviaGameEnd"
 import Soundtrack from "./Soundtrack";
+import UserProfile from "./UserProfile";
 
 export {
     MainPage,
@@ -15,5 +16,6 @@ export {
     TriviaGameStart,
     TriviaGamePlay,
     TriviaGameEnd,
-    Soundtrack
+    Soundtrack,
+    UserProfile
 }

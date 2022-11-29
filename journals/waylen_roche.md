@@ -25,3 +25,6 @@ Today we continued to explore Redux Toolkit. I finished up wrapping the backend 
 
 2022-11-23
 Today was a hard push to get a login component up and running in conjunction with the redux store and user endpoint reducers. With some help from Nick, some extra research, and some grit and determination, we got there. Successfully able to login and navigate to another component, storing token in state.
+
+2022-11-28
+Wow. Today was a major push. It took basically all day, but I was finally able to get authentication working on the game play and user profile endpoints. Now, once the game ends, the score is sent as an async post request to the games database for the logged in user. And, once the user is authenticated, they can see a table of their own game history. It's unstyled, and we have a lot more work to do, but it felt really good to get these pieces of RTK auth and api requests connected.

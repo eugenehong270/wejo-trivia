@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from "react";
+import { format } from "date-fns"
 import Button from "@mui/material/Button";
-// import axios from "axios"; // responsible for http requests, fetching data
 import parse from "html-react-parser"; // coverts html into string
+import { useAddScoreMutation } from '../store/api'
+import { useGetTokenQuery } from "../store/api";
+import Notification from "./Notification";
+
 
 import wrongAudio from "../assets/audio/wrong.mp3";
 import correctAudio from "../assets/audio/correct.mp3";
 
-import "./trivia.css";
+import "../trivia.css";
 
-const API_URL = "https://opentdb.com/api.php?amount=10";
+//either start screen with category select is in THIS component,
+// or a separate component that generates the url for THIS one to use
+const API_URL = "https://opentdb.com/api.php?amount=2";
 
-function App() {
+const TriviaGame = () => {
+  const { data: tokenData } = useGetTokenQuery();
+  const [createFinalScore, result] = useAddScoreMutation()
+  const [category, setCategory] = useState('Random')
+  const [queryDifficulty, setQueryDifficulty] = useState('Mixed')
   let [data, setData] = useState([]); // -> The whole json response from API Trivia
   let [count, setCount] = useState(0);
   let [score, setScore] = useState(0);
@@ -21,6 +31,9 @@ function App() {
   let [possibleAnswers, setPossibleAnswers] = useState([]) // List of all answers ( correct + incorrect ones) for a specific question
   let [gameEnded, setGameEnded] = useState(false);
   let [isAnswerSelected, setIsAnswerSelected] = useState(false);
+
+  const currentDate = new Date()
+  const formattedDate = format(currentDate, "yyyy-MM-dd")
 
   const scoresDictionary = {
     easy: 1,
@@ -36,24 +49,6 @@ function App() {
     const data = await response.json()
     setData(data);
     console.log(data)
-
-    // fetch(api_link).then((response) => {
-    //   setData(response.data)
-    // })
-
-    // await axios.
-    // get(api_link).then((response) => {
-    //   setData(response.data);
-    // });
-
-  let correct_audio_obj = new Audio(correct_audio); // get Audio objects
-  let wrong_audio_obj = new Audio(wrong_audio);
-  async function getApiData() {
-    const api_link = "https://opentdb.com/api.php?amount=10"; // get all json data
-    await axios.
-      get(api_link).then((response) => {
-        setData(response.data);
-      });
   };
 
   function incrementCount() {
@@ -71,6 +66,8 @@ function App() {
     return new Promise((res) => setTimeout(res, delay));
   };
 
+  // const finalScore = ("2022-11-28", category, queryDifficulty, score)
+
   const getQuestion = () => {
     try {
       setIsAnswerSelected(false);
@@ -80,7 +77,6 @@ function App() {
       setCorrectAnswer('');
       setPossibleAnswers([]);
 
-      // Object destructuring syntax JS
       const {
         question,
         incorrect_answers,
@@ -93,16 +89,21 @@ function App() {
       setCorrectAnswer(correct_answer);
       setPossibleAnswers(shuffle([...incorrect_answers, correct_answer]));
     } catch (e) {
-      console.log("Game ended");
       setGameEnded(true);
+      createFinalScore({ formattedDate, category, queryDifficulty, score })
+      // if (result.isSuccess) {
+      //   setGameEnded(true);
+      // } else if (result.isError) {
+      //   console.log(result.error)
+      // }
     }
   };
 
   const showState = () => {
     console.log("DATA STATE", data);
     console.log("STATE QUESTION: ", question);
-    console.log("POSSIBLE ANSWWERS:", possibleAnswers);
-    console.log("CORRECT ANSWWER:", correctAnswer);
+    console.log("POSSIBLE ANSWERS:", possibleAnswers);
+    console.log("CORRECT ANSWER:", correctAnswer);
     console.log("CURR DIFFICULTY:", difficulty);
   };
 
@@ -142,7 +143,8 @@ function App() {
       selectedAnswerButtonEl.classList.remove("correct_btn");
       selectedAnswerButtonEl.classList.remove("wrong_btn");
     }, 1950);
-
+    // if question timer goes to 0: incrementCount()
+    //or if answer is chosen before timer goes to 0:
     incrementCount();
   };
 
@@ -157,76 +159,77 @@ function App() {
     getApiData();
   }, []);
 
-  // if (gameEnded) {
-  //   return (
-  //     <div>
-  //       <h1> ENDED GAME! Your final score is: {score} !</h1>
-  //     </div>
-  //   );
-  // }
-
-  return (
-    <div className="App">
-      {!gameEnded ? (
-        <div className="ended game">
-          {quizStarted ? (
-            <div className="container">
-              <Button className="font_large" variant="contained">
-                {" "}
-                {parse(question)}{" "}
-              </Button>
-              <div className="div_possible_answers">
-                {possibleAnswers.map((ans, idx) => {
-                  // for answer in response_answer make button
-                  return (
-                    <div className="possbile_answer_div" key={btoa(ans) + idx}>
-                      <Button
-                        className="possbile_answer font_large"
-                        onClick={() => onSelectAnswer(idx, ans)}
-                        id={idx}
-                        variant="contained"
-                        keyprop={idx}
-                      >
-                        {" "}
-                        {parse(ans)}{" "}
-                      </Button>
-                    </div>
-                  );
-                })}
+  if (!tokenData) {
+    return (
+      <div className="container">
+        <Notification type="info">Must log in to Play!...</Notification>
+      </div>
+    )
+  } else {
+    return (
+      //hid the game div until category is selected, and start/play is pressed
+      <div className="App">
+        {!gameEnded ? (
+          <div className="ended game">
+            {quizStarted ? (
+              <div className="container">
+                <Button className="font_large" variant="contained">
+                  {" "}
+                  {parse(question)}{" "}
+                </Button>
+                <div className="div_possible_answers">
+                  {possibleAnswers.map((ans, idx) => {
+                    // for answer in response_answer make button
+                    return (
+                      <div className="possbile_answer_div" key={btoa(ans) + idx}>
+                        <Button
+                          className="possbile_answer font_large"
+                          onClick={() => onSelectAnswer(idx, ans)}
+                          id={idx}
+                          variant="contained"
+                          keyprop={idx}
+                        >
+                          {" "}
+                          {parse(ans)}{" "}
+                        </Button>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          ) : (
+            ) : (
+              <Button
+                className="font_large"
+                variant="contained"
+                onClick={startQuiz}
+              >
+                {" "}
+                Start Quiz{" "}
+              </Button>
+            )}
             <Button
               className="font_large"
               variant="contained"
-              onClick={startQuiz}
+              onClick={showState}
             >
               {" "}
-              Start Quiz{" "}
+              PRINT STATE{" "}
             </Button>
-          )}
-          <Button
-            className="font_large"
-            variant="contained"
-            onClick={showState}
-          >
-            {" "}
-            PRINT STATE{" "}
-          </Button>
-          <div className="score_container">
-            <Button className="font_large score_btn" variant="contained">
-              {" "}
-              {score}{" "}
-            </Button>
+            <div className="score_container">
+              <Button className="font_large score_btn" variant="contained">
+                {" "}
+                {score}{" "}
+              </Button>
+            </div>
           </div>
-        </div>
-      ) : (
-        <div>
-          <h1> ENDED GAME! Your final score is: {score} !</h1>
-        </div>
-      )}
-    </div>
-  );
+        ) : (
+          <div>
+            <h1> ENDED GAME! Your final score is: {score} !</h1>
+          </div>
+        )}
+      </div>
+    );
+  }
 }
 
-export default App;
+export default TriviaGame;

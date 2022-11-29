@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Response
 from pydantic import BaseModel
 from datetime import date
-from authenticator import authenticator
+from .auth import authenticator
 
 from db import GameQueries
 from routers.users import UserOut

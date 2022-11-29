@@ -19,7 +19,7 @@ class GameQueries:
                     JOIN games g ON(u.id = g.user_id)
                     WHERE g.user_id = %s
 
-                    ORDER BY g.date DESC
+                    ORDER BY g.date DESC, g.points DESC
                     """,
                     [user_id],
                 )
@@ -178,9 +178,7 @@ class UserQueries:
     def create_user(self, data, hashed_password):
         with pool.connection() as conn:
             with conn.cursor() as cur:
-                params = [
-                    data.username, hashed_password
-                ]
+                params = [data.username, hashed_password]
                 cur.execute(
                     """
                     INSERT INTO users (username, password)

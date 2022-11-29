@@ -30,7 +30,6 @@ def users_list(queries: UserQueries = Depends()):
         "users": queries.get_all_users(),
     }
 
-
 @router.get("/api/users/{user_id}", response_model=UserOut)
 def get_user(
     user_id: int,

@@ -9,22 +9,23 @@ import { useNavigate } from 'react-router-dom'
 
 function LoginModal() {
   const dispatch = useDispatch();
-  const {show, username, password } = useSelector(state => state.user);
+  const { show, username, password } = useSelector(state => state.user);
   const modalClass = `modal ${show === LOG_IN_MODAL ? 'is-active' : ''}`;
   const [logIn, result] = useLoginMutation();
   const navigate = useNavigate()
   const [error, setError] = useState('');
   const field = useCallback(
-    e => dispatch(updateField({field: e.target.name, value: e.target.value})),
+    e => dispatch(updateField({ field: e.target.name, value: e.target.value })),
     [dispatch],
   );
 
   useEffect(() => {
     if (result.isSuccess) {
-        navigate("/trivia/start");
+      navigate("/user/profile");
     } else if (result.isError) {
-        setError(result.error);
-    }},[navigate, result])
+      setError(result.error);
+    }
+  }, [navigate, result])
 
   return (
     <div className={modalClass} key="login-modal">
@@ -32,7 +33,7 @@ function LoginModal() {
       <div className="modal-content">
         <div className="box content">
           <h3>Log In</h3>
-          { error ? <Notification type="danger">{error.data.detail}</Notification> : null }
+          {error ? <Notification type="danger">{error.data.detail}</Notification> : null}
           <form method="POST" onSubmit={preventDefault(logIn, target)}>
             <div className="field">
               <label className="label" htmlFor="username">Username</label>

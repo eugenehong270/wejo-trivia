@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import {MainPage, TriviaGameStart, TriviaGamePlay, TriviaGameEnd} from './components'
+import {MainPage, UserProfile, TriviaGameStart, TriviaGamePlay, TriviaGameEnd} from './components'
 
 function App() {
 
@@ -14,6 +14,7 @@ function App() {
           <Route path="trivia/start" element={<TriviaGameStart />} />
           <Route path="trivia/play" element={<TriviaGamePlay />} />
           <Route path="trivia/end" element={<TriviaGameEnd />} />
+          <Route path="user/profile" element={<UserProfile />} />
         </Routes>
       </div>
     </BrowserRouter>
