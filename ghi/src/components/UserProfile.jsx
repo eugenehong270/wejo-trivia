@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 
 const UserProfile = () => {
     const { data: tokenData } = useGetTokenQuery();
-    const { data, error } = useGetUserGamesQuery();
+    const { data } = useGetUserGamesQuery();
 
     console.log(tokenData);
+    console.log(data);
 
     if (!tokenData) {
         return (
@@ -29,7 +30,7 @@ const UserProfile = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {data.games.map(game => (
+                            {data?.games.map(game => (
                                 <tr key={game.id}>
                                     <td>{game.date}</td>
                                     <td>{game.category}</td>

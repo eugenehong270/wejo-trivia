@@ -14,7 +14,7 @@ import "../trivia.css";
 
 //either start screen with category select is in THIS component,
 // or a separate component that generates the url for THIS one to use
-const API_URL = "https://opentdb.com/api.php?amount=2";
+const API_URL = "https://opentdb.com/api.php?amount=10";
 
 const TriviaGame = () => {
   const { data: tokenData } = useGetTokenQuery();
@@ -41,8 +41,8 @@ const TriviaGame = () => {
     hard: 3,
   };
 
-  let correctAudio_obj = new Audio(correctAudio); // get Audio objects
-  let wrongAudio_obj = new Audio(wrongAudio);
+  const correctAudio_obj = new Audio(correctAudio); // get Audio objects
+  const wrongAudio_obj = new Audio(wrongAudio);
 
   const getApiData = async () => {
     const response = await fetch(API_URL);
@@ -66,12 +66,9 @@ const TriviaGame = () => {
     return new Promise((res) => setTimeout(res, delay));
   };
 
-  // const finalScore = ("2022-11-28", category, queryDifficulty, score)
-
   const getQuestion = () => {
     try {
       setIsAnswerSelected(false);
-
       setQuestion([]);
       setDifficulty('');
       setCorrectAnswer('');
