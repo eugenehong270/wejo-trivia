@@ -1,11 +1,38 @@
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
+import React from 'react'
+import { Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink } from "./NavBarElements"
 
 function Navbar() {
   return (
-    <nav>
-      <NavLink className="navbar-brand" to="/">WEJO</NavLink>
-      <NavLink className="navbar-brand" to="/user/signup">Sign Up</NavLink>
-    </nav>
+    <>
+      <Nav>
+        <NavLink to="/">
+          <h1>WEJO</h1>
+        </NavLink>
+        <Bars />
+        <NavMenu>
+
+          <NavLink to="user/signup" activeStyle>
+            <h1>Sign Up</h1>
+          </NavLink>
+
+          <NavLink to="trivia/start" activeStyle>
+            <h1>Trivia</h1>
+          </NavLink>
+
+
+
+
+        </NavMenu>
+        <NavBtn>
+          <NavBtnLink to="user/profile">
+            <h1>Profile</h1>
+          </NavBtnLink>
+        </NavBtn>
+
+
+      </Nav>
+    </>
   );
 }
 
