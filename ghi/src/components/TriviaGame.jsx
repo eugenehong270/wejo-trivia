@@ -5,6 +5,7 @@ import parse from "html-react-parser"; // coverts html into string
 import { useAddScoreMutation } from '../store/api'
 import { useGetTokenQuery } from "../store/api";
 import Notification from "./Notification";
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 
 import wrongAudio from "../assets/audio/wrong.mp3";
@@ -14,27 +15,33 @@ import "../trivia.css";
 
 //either start screen with category select is in THIS component,
 // or a separate component that generates the url for THIS one to use
-const API_URL = "https://opentdb.com/api.php?amount=10";
+const API_URL = "https://opentdb.com/api.php?";
+const API_BASE_URL = "https://opentdb.com/api_config.php";
 
 const TriviaGame = () => {
 
   // state for user game api
   const { data: tokenData } = useGetTokenQuery();
+  const [apiFlexibleUrl, setApiUrl] = useState("");
   const [createFinalScore, result] = useAddScoreMutation()
-  const [category, setCategory] = useState('Random')
+  const [category, setCategory] = useState('Any')
   const [queryDifficulty, setQueryDifficulty] = useState('Mixed')
+  let [difficulty, setDifficulty] = useState("Any");
 
   // game play state
   let [data, setData] = useState([]); // -> The whole json response from API Trivia
   let [count, setCount] = useState(0);
   let [score, setScore] = useState(0);
+  let [maximumPossibleScore, setMaximumPossibleScore] = useState(0);
   let [quizStarted, setQuizStarted] = useState(false); // Showing Start quiz if false, showing questions and answers if True
   let [correctAnswer, setCorrectAnswer] = useState("")
   let [question, setQuestion] = useState([]); // The current question
-  let [difficulty, setDifficulty] = useState("");
   let [possibleAnswers, setPossibleAnswers] = useState([]) // List of all answers ( correct + incorrect ones) for a specific question
   let [gameEnded, setGameEnded] = useState(false);
   let [isAnswerSelected, setIsAnswerSelected] = useState(false);
+
+  let categories_list = ['Any', 'General Knowledge', 'Entertainment: Film'];
+  let difficulty_list = ['easy', 'medium', 'hard', 'Any']
 
   //timer state
   const Ref = useRef(null);
@@ -99,11 +106,11 @@ const TriviaGame = () => {
   const correctAudio_obj = new Audio(correctAudio); // get Audio objects
   const wrongAudio_obj = new Audio(wrongAudio);
 
-  const getApiData = async () => {
-    const response = await fetch(API_URL);
+  const getApiData = async (apiUrl) => {
+    const response = await fetch(apiUrl);
     const data = await response.json()
     setData(data);
-    console.log(data)
+    return data
   };
 
   function incrementCount() {
@@ -113,21 +120,26 @@ const TriviaGame = () => {
   ;
 
   function addScore() {
-
     setScore(score + 10 * scoresDictionary[difficulty]);
+    setMaximumPossibleScore(score + 10 * scoresDictionary[difficulty]);
   };
 
   const timeout = (delay) => {
     return new Promise((res) => setTimeout(res, delay));
   };
 
-  const getQuestion = () => {
+  const getQuestion = async (myData) => {
     try {
       setIsAnswerSelected(false);
       setQuestion([]);
       setDifficulty('');
       setCorrectAnswer('');
       setPossibleAnswers([]);
+
+      if (myData) {
+        data = myData;
+        setData(myData)
+      }
 
       const {
         question,
@@ -152,6 +164,7 @@ const TriviaGame = () => {
     console.log("STATE QUESTION: ", question);
     console.log("POSSIBLE ANSWERS:", possibleAnswers);
     console.log("CORRECT ANSWER:", correctAnswer);
+    console.log("CURR CATEGORY:", category)
     console.log("CURR DIFFICULTY:", difficulty);
   };
 
@@ -166,10 +179,38 @@ const TriviaGame = () => {
     return array;
   };
 
-  const startQuiz = () => {
+  const startQuiz = async () => {
+    const final_url = buildApiUrl();
+    const data = await getApiData(final_url)
     onClickStart();
     setQuizStarted(true);
-    getQuestion();
+    getQuestion(data);
+  };
+
+  const buildApiUrl = () => {
+    let final_url = API_URL + "amount=2"
+    if (category !== 'Any' && category > 0) {//
+      let _category = parseInt(category) + 9
+      _category = _category.toString();
+      final_url = final_url + "&category=" + _category;
+    }
+
+    if (difficulty !== "Any") { // Any Difficulty
+      console.log("DIFCULTY IN IF: ", difficulty)
+      final_url = final_url + "&difficulty=" + difficulty;
+    }
+
+    console.log("final_url: ", final_url);
+
+    return final_url;
+  }
+
+  const getCategoryValue = (e) => { // General knowledge ->10,1,2,321,
+    setCategory(e.target.value); //  let categories_based_by_string = categoreiesIds[e.target.value]; setCategory(categories_based_by_string);
+  };
+
+  const getDifficultyValue = (e) => {
+    setDifficulty(e.target.value);
   };
 
   const setQuestionAnswer = (idx, ans) => {
@@ -249,14 +290,56 @@ const TriviaGame = () => {
                   </div>
                 </div>
               ) : (
-                <Button
-                  className="font_large"
-                  variant="contained"
-                  onClick={startQuiz}
-                >
-                  {" "}
-                  Start Quiz{" "}
-                </Button>
+                <div>
+                  <div className="categoryform">
+                    <FormControl fullWidth>
+                      <InputLabel id="selectLabel" className="selectlabel">Select category</InputLabel>
+                      <Select
+                        labelId="selectLabel"
+                        id="demo-simple-select"
+                        label="Category"
+                        value={category}
+                        onChange={getCategoryValue}
+                        defaultValue={category}
+                      >
+                        {categories_list.map((category, idx) => {
+                          // for answer in response_answer make button
+                          return (
+                            <MenuItem value={idx}>{category}</MenuItem> // value = {category}
+                          );
+                        })}
+                      </Select>
+                    </FormControl>
+                    <FormControl fullWidth>
+                      <InputLabel id="selectLabel" className="selectlabel">Select difficulty</InputLabel>
+                      <Select
+                        labelId="selectLabel"
+                        id="demo-simple-select"
+                        label="Difficulty"
+                        value={difficulty}
+                        onChange={getDifficultyValue}
+                        defaultValue={difficulty}
+                      >
+                        {difficulty_list.map((difficulty) => {
+                          // for answer in response_answer make button
+                          return (
+                            <MenuItem value={difficulty}>{difficulty}</MenuItem>
+                          );
+                        })}
+                      </Select>
+                    </FormControl>
+                  </div>
+
+                  <Button
+                    className="font_large"
+                    variant="contained"
+                    onClick={startQuiz}
+                  >
+                    {" "}
+                    Start Quiz{" "}
+                  </Button>
+
+                </div>
               )}
               <Button
                 className="font_large"
@@ -276,9 +359,11 @@ const TriviaGame = () => {
           ) : (
             <div>
               <h1> ENDED GAME! Your final score is: {score} !</h1>
+              <h1> ENDED GAME! Maximum score is: {maximumPossibleScore} !</h1>
             </div>
-          )}
-        </div>
+          )
+          }
+        </div >
       </>
     );
   }
