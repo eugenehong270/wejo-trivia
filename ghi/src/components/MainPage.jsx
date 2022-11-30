@@ -9,7 +9,7 @@ const MainPage = () => {
   return (
     <>
       <LoginModal />
-      <SignupModal />
+      {/* <SignupModal /> */}
     </>
   )
 }

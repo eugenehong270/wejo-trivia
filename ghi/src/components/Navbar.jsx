@@ -3,12 +3,8 @@ import { NavLink } from "react-router-dom";
 function Navbar() {
   return (
     <nav>
-      <NavLink className="navbar-brand" to="/trivia">
-        WEJO Trivia
-      </NavLink>
-      <NavLink className="navbar-brand" to="/trivia/signup">
-        Sign Up
-      </NavLink>
+      <NavLink className="navbar-brand" to="/">WEJO</NavLink>
+      <NavLink className="navbar-brand" to="/user/signup">Sign Up</NavLink>
     </nav>
   );
 }
