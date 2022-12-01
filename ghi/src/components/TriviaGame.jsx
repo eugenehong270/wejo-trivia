@@ -2,10 +2,11 @@ import React, { useEffect, useState, useRef } from "react";
 import { format } from "date-fns"
 import Button from "@mui/material/Button";
 import parse from "html-react-parser"; // coverts html into string
-import { useAddScoreMutation, useGetTriviaQuestionsQuery, useGetTokenQuery, useGetCategoriesQuery } from '../store/api'
+import { useAddScoreMutation, useGetTokenQuery } from '../store/api'
+import { useGetCategoriesQuery, useGetTriviaQuestionsQuery } from "../store/triviaApi";
 import Notification from "./Notification";
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import TriviaPlay from "./TriviaPlay";
+// import TriviaPlay from "./TriviaPlay";
 
 
 import wrongAudio from "../assets/audio/wrong.mp3";
@@ -39,11 +40,6 @@ const TriviaGame = () => {
   const [possibleAnswers, setPossibleAnswers] = useState([]) // List of all answers ( correct + incorrect ones) for a specific question
   const [gameEnded, setGameEnded] = useState(false);
   const [isAnswerSelected, setIsAnswerSelected] = useState(false);
-  const [triviaUrl, setTriviaUrl] = useState("https://opentdb.com/api.php?amount=10")
-
-  // const options = categoryData?.trivia_categories.map(c => (
-  //   { value: c.id, label: c.name }
-  // ));
 
   const categories_list = categoryData?.trivia_categories
 
@@ -68,7 +64,7 @@ const TriviaGame = () => {
     if (total === 0) {
       incrementCount();
       setTimeout(onClickStart(), 3000)
-      // getQuestion();
+      getQuestion();
     }
     if (total >= 0) {
       setTimer(
@@ -110,7 +106,7 @@ const TriviaGame = () => {
   const wrongAudio_obj = new Audio(wrongAudio);
 
   function incrementCount() {
-    setCount(count + 1);
+    setCount(count + 1)
   };
 
   function addScore() {
@@ -164,30 +160,6 @@ const TriviaGame = () => {
     }
   };
 
-  const getApiData = async () => {
-    let response = await fetch(triviaUrl);
-    let newData = response.json()
-    console.log(newData.results);
-  };
-
-  // const buildApiUrl = () => {
-  //   let final_url = API_URL + "amount=2"
-  //   if (category !== 'Any' && category > 0) {//
-  //     let _category = parseInt(category) + 9
-  //     _category = _category.toString();
-  //     final_url = final_url + "&category=" + _category;
-  //   }
-
-  //   if (difficulty !== "Any") { // Any Difficulty
-  //     console.log("DIFCULTY IN IF: ", difficulty)
-  //     final_url = final_url + "&difficulty=" + difficulty;
-  //   }
-
-  //   console.log("final_url: ", final_url);
-
-  //   return final_url;
-  // }
-
   const getCategoryValue = (e) => {
     setCategory(e.target.value);
     console.log(category);
@@ -224,13 +196,14 @@ const TriviaGame = () => {
     if (isAnswerSelected) return;
     setQuestionAnswer(idx, ans);
     await timeout(2000);
-    // getQuestion();
+    getQuestion();
   };
 
   const startQuiz = async () => {
     setQuizStarted(true);
     getQuestion()
     onClickStart();
+    incrementCount();
   };
 
   if (!tokenData) {
