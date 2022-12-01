@@ -2,10 +2,10 @@ import React, { useEffect, useState, useRef } from "react";
 import { format } from "date-fns"
 import Button from "@mui/material/Button";
 import parse from "html-react-parser"; // coverts html into string
-import { useAddScoreMutation } from '../store/api'
-import { useGetTokenQuery } from "../store/api";
+import { useAddScoreMutation, useGetTriviaQuestionsQuery, useGetTokenQuery, useGetCategoriesQuery } from '../store/api'
 import Notification from "./Notification";
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import TriviaPlay from "./TriviaPlay";
 
 
 import wrongAudio from "../assets/audio/wrong.mp3";
@@ -22,27 +22,32 @@ const TriviaGame = () => {
 
   // state for user game api
   const { data: tokenData } = useGetTokenQuery();
-  const [apiFlexibleUrl, setApiUrl] = useState("");
-  const [createFinalScore, result] = useAddScoreMutation()
-  const [category, setCategory] = useState('Any')
-  const [queryDifficulty, setQueryDifficulty] = useState('Mixed')
-  let [difficulty, setDifficulty] = useState("Any");
+  const [createFinalScore] = useAddScoreMutation('')
+  const [category, setCategory] = useState('')
+  const [queryDifficulty, setQueryDifficulty] = useState('')
+  const [difficulty, setDifficulty] = useState('');
+  const { data: questionData } = useGetTriviaQuestionsQuery({ category, difficulty: queryDifficulty });
+  const { data: categoryData } = useGetCategoriesQuery();
 
   // game play state
-  let [data, setData] = useState([]); // -> The whole json response from API Trivia
-  let [count, setCount] = useState(0);
-  let [score, setScore] = useState(0);
-  let [maximumPossibleScore, setMaximumPossibleScore] = useState(0);
-  let [quizStarted, setQuizStarted] = useState(false); // Showing Start quiz if false, showing questions and answers if True
-  let [correctAnswer, setCorrectAnswer] = useState("")
-  let [question, setQuestion] = useState([]); // The current question
-  let [possibleAnswers, setPossibleAnswers] = useState([]) // List of all answers ( correct + incorrect ones) for a specific question
-  let [gameEnded, setGameEnded] = useState(false);
-  let [isAnswerSelected, setIsAnswerSelected] = useState(false);
+  const [count, setCount] = useState(0);
+  const [score, setScore] = useState(0);
+  const [maximumPossibleScore, setMaximumPossibleScore] = useState(0);
+  const [quizStarted, setQuizStarted] = useState(false); // Showing Start quiz if false, showing questions and answers if True
+  const [correctAnswer, setCorrectAnswer] = useState("")
+  const [question, setQuestion] = useState([]); // The current question
+  const [possibleAnswers, setPossibleAnswers] = useState([]) // List of all answers ( correct + incorrect ones) for a specific question
+  const [gameEnded, setGameEnded] = useState(false);
+  const [isAnswerSelected, setIsAnswerSelected] = useState(false);
+  const [triviaUrl, setTriviaUrl] = useState("https://opentdb.com/api.php?amount=10")
 
-  let categories_list = ['Any', 'General Knowledge', 'Entertainment: Film'];
-  let difficulty_list = ['easy', 'medium', 'hard', 'Any']
+  // const options = categoryData?.trivia_categories.map(c => (
+  //   { value: c.id, label: c.name }
+  // ));
 
+  const categories_list = categoryData?.trivia_categories
+
+  const difficulty_list = ['easy', 'medium', 'hard', 'Any']
   //timer state
   const Ref = useRef(null);
   const [timer, setTimer] = useState('00:15');
@@ -57,14 +62,13 @@ const TriviaGame = () => {
     };
   }
 
-
   const startTimer = (e) => {
     let { total, minutes, seconds }
       = getTimeRemaining(e);
     if (total === 0) {
       incrementCount();
       setTimeout(onClickStart(), 3000)
-      getQuestion();
+      // getQuestion();
     }
     if (total >= 0) {
       setTimer(
@@ -73,7 +77,6 @@ const TriviaGame = () => {
       )
     }
   }
-
 
   const clearTimer = (e) => {
     setTimer('00:15');
@@ -106,18 +109,9 @@ const TriviaGame = () => {
   const correctAudio_obj = new Audio(correctAudio); // get Audio objects
   const wrongAudio_obj = new Audio(wrongAudio);
 
-  const getApiData = async (apiUrl) => {
-    const response = await fetch(apiUrl);
-    const data = await response.json()
-    setData(data);
-    return data
-  };
-
   function incrementCount() {
-    count = count + 1;
-    setCount(count);
-  }
-  ;
+    setCount(count + 1);
+  };
 
   function addScore() {
     setScore(score + 10 * scoresDictionary[difficulty]);
@@ -128,39 +122,8 @@ const TriviaGame = () => {
     return new Promise((res) => setTimeout(res, delay));
   };
 
-  const getQuestion = async (myData) => {
-    try {
-      setIsAnswerSelected(false);
-      setQuestion([]);
-      setDifficulty('');
-      setCorrectAnswer('');
-      setPossibleAnswers([]);
-
-      if (myData) {
-        data = myData;
-        setData(myData)
-      }
-
-      const {
-        question,
-        incorrect_answers,
-        difficulty,
-        correct_answer,
-      } = data?.results[count];
-
-      setQuestion(question);
-      setDifficulty(difficulty);
-      setCorrectAnswer(correct_answer);
-      setPossibleAnswers(shuffle([...incorrect_answers, correct_answer]));
-      onClickStart();
-    } catch (e) {
-      setGameEnded(true);
-      createFinalScore({ formattedDate, category, queryDifficulty, score })
-    }
-  };
-
   const showState = () => {
-    console.log("DATA STATE", data);
+    // console.log("DATA STATE", questionData);
     console.log("STATE QUESTION: ", question);
     console.log("POSSIBLE ANSWERS:", possibleAnswers);
     console.log("CORRECT ANSWER:", correctAnswer);
@@ -179,38 +142,59 @@ const TriviaGame = () => {
     return array;
   };
 
-  const startQuiz = async () => {
-    const final_url = buildApiUrl();
-    const data = await getApiData(final_url)
-    onClickStart();
-    setQuizStarted(true);
-    getQuestion(data);
+  const getQuestion = () => {
+    try {
+      setIsAnswerSelected(false);
+      setQuestion([]);
+      setDifficulty('');
+      setCorrectAnswer('');
+      setPossibleAnswers([]);
+
+      let currQuestion = questionData?.results[count]
+
+      setQuestion(currQuestion.question);
+      setDifficulty(currQuestion.difficulty);
+      setCorrectAnswer(currQuestion.correct_answer);
+      setPossibleAnswers(shuffle([...currQuestion.incorrect_answers, currQuestion.correct_answer]));
+      onClickStart();
+    } catch (e) {
+      console.log(e)
+      setGameEnded(true);
+      createFinalScore({ formattedDate, category, queryDifficulty, score })
+    }
   };
 
-  const buildApiUrl = () => {
-    let final_url = API_URL + "amount=2"
-    if (category !== 'Any' && category > 0) {//
-      let _category = parseInt(category) + 9
-      _category = _category.toString();
-      final_url = final_url + "&category=" + _category;
-    }
+  const getApiData = async () => {
+    let response = await fetch(triviaUrl);
+    let newData = response.json()
+    console.log(newData.results);
+  };
 
-    if (difficulty !== "Any") { // Any Difficulty
-      console.log("DIFCULTY IN IF: ", difficulty)
-      final_url = final_url + "&difficulty=" + difficulty;
-    }
+  // const buildApiUrl = () => {
+  //   let final_url = API_URL + "amount=2"
+  //   if (category !== 'Any' && category > 0) {//
+  //     let _category = parseInt(category) + 9
+  //     _category = _category.toString();
+  //     final_url = final_url + "&category=" + _category;
+  //   }
 
-    console.log("final_url: ", final_url);
+  //   if (difficulty !== "Any") { // Any Difficulty
+  //     console.log("DIFCULTY IN IF: ", difficulty)
+  //     final_url = final_url + "&difficulty=" + difficulty;
+  //   }
 
-    return final_url;
-  }
+  //   console.log("final_url: ", final_url);
 
-  const getCategoryValue = (e) => { // General knowledge ->10,1,2,321,
-    setCategory(e.target.value); //  let categories_based_by_string = categoreiesIds[e.target.value]; setCategory(categories_based_by_string);
+  //   return final_url;
+  // }
+
+  const getCategoryValue = (e) => {
+    setCategory(e.target.value);
+    console.log(category);
   };
 
   const getDifficultyValue = (e) => {
-    setDifficulty(e.target.value);
+    setQueryDifficulty(e.target.value);
   };
 
   const setQuestionAnswer = (idx, ans) => {
@@ -240,12 +224,14 @@ const TriviaGame = () => {
     if (isAnswerSelected) return;
     setQuestionAnswer(idx, ans);
     await timeout(2000);
-    getQuestion();
+    // getQuestion();
   };
 
-  useEffect(() => {
-    getApiData();
-  }, []);
+  const startQuiz = async () => {
+    setQuizStarted(true);
+    getQuestion()
+    onClickStart();
+  };
 
   if (!tokenData) {
     return (
@@ -299,14 +285,13 @@ const TriviaGame = () => {
                         id="demo-simple-select"
                         label="Category"
                         value={category}
-                        onChange={getCategoryValue}
+                        onChange={async (e) => getCategoryValue(e)}
                         defaultValue={category}
                       >
-                        {categories_list.map((category, idx) => {
-                          // for answer in response_answer make button
+                        {categories_list?.map((c) => {
                           return (
-                            <MenuItem value={idx}>{category}</MenuItem> // value = {category}
-                          );
+                            <MenuItem value={c.id}>{c.name}</MenuItem>
+                          )
                         })}
                       </Select>
                     </FormControl>
@@ -317,7 +302,7 @@ const TriviaGame = () => {
                         id="demo-simple-select"
                         label="Difficulty"
                         value={difficulty}
-                        onChange={getDifficultyValue}
+                        onChange={async (e) => getDifficultyValue(e)}
                         defaultValue={difficulty}
                       >
                         {difficulty_list.map((difficulty) => {
@@ -333,7 +318,7 @@ const TriviaGame = () => {
                   <Button
                     className="font_large"
                     variant="contained"
-                    onClick={startQuiz}
+                    onClick={async () => await startQuiz()}
                   >
                     {" "}
                     Start Quiz{" "}

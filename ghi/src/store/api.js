@@ -14,7 +14,7 @@ export const apiSlice = createApi({
       return headers;
     }
   }),
-  tagTypes: ['User', 'Games', 'Token'],
+  tagTypes: ['User', 'Games', 'Token', 'Trivia'],
   endpoints: builder => ({
     signUp: builder.mutation({
       query: data => ({
@@ -110,6 +110,18 @@ export const apiSlice = createApi({
         return tags;
       }
     }),
+    getTriviaQuestions: builder.query({
+      query: ({category, difficulty}) => ({
+        url: `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}`
+      }),
+      providesTags: ['Trivia']
+    }),
+    getCategories: builder.query({
+      query: () => ({
+        url: 'https://opentdb.com/api_category.php'
+      }),
+      providesTags: ['Trivia']
+    }),
     addScore: builder.mutation({
       query: data => ({
         url: '/api/games',
@@ -123,6 +135,13 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ['Games']
     }),
+    deleteScore: builder.mutation({
+      query: game_id => ({
+        method: 'delete',
+        url: `/api/games/${game_id}`
+      }),
+      invalidatesTags: [{ type: 'Games' }]
+    })
   }),
 })
 
@@ -133,5 +152,8 @@ export const {
   useSignUpMutation,
   useGetGamesQuery,
   useGetTokenQuery,
-  useGetUserGamesQuery
+  useGetUserGamesQuery,
+  useDeleteScoreMutation,
+  useGetTriviaQuestionsQuery,
+  useGetCategoriesQuery
 } = apiSlice

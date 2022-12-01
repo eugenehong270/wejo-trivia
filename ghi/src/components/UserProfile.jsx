@@ -1,11 +1,12 @@
 import React from 'react'
-import { useGetTokenQuery, useGetUserGamesQuery } from "../store/api";
+import { useDeleteScoreMutation, useGetTokenQuery, useGetUserGamesQuery } from "../store/api";
 import Notification from './Notification';
 import { Link } from 'react-router-dom';
 
 const UserProfile = () => {
     const { data: tokenData } = useGetTokenQuery();
     const { data } = useGetUserGamesQuery();
+    const [deleteScore] = useDeleteScoreMutation();
 
     console.log(tokenData);
     console.log(data);
@@ -36,6 +37,7 @@ const UserProfile = () => {
                                     <td>{game.category}</td>
                                     <td>{game.difficulty}</td>
                                     <td>{game.points}</td>
+                                    <th><button onClick={() => deleteScore(game.id)}>Delete</button></th>
                                 </tr>
                             ))}
                         </tbody>
