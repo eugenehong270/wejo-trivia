@@ -1,8 +1,17 @@
 import React from 'react'
 
+
 const Leaderboard = () => {
   return (
-    <div>Leaderboard</div>
+    <div className='board'>
+      <h1 className='leaderboard'>Leaderboard</h1>
+
+      <div className='duration'>
+        <button data-id='7'>7 Days</button>
+        <button data-id='30'>30 Days</button>
+        <button data-id='0'>All-Time</button>
+      </div>
+    </div>
   )
 }
 
