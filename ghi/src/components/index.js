@@ -5,7 +5,7 @@ import BulmaInput from "./BulmaInput";
 import TriviaGame from "./TriviaGame"
 import Soundtrack from "./Soundtrack";
 import UserProfile from "./UserProfile";
-import Leaderboard from "./Leaderboard";
+import Board from "./Board";
 import Navbar from "./Navbar";
 import TriviaPlay from "./TriviaPlay";
 
@@ -17,7 +17,7 @@ export {
     TriviaGame,
     Soundtrack,
     UserProfile,
-    Leaderboard,
+    Board,
     Navbar,
     TriviaPlay
 }
