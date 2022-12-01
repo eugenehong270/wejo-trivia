@@ -7,3 +7,5 @@
 11/28/22: It has been a while since I have last journaled. This project is proving to be a lot more difficult than I had anticipated. Today, with the help of my team, I was able to get the signup modal to work. Now it does not work 100%. We can sign in successfully, however, not all errors are working correctly. Will address this tomorrow.
 
 11/29/22: Today was the first serious day of building out the front end in an aesthetic way. I got the nav bar working and not looking horrible. It still looks pretty bad but at least it works. Next thing to work on is modals for login/signup.
+
+11/30/22: Today I made some more progress on building out the front end. The Nav bar isnt screwed up anymore and the login/logout pages dont look half bad (but still far from pleasing). I also incorporated some cards on the main page.

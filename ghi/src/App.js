@@ -3,6 +3,7 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from './components/Navbar'
 import { MainPage, UserProfile, TriviaGame, SignupModal, Leaderboard } from './components'
+import LoginModal from "./components/LoginModal";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/user/login" element={<LoginModal />} />
           <Route path="user/signup" element={<SignupModal />} />
           <Route path="trivia/start" element={<TriviaGame />} />
           <Route path="user/profile" element={<UserProfile />} />

@@ -9,16 +9,22 @@ function Navbar() {
         <NavLink to="/">
           <h1>WEJO</h1>
         </NavLink>
-        <Bars />
+        {/* <Bars /> */}
         <NavMenu>
 
           <NavLink to="user/signup" activeStyle>
-            <h1>Sign Up</h1>
+            Sign Up
           </NavLink>
 
           <NavLink to="trivia/start" activeStyle>
-            <h1>Trivia</h1>
+            Trivia
           </NavLink>
+
+          <NavLink to="user/login" activeStyle>
+            Login
+          </NavLink>
+
+
 
 
 

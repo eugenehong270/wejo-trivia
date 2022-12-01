@@ -29,56 +29,43 @@ function SignupModal() {
     }, [navigate, result])
 
     return (
-        <div className={modalClass} key="signup-modal">
-            <div className="modal-background"></div>
-            <div className="modal-content">
-                <div className="box content">
-                    <h3>Sign Up</h3>
-                    {error ? <Notification type="danger">{error.data.detail}</Notification> : null}
-                    <form method="POST" onSubmit={preventDefault(signUp, () => ({
-                        username, password
-                    }))}>
-                        <div className="field">
-                            <label className="label" htmlFor="username">Username</label>
-                            <div className="control">
-                                <input required onChange={field} value={username} name="username" className="input" type="text" placeholder="username" />
-                            </div>
-                        </div>
-                        <div className="field">
-                            <label className="label">Password</label>
-                            <div className="control">
-                                <input required onChange={field} value={password} name="password" className="input" type="password" placeholder="secret..." />
-                            </div>
-                        </div>
-                        <div className="field is-grouped">
+        <div>
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.0/css/hover-min.css" />
+            <section id="section-one">
+                <div className="login-modal">
+                    <div className={modalClass} key="signup-modal">
+                        <div className="modal-content">
+                            <div className="box content">
+                                <div className="close-btn">
+                                    <a href="#">×</a>
 
-
-                            <div className="control">
-                                <button className="button is-primary">Submit</button>
-                            </div>
-
-
-                            <div className="control">
-                                <button
-                                    type="button"
-                                    onClick={() => dispatch(showModal(null))}
-                                    className="button">Cancel</button>
-
-
-                                <h4>Already have an account?</h4>
-
-                                <div className="control">
-                                    <Link to="/">Login</Link>
                                 </div>
+                                <h1>Sign Up</h1>
+                                {error ? <Notification type="danger">{error.data.detail}</Notification> : null}
+                                <form method="POST" onSubmit={preventDefault(signUp, () => ({
+                                    username, password
+                                }))}>
+                                    <div className="field">
+                                        <input required onChange={field} value={username} name="username" className="input" type="text" placeholder="Create Username" />
+                                    </div>
+                                    <div className="field">
+                                        <input required onChange={field} value={password} name="password" className="input" type="password" placeholder="Create Password" />
+                                    </div>
+                                    <div className="field is-grouped">
+                                        <input type="submit" name="login" defaultValue="Login" />
+                                        <h4>Already have an account? Login!</h4>
+                                        <Link to="/user/login">Login</Link>
+                                    </div>
+                                </form>
+
+
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
     );
-
-
 }
 
 export default SignupModal

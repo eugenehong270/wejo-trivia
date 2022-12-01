@@ -6,10 +6,13 @@ import { eventTargetSelector as target, preventDefault } from '../store/utils';
 import { showModal, updateField, LOG_IN_MODAL } from '../store/userSlice';
 import Notification from './Notification';
 import { useNavigate, Link } from 'react-router-dom'
+import "./modal.css"
 
 function LoginModal() {
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const dispatch = useDispatch();
-  const { show, username, password } = useSelector(state => state.user);
+  const { show, setShow, username, password } = useSelector(state => state.user);
   const modalClass = `modal ${show === LOG_IN_MODAL ? 'is-active' : ''}`;
   const [logIn, result] = useLoginMutation();
   const navigate = useNavigate()
@@ -21,6 +24,7 @@ function LoginModal() {
 
   useEffect(() => {
     if (result.isSuccess) {
+      // handleClose()
       navigate("/trivia/start");
     } else if (result.isError) {
       setError(result.error);
@@ -29,50 +33,41 @@ function LoginModal() {
 
 
   return (
-    <div className={modalClass} key="login-modal">
-      <div className="modal-background"></div>
-      <div className="modal-content">
-        <div className="box content">
-          <h3>Log In</h3>
-          {error ? <Notification type="danger">{error.data.detail}</Notification> : null}
-          <form method="POST" onSubmit={preventDefault(logIn, target)}>
-            <div className="field">
-              <label className="label" htmlFor="username">Username</label>
-              <div className="control">
-                <input required onChange={field} value={username} name="username" className="input" type="text" placeholder="username" />
-              </div>
-            </div>
-            <div className="field">
-              <label className="label">Password</label>
-              <div className="control">
-                <input required onChange={field} value={password} name="password" className="input" type="password" placeholder="secret..." />
-              </div>
-            </div>
-            <div className="field is-grouped">
+    <div>
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.0/css/hover-min.css" />
+      <section id="section-one">
+        <div className="login-modal">
+          <div className={modalClass} key="login-modal">
+            <div className="modal-content">
+              <div className="box content">
+                <div className="close-btn">
+                  <a href="#">×</a>
 
-
-              <div className="control">
-                <button className="button is-primary">Submit</button>
-              </div>
-
-
-              <div className="control">
-                <button
-                  type="button"
-                  onClick={() => dispatch(showModal(null))}
-                  className="button">Cancel</button>
-
-                <h4>Don't have an account? Signup now!</h4>
-
-                <div className="control">
-                  <Link to="/user/signup">Create Account</Link>
                 </div>
+                <h1>Login</h1>
+                {error ? <Notification type="danger">{error.data.detail}</Notification> : null}
+                <form method="POST" onSubmit={preventDefault(logIn, target)}>
+                  <div className="field">
+                    <input required onChange={field} value={username} name="username" className="input" type="text" placeholder="Your Username" />
+                  </div>
+                  <div className="field">
+                    <input required onChange={field} value={password} name="password" className="input" type="password" placeholder="Your Password" />
+                  </div>
+                  <div className="field is-grouped">
+                    <input type="submit" name="login" defaultValue="Login" />
+                    <h4>Don't have an account? Signup now!</h4>
+                    <Link to="/user/signup">Create Account</Link>
+                  </div>
+                </form>
+
+
+
 
               </div>
             </div>
-          </form>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
