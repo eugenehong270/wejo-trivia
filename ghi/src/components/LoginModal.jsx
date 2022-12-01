@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { eventTargetSelector as target, preventDefault } from '../store/utils';
 import { showModal, updateField, LOG_IN_MODAL } from '../store/userSlice';
 import Notification from './Notification';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 function LoginModal() {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ function LoginModal() {
 
   useEffect(() => {
     if (result.isSuccess) {
-      navigate("/user/profile");
+      navigate("/trivia/start");
     } else if (result.isError) {
       setError(result.error);
     }
@@ -62,11 +62,11 @@ function LoginModal() {
                   onClick={() => dispatch(showModal(null))}
                   className="button">Cancel</button>
 
-              <h4>Don't have an account? Signup now!</h4>
+                <h4>Don't have an account? Signup now!</h4>
 
-              <div className="control">
-                <button className="button">Create Account</button>
-              </div>
+                <div className="control">
+                  <Link to="/user/signup">Create Account</Link>
+                </div>
 
               </div>
             </div>

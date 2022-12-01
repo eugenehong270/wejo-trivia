@@ -1,12 +1,14 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import {MainPage, Navbar, UserProfile, TriviaGame, SignupModal, Leaderboard} from './components'
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from './components/Navbar'
+import { MainPage, UserProfile, TriviaGame, SignupModal, Leaderboard } from './components'
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Navbar />
+
       <div className="container">
         <Routes>
           <Route path="/" element={<MainPage />} />
@@ -16,7 +18,8 @@ function App() {
           <Route path="trivia/leaderboard" element={<Leaderboard />} />
         </Routes>
       </div>
-    </BrowserRouter>
+
+    </Router>
   );
 }
 
