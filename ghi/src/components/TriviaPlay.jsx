@@ -1,5 +1,6 @@
 import React from 'react'
-import { useGetTriviaQuestionsQuery, useGetTokenQuery } from '../store/api';
+import { useGetTokenQuery } from '../store/api';
+import { useGetTriviaQuestionsQuery } from '../store/triviaApi';
 import Button from "@mui/material/Button";
 import parse from "html-react-parser";
 

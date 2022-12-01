@@ -24,6 +24,10 @@ function Navbar() {
             Login
           </NavLink>
 
+          <NavLink to="trivia/leaderboard" activeStyle>
+            Leaderboard
+          </NavLink>
+
 
 
 
