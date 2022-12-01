@@ -111,7 +111,7 @@ export const apiSlice = createApi({
       }
     }),
     getTriviaQuestions: builder.query({
-      query: ({category, difficulty}) => ({
+      query: ({ category, difficulty }) => ({
         url: `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}`
       }),
       providesTags: ['Trivia']
