@@ -1,16 +1,21 @@
 // import { NavLink } from "react-router-dom";
 import React from 'react'
 import { Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink } from "./NavBarElements"
+import Logo from "../images/logo-no-background.png"
 
 function Navbar() {
   return (
     <>
       <Nav>
         <NavLink to="/">
-          <h1>WEJO</h1>
+          <img src={Logo} width="100" alt="Logo" />
         </NavLink>
         {/* <Bars /> */}
         <NavMenu>
+
+          <NavLink to="user/login" activeStyle>
+            Login
+          </NavLink>
 
           <NavLink to="user/signup" activeStyle>
             Sign Up
@@ -20,9 +25,7 @@ function Navbar() {
             Trivia
           </NavLink>
 
-          <NavLink to="user/login" activeStyle>
-            Login
-          </NavLink>
+
 
           <NavLink to="trivia/leaderboard" activeStyle>
             Leaderboard
