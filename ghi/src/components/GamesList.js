@@ -35,7 +35,7 @@ function GamesList() {
                         <tbody>
                             {data?.games.map(game => (
                                 <tr key={game.id}>
-
+                                    <td>{game.user.username}</td>
                                     <td>{game.date}</td>
                                     <td>{game.category}</td>
                                     <td>{game.points}</td>
