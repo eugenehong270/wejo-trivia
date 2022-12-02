@@ -25,12 +25,10 @@ function Navbar() {
           <NavLink to="trivia/leaderboard" activeStyle>
             Leaderboard
           </NavLink>
+          <NavLink to="user/profile" activeStyle>
+            Profile
+          </NavLink>
         </NavMenu>
-        <NavBtn>
-          <NavBtnLink to="user/profile">
-            <h1>Profile</h1>
-          </NavBtnLink>
-        </NavBtn>
       </Nav>
 
     </>
