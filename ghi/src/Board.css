@@ -6,7 +6,7 @@
 }
 
 :root {
-  --color-dark: hsl(0, 0%, 0%);
+  /* --color-dark: hsl(0, 0%, 0%); */
   --color-light: #f3f3f2;
 }
 
@@ -23,6 +23,7 @@
 
 .board .leaderboard {
   margin-bottom: 1em;
+  color: white;
 }
 
 .board .duration {
@@ -37,6 +38,7 @@
   border-radius: 50px;
   background-color: transparent;
   cursor: pointer;
+  color: white;
 }
 
 .board .duration > button:hover {

@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetUserGamesQuery } from "../store/api";
-import './Board.css';
+import '../Board.css';
 
 
 function GamesList() {
@@ -23,9 +23,10 @@ function GamesList() {
                         <button onClick={handleClick} data-id="30">30Days</button>
                         <button onClick={handleClick} data-id="0">All-Time</button>
                     </div>
-                    <table className="table is-striped">
+                    <table className="text-light">
                         <thead>
                             <tr>
+                                <th>Name</th>
                                 <th>Date</th>
                                 <th>Category</th>
                                 <th>Points</th>
@@ -34,6 +35,7 @@ function GamesList() {
                         <tbody>
                             {data?.games.map(game => (
                                 <tr key={game.id}>
+
                                     <td>{game.date}</td>
                                     <td>{game.category}</td>
                                     <td>{game.points}</td>

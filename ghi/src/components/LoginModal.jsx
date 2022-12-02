@@ -6,7 +6,7 @@ import { eventTargetSelector as target, preventDefault } from '../store/utils';
 import { showModal, updateField, LOG_IN_MODAL } from '../store/userSlice';
 import Notification from './Notification';
 import { useNavigate, Link } from 'react-router-dom'
-import "./modal.css"
+import "../modal.css"
 
 function LoginModal() {
   const handleClose = () => setShow(false);
