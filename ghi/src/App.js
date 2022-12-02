@@ -2,8 +2,9 @@ import "./App.css";
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from './components/Navbar'
-import { MainPage, UserProfile, TriviaGame, SignupModal, Board } from './components'
+import { MainPage, UserProfile, TriviaGame, SignupModal } from './components'
 import LoginModal from "./components/LoginModal";
+import GamesList from "./components/GamesList";
 
 function App() {
   return (
@@ -32,7 +33,7 @@ function App() {
             <Route path="user/signup" element={<SignupModal />} />
             <Route path="trivia/start" element={<TriviaGame />} />
             <Route path="user/profile" element={<UserProfile />} />
-            <Route path="trivia/leaderboard" element={<Board />} />
+            <Route path="trivia/leaderboard" element={<GamesList />} />
           </Routes>
         </div>
       </Router>
