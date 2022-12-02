@@ -36,7 +36,7 @@ const TriviaGame = () => {
   const [isAnswerSelected, setIsAnswerSelected] = useState(false);
 
   const categories_list = categoryData?.trivia_categories
-  const difficulty_list = ['easy', 'medium', 'hard', 'Any']
+  const difficultyDict = { 'Easy': 'easy', 'Medium': 'medium', 'Hard': 'hard', 'Mixed': '' }
 
   //timer state
   const Ref = useRef(null);
@@ -56,8 +56,7 @@ const TriviaGame = () => {
     let { total, minutes, seconds }
       = getTimeRemaining(e);
     if (total === 0) {
-      incrementCount();
-      setTimeout(onClickStart(), 3000)
+      setTimeout(incrementCount(), 2000)
       getQuestion();
     }
     if (total >= 0) {
@@ -67,6 +66,7 @@ const TriviaGame = () => {
       )
     }
   }
+
 
   const clearTimer = (e) => {
     setTimer('00:15');
@@ -79,7 +79,7 @@ const TriviaGame = () => {
 
   const getDeadTime = () => {
     let deadline = new Date();
-    deadline.setSeconds(deadline.getSeconds() + 15);
+    deadline.setSeconds(deadline.getSeconds() + 5);
     return deadline;
   }
 
@@ -96,11 +96,12 @@ const TriviaGame = () => {
     hard: 3,
   };
 
-  const correctAudio_obj = new Audio(correctAudio); // get Audio objects
+  const correctAudio_obj = new Audio(correctAudio);
   const wrongAudio_obj = new Audio(wrongAudio);
 
-  function incrementCount() {
+  const incrementCount = async () => {
     setCount(count + 1)
+    console.log(`count is ${count}`);
   };
 
   const addScore = () => {
@@ -118,6 +119,9 @@ const TriviaGame = () => {
     console.log("CORRECT ANSWER:", correctAnswer);
     console.log("CURR CATEGORY:", category)
     console.log("CURR DIFFICULTY:", difficulty);
+    console.log("COUNT:", count);
+    console.log("CURR CATEGORY list:", categories_list)
+    console.log("CURR DIFFICULTY obj:", difficultyDict);
   };
 
   const shuffle = (array) => {
@@ -131,13 +135,16 @@ const TriviaGame = () => {
     return array;
   };
 
-  const getQuestion = () => {
+  const getQuestion = async () => {
     try {
       setIsAnswerSelected(false);
       setQuestion([]);
       setDifficulty('');
       setCorrectAnswer('');
       setPossibleAnswers([]);
+
+      console.log("QUESITON DATA: ", questionData);
+      console.log("COUNT: ", count);
 
       let currQuestion = questionData?.results[count]
 
@@ -155,11 +162,11 @@ const TriviaGame = () => {
 
   const getCategoryValue = (e) => {
     setCategory(e.target.value);
-    console.log(category);
   };
 
   const getDifficultyValue = (e) => {
     setQueryDifficulty(e.target.value);
+    setDifficulty(e.target.value);
   };
 
   const setQuestionAnswer = (idx, ans) => {
@@ -193,11 +200,18 @@ const TriviaGame = () => {
   };
 
   const startQuiz = async () => {
-    setQuizStarted(true);
-    getQuestion()
+    getQuestion();
     onClickStart();
-    incrementCount();
+    setQuizStarted(true);
   };
+
+  const restartGame = () => {
+    setCount(0);
+    setCategory('')
+    setQueryDifficulty('')
+    setGameEnded(false)
+    setQuizStarted(false)
+  }
 
   if (!tokenData) {
     return (
@@ -216,11 +230,11 @@ const TriviaGame = () => {
                 <div className="container d-flex">
                   <h2>{timer}</h2>
                   <Button className="font_large" variant="contained">
-                    {" "}
-                    {parse(question)}{" "}
+
+                    {parse(question)}
                   </Button>
                   <div className="div_possible_answers">
-                    {possibleAnswers.map((ans, idx) => {
+                    {possibleAnswers?.map((ans, idx) => {
                       // for answer in response_answer make button
                       return (
                         <div className="possbile_answer_div" key={btoa(ans) + idx}>
@@ -243,10 +257,10 @@ const TriviaGame = () => {
                 <div>
                   <div className="categoryform">
                     <FormControl fullWidth>
-                      <InputLabel id="selectLabel" className="selectlabel">Select category</InputLabel>
+                      <InputLabel id="selectCategoryLabel" className="selectlabel">Category:</InputLabel>
                       <Select
-                        labelId="selectLabel"
-                        id="demo-simple-select"
+                        labelId="selectCategoryLabel"
+                        id="demo-simple-selectCat"
                         label="Category"
                         value={category}
                         onChange={async (e) => getCategoryValue(e)}
@@ -254,27 +268,25 @@ const TriviaGame = () => {
                       >
                         {categories_list?.map((c) => {
                           return (
-                            <MenuItem value={c.id}>{c.name}</MenuItem>
+                            <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>
                           )
                         })}
                       </Select>
                     </FormControl>
                     <FormControl fullWidth>
-                      <InputLabel id="selectLabel" className="selectlabel">Select difficulty</InputLabel>
+                      <InputLabel id="selectDiffLabel" className="selectlabel">Difficulty:</InputLabel>
                       <Select
-                        labelId="selectLabel"
-                        id="demo-simple-select"
+                        labelId="selectDiffLabel"
+                        id="demo-simple-selectDif"
                         label="Difficulty"
-                        value={difficulty}
+                        value={queryDifficulty}
                         onChange={async (e) => getDifficultyValue(e)}
-                        defaultValue={difficulty}
+                        defaultValue={queryDifficulty}
                       >
-                        {difficulty_list.map((difficulty) => {
-                          // for answer in response_answer make button
-                          return (
-                            <MenuItem value={difficulty}>{difficulty}</MenuItem>
-                          );
-                        })}
+                        <MenuItem value={'easy'}>Easy</MenuItem>
+                        <MenuItem value={'medium'}>Medium</MenuItem>
+                        <MenuItem value={'hard'}>Hard</MenuItem>
+                        <MenuItem value={' '}>Mixed</MenuItem>
                       </Select>
                     </FormControl>
                   </div>
@@ -306,9 +318,23 @@ const TriviaGame = () => {
               </div>
             </div>
           ) : (
-            <div>
+            <div className="centeredDiv whiteColored">
+              <Button
+                className="font_large centeredDiv"
+                variant="contained"
+                onClick={() => restartGame()}
+              >
+                Play again!!!
+              </Button>
               <h1> ENDED GAME! Your final score is: {score} !</h1>
               <h1> ENDED GAME! Maximum score is: {maximumPossibleScore} !</h1>
+              <Button
+                className="font_large"
+                variant="contained"
+                onClick={showState}
+              >
+                PRINT STATE
+              </Button>
             </div>
           )
           }
