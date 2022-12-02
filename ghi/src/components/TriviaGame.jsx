@@ -169,7 +169,7 @@ const TriviaGame = () => {
     const _curr_correct_answer = correctAnswer;
     const selectedAnswerButtonEl = document.getElementById(idx);
 
-    if (_curr_correct_answer == ans) {
+    if (_curr_correct_answer === ans) {
       selectedAnswerButtonEl.classList.add("correct_btn");
       addScore();
       correctAudio_obj.play();
@@ -313,7 +313,7 @@ const TriviaGame = () => {
           )
           }
         </div >
-        <Soundtrack/>
+        <Soundtrack />
       </>
     );
   }

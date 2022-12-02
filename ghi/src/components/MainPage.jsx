@@ -1,7 +1,4 @@
 import React from 'react';
-import LoginModal from './LoginModal';
-import SignupModal from './SignupModal';
-import TriviaGame from './TriviaGame';
 import { NavLink } from 'react-router-dom';
 import "../Eugene_Frontend/starsStyle.css"
 import "../Eugene_Frontend/mainPage.css"

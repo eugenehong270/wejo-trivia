@@ -6,7 +6,7 @@
 }
 
 :root {
-  --color-dark: #2c3131;
+  --color-dark: hsl(0, 0%, 0%);
   --color-light: #f3f3f2;
 }
 
@@ -79,4 +79,8 @@
 
 .text-dark {
   color: var(--color-dark);
+}
+
+.text-light {
+  color: white;
 }
