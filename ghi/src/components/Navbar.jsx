@@ -2,13 +2,12 @@
 import React from 'react'
 import { Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink } from "./NavBarElements"
 import Logo from "../images/logo-no-background.png"
-import "../Eugene_Frontend/nav.css"
 
 function Navbar() {
   return (
     <>
 
-      <Nav className="Nav">
+      <Nav>
         <NavLink to="/">
           <img src={Logo} width="100" alt="Logo" />
         </NavLink>

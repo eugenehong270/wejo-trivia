@@ -9,3 +9,5 @@
 11/29/22: Today was the first serious day of building out the front end in an aesthetic way. I got the nav bar working and not looking horrible. It still looks pretty bad but at least it works. Next thing to work on is modals for login/signup.
 
 11/30/22: Today I made some more progress on building out the front end. The Nav bar isnt screwed up anymore and the login/logout pages dont look half bad (but still far from pleasing). I also incorporated some cards on the main page.
+
+12/1/22: Today I made great progress on the nav bar and home page design. Kinking out some bugs.
