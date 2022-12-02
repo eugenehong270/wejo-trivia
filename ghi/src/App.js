@@ -7,21 +7,38 @@ import LoginModal from "./components/LoginModal";
 
 function App() {
   return (
-    <Router>
-      <Navbar />
 
-      <div className="container">
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/user/login" element={<LoginModal />} />
-          <Route path="user/signup" element={<SignupModal />} />
-          <Route path="trivia/start" element={<TriviaGame />} />
-          <Route path="user/profile" element={<UserProfile />} />
-          <Route path="trivia/leaderboard" element={<Leaderboard />} />
-        </Routes>
+    <>
+      <div>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
+        <title>Parallax Star Background</title>
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="style.css" />
+        <section className="wrapper">
+          <div id="stars" />
+          <div id="stars2" />
+          <div id="stars3" />
+        </section>
       </div>
 
-    </Router>
+      <Router>
+        <Navbar />
+        <div className="container">
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/user/login" element={<LoginModal />} />
+            <Route path="user/signup" element={<SignupModal />} />
+            <Route path="trivia/start" element={<TriviaGame />} />
+            <Route path="user/profile" element={<UserProfile />} />
+            <Route path="trivia/leaderboard" element={<Leaderboard />} />
+          </Routes>
+        </div>
+      </Router>
+
+    </>
+
   );
 }
 
