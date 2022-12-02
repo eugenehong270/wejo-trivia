@@ -1,32 +1,26 @@
-import React, { useEffect, useState, useRef } from "react";
-import { format } from "date-fns"
+import React, { useState, useRef } from "react";
+import { format } from "date-fns";
 import Button from "@mui/material/Button";
-import parse from "html-react-parser"; // coverts html into string
-import { useAddScoreMutation, useGetTokenQuery } from '../store/api'
+import parse from "html-react-parser";
+import { useAddScoreMutation, useGetTokenQuery } from '../store/api';
 import { useGetCategoriesQuery, useGetTriviaQuestionsQuery } from "../store/triviaApi";
 import Notification from "./Notification";
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-// import TriviaPlay from "./TriviaPlay";
-
-
 import wrongAudio from "../assets/audio/wrong.mp3";
 import correctAudio from "../assets/audio/correct.mp3";
-
 import "../trivia.css";
-
-//either start screen with category select is in THIS component,
-// or a separate component that generates the url for THIS one to use
-const API_URL = "https://opentdb.com/api.php?";
-const API_BASE_URL = "https://opentdb.com/api_config.php";
+import Soundtrack from "./Soundtrack";
 
 const TriviaGame = () => {
 
   // state for user game api
-  const { data: tokenData } = useGetTokenQuery();
-  const [createFinalScore] = useAddScoreMutation('')
+
   const [category, setCategory] = useState('')
+  const [createFinalScore] = useAddScoreMutation('')
   const [queryDifficulty, setQueryDifficulty] = useState('')
   const [difficulty, setDifficulty] = useState('');
+
+  const { data: tokenData } = useGetTokenQuery();
   const { data: questionData } = useGetTriviaQuestionsQuery({ category, difficulty: queryDifficulty });
   const { data: categoryData } = useGetCategoriesQuery();
 
@@ -42,8 +36,8 @@ const TriviaGame = () => {
   const [isAnswerSelected, setIsAnswerSelected] = useState(false);
 
   const categories_list = categoryData?.trivia_categories
-
   const difficulty_list = ['easy', 'medium', 'hard', 'Any']
+
   //timer state
   const Ref = useRef(null);
   const [timer, setTimer] = useState('00:15');
@@ -109,7 +103,7 @@ const TriviaGame = () => {
     setCount(count + 1)
   };
 
-  function addScore() {
+  const addScore = () => {
     setScore(score + 10 * scoresDictionary[difficulty]);
     setMaximumPossibleScore(score + 10 * scoresDictionary[difficulty]);
   };
@@ -119,7 +113,6 @@ const TriviaGame = () => {
   };
 
   const showState = () => {
-    // console.log("DATA STATE", questionData);
     console.log("STATE QUESTION: ", question);
     console.log("POSSIBLE ANSWERS:", possibleAnswers);
     console.log("CORRECT ANSWER:", correctAnswer);
@@ -129,9 +122,9 @@ const TriviaGame = () => {
 
   const shuffle = (array) => {
     /* Randomly interchanging the answers order */
-    for (var i = array.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var temp = array[i];
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      let temp = array[i];
       array[i] = array[j];
       array[j] = temp;
     }
@@ -216,14 +209,12 @@ const TriviaGame = () => {
     return (
       //hid the game div until category is selected, and start/play is pressed
       <>
-        <div className="App">
-          <h2>{timer}</h2>
-        </div>
-        <div className="App">
+        <div className="d-flex align-items-center">
           {!gameEnded ? (
             <div className="ended game">
               {quizStarted ? (
-                <div className="container">
+                <div className="container d-flex">
+                  <h2>{timer}</h2>
                   <Button className="font_large" variant="contained">
                     {" "}
                     {parse(question)}{" "}
@@ -322,6 +313,7 @@ const TriviaGame = () => {
           )
           }
         </div >
+        <Soundtrack/>
       </>
     );
   }
