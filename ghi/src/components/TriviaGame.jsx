@@ -35,7 +35,7 @@ const TriviaGame = () => {
   const [possibleAnswers, setPossibleAnswers] = useState([]) // List of all answers ( correct + incorrect ones) for a specific question
   const [gameEnded, setGameEnded] = useState(false);
   const [isAnswerSelected, setIsAnswerSelected] = useState(false);
-  let count = 0
+  const [count, setCount] = useState(0)
 
   const categories_list = categoryData?.trivia_categories
   const difficultyDict = { 'Easy': 'easy', 'Medium': 'medium', 'Hard': 'hard', 'Mixed': '' }
@@ -103,8 +103,7 @@ const TriviaGame = () => {
   const wrongAudio_obj = new Audio(wrongAudio);
 
   const incrementCount = () => {
-    count = count + 1
-    console.log({ count });
+    setCount(prev => prev + 1)
   };
 
   const addScore = () => {
@@ -146,9 +145,6 @@ const TriviaGame = () => {
       setCorrectAnswer('');
       setPossibleAnswers([]);
 
-      console.log("QUESITON DATA: ", questionData);
-      console.log("COUNT: ", count);
-
       let currQuestion = questionData?.results[count]
 
       setQuestion(currQuestion.question);
@@ -166,6 +162,7 @@ const TriviaGame = () => {
   const startQuiz = async () => {
     setQuizStarted(true);
     getQuestion();
+    incrementCount();
   };
 
   const getCategoryValue = (e) => {
