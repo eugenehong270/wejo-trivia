@@ -28,3 +28,13 @@ Today was a hard push to get a login component up and running in conjunction wit
 
 2022-11-28
 Wow. Today was a major push. It took basically all day, but I was finally able to get authentication working on the game play and user profile endpoints. Now, once the game ends, the score is sent as an async post request to the games database for the logged in user. And, once the user is authenticated, they can see a table of their own game history. It's unstyled, and we have a lot more work to do, but it felt really good to get these pieces of RTK auth and api requests connected.
+
+2022-11-29
+Blockers galore. Today, we started the grueling task of converting much of the variable declarations in the trivia game component from let to const in order to use state setting hooks for them instead of custom function calls. When Ovidiu first implemented the game, he had initally tried using all const [state, setState] = useState() declarations but ran into a lot of issues with how data was being processed and updated as game play progressed, so he reverted to let for many of the game state variables. We will most likely spend tomorrow finishing up the conversion.
+
+2022-11-30
+Success! I implemented a timer in the game, along with converting the state declarations to almost entirely const, per React conventions. With some instructor help and a cohort mate assist, we reached some revelations about handling question data from the trivia endpoint, putting the queries for questions and categories into a separate trivia slice in our RTK Redux store. This fixed the CORS blocker that was resulting from the auth headers being included in the queries when they were located in our main (locked down) api slice.
+
+2022-12-2
+Yesterday and today we polished aspects of the game, implementing the drop down selects for categories and difficulty levels, as well as fixing a blocker with the timer that came up because when time goes to 0, if an answer hasn't been clicked, question count (which index we are on for the list of question objects we're pulling from the trivia api query's question data response) is supposed to increment so we can move to the next question. I may continue to work on using a callback that correctly updates count, but for now the working solution is reverting count to let and 'manually' incrementing count by returning count = count + 1 when we call incrementCount().
+We have to finish styling the site, write up our docs, compose our tests and implement our CI/CD next week. A lot to do, but I'm confident we will get there as a team!

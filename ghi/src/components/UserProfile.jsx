@@ -1,7 +1,6 @@
 import React from 'react'
 import { useDeleteScoreMutation, useGetTokenQuery, useGetUserGamesQuery } from "../store/api";
-import Notification from './Notification';
-import { Link } from 'react-router-dom';
+import LoginModal from './LoginModal';
 
 const UserProfile = () => {
     const { data: tokenData } = useGetTokenQuery();
@@ -13,9 +12,12 @@ const UserProfile = () => {
 
     if (!tokenData) {
         return (
-            <div className="container">
-                <Notification type="info">Must log in to see profile!...</Notification>
-            </div>
+            <>
+                <div style={{ display: 'grid', justifyContent: 'center' }} className="container">
+                    <h1 style={{ color: 'white', paddingLeft: '10px', marginTop: '20px' }} className="display-3">Must be logged in to see profile!</h1>
+                    <LoginModal />
+                </div>
+            </>
         )
     } else {
         return (

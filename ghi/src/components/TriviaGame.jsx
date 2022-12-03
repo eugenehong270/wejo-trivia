@@ -10,6 +10,8 @@ import wrongAudio from "../assets/audio/wrong.mp3";
 import correctAudio from "../assets/audio/correct.mp3";
 import "../trivia.css";
 import Soundtrack from "./Soundtrack";
+import LoginModal from "./LoginModal";
+import zIndex from "@mui/material/styles/zIndex";
 
 const TriviaGame = () => {
 
@@ -25,7 +27,6 @@ const TriviaGame = () => {
   const { data: categoryData } = useGetCategoriesQuery();
 
   // game play state
-  const [count, setCount] = useState(0);
   const [score, setScore] = useState(0);
   const [maximumPossibleScore, setMaximumPossibleScore] = useState(0);
   const [quizStarted, setQuizStarted] = useState(false); // Showing Start quiz if false, showing questions and answers if True
@@ -34,13 +35,14 @@ const TriviaGame = () => {
   const [possibleAnswers, setPossibleAnswers] = useState([]) // List of all answers ( correct + incorrect ones) for a specific question
   const [gameEnded, setGameEnded] = useState(false);
   const [isAnswerSelected, setIsAnswerSelected] = useState(false);
+  let count = 0
 
   const categories_list = categoryData?.trivia_categories
   const difficultyDict = { 'Easy': 'easy', 'Medium': 'medium', 'Hard': 'hard', 'Mixed': '' }
 
   //timer state
   const Ref = useRef(null);
-  const [timer, setTimer] = useState('00:15');
+  const [timer, setTimer] = useState('00:10');
 
   //timer functionality
   const getTimeRemaining = (e) => {
@@ -52,12 +54,13 @@ const TriviaGame = () => {
     };
   }
 
-  const startTimer = (e) => {
+  const startTimer = async (e) => {
     let { total, minutes, seconds }
       = getTimeRemaining(e);
     if (total === 0) {
-      setTimeout(incrementCount(), 2000)
+      incrementCount()
       getQuestion();
+      console.log({ count });
     }
     if (total >= 0) {
       setTimer(
@@ -69,7 +72,7 @@ const TriviaGame = () => {
 
 
   const clearTimer = (e) => {
-    setTimer('00:15');
+    setTimer('00:10');
     if (Ref.current) clearInterval(Ref.current);
     const id = setInterval(() => {
       startTimer(e);
@@ -79,7 +82,7 @@ const TriviaGame = () => {
 
   const getDeadTime = () => {
     let deadline = new Date();
-    deadline.setSeconds(deadline.getSeconds() + 5);
+    deadline.setSeconds(deadline.getSeconds() + 10);
     return deadline;
   }
 
@@ -99,9 +102,9 @@ const TriviaGame = () => {
   const correctAudio_obj = new Audio(correctAudio);
   const wrongAudio_obj = new Audio(wrongAudio);
 
-  const incrementCount = async () => {
-    setCount(count + 1)
-    console.log(`count is ${count}`);
+  const incrementCount = () => {
+    count = count + 1
+    console.log({ count });
   };
 
   const addScore = () => {
@@ -160,6 +163,11 @@ const TriviaGame = () => {
     }
   };
 
+  const startQuiz = async () => {
+    setQuizStarted(true);
+    getQuestion();
+  };
+
   const getCategoryValue = (e) => {
     setCategory(e.target.value);
   };
@@ -199,14 +207,9 @@ const TriviaGame = () => {
     getQuestion();
   };
 
-  const startQuiz = async () => {
-    getQuestion();
-    onClickStart();
-    setQuizStarted(true);
-  };
-
   const restartGame = () => {
-    setCount(0);
+    setScore(0);
+    count = 0
     setCategory('')
     setQueryDifficulty('')
     setGameEnded(false)
@@ -215,9 +218,12 @@ const TriviaGame = () => {
 
   if (!tokenData) {
     return (
-      <div className="container">
-        <Notification type="info">Must log in to Play!...</Notification>
-      </div>
+      <>
+        <div style={{ display: 'grid', justifyContent: 'center' }} className="container">
+          <h1 style={{ color: 'white', paddingLeft: '50px', marginTop: '20px' }} className="display-3">Must be logged in to play!</h1>
+          <LoginModal />
+        </div>
+      </>
     )
   } else {
     return (

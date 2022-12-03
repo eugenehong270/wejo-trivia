@@ -9,7 +9,7 @@ export const triviaApiSlice = createApi({
     endpoints: builder => ({
         getTriviaQuestions: builder.query({
             query: ({ category, difficulty }) => ({
-                url: `/api.php?amount=2&category=${category}&difficulty=${difficulty}`
+                url: `/api.php?amount=10&category=${category}&difficulty=${difficulty}`
             }),
             providesTags: ['Trivia'],
         }),
