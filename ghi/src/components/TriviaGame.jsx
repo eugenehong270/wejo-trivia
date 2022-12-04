@@ -4,14 +4,12 @@ import Button from "@mui/material/Button";
 import parse from "html-react-parser";
 import { useAddScoreMutation, useGetTokenQuery } from '../store/api';
 import { useGetCategoriesQuery, useGetTriviaQuestionsQuery } from "../store/triviaApi";
-import Notification from "./Notification";
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import wrongAudio from "../assets/audio/wrong.mp3";
 import correctAudio from "../assets/audio/correct.mp3";
 import "../trivia.css";
 import Soundtrack from "./Soundtrack";
 import LoginModal from "./LoginModal";
-import zIndex from "@mui/material/styles/zIndex";
 
 const TriviaGame = () => {
 
@@ -36,6 +34,7 @@ const TriviaGame = () => {
   const [gameEnded, setGameEnded] = useState(false);
   const [isAnswerSelected, setIsAnswerSelected] = useState(false);
   const [count, setCount] = useState(0)
+  let tempCount = 0
 
   const categories_list = categoryData?.trivia_categories
   const difficultyDict = { 'Easy': 'easy', 'Medium': 'medium', 'Hard': 'hard', 'Mixed': '' }
@@ -58,9 +57,8 @@ const TriviaGame = () => {
     let { total, minutes, seconds }
       = getTimeRemaining(e);
     if (total === 0) {
-      incrementCount()
-      getQuestion();
-      console.log({ count });
+      tempCount = tempCount + 1
+      getQuestion(tempCount);
     }
     if (total >= 0) {
       setTimer(
@@ -76,7 +74,7 @@ const TriviaGame = () => {
     if (Ref.current) clearInterval(Ref.current);
     const id = setInterval(() => {
       startTimer(e);
-    }, 500)
+    }, 1000)
     Ref.current = id;
   }
 
@@ -104,6 +102,7 @@ const TriviaGame = () => {
 
   const incrementCount = () => {
     setCount(prev => prev + 1)
+    tempCount = count
   };
 
   const addScore = () => {
@@ -137,7 +136,10 @@ const TriviaGame = () => {
     return array;
   };
 
-  const getQuestion = async () => {
+  const getQuestion = async (currCount) => {
+    if (tempCount > count) {
+      setCount(tempCount + 1)
+    }
     try {
       setIsAnswerSelected(false);
       setQuestion([]);
@@ -145,7 +147,7 @@ const TriviaGame = () => {
       setCorrectAnswer('');
       setPossibleAnswers([]);
 
-      let currQuestion = questionData?.results[count]
+      let currQuestion = questionData?.results[currCount]
 
       setQuestion(currQuestion.question);
       setDifficulty(currQuestion.difficulty);
@@ -161,7 +163,7 @@ const TriviaGame = () => {
 
   const startQuiz = async () => {
     setQuizStarted(true);
-    getQuestion();
+    getQuestion(count);
     incrementCount();
   };
 
@@ -201,12 +203,13 @@ const TriviaGame = () => {
     if (isAnswerSelected) return;
     setQuestionAnswer(idx, ans);
     await timeout(2000);
-    getQuestion();
+    getQuestion(count);
   };
 
   const restartGame = () => {
     setScore(0);
-    count = 0
+    setCount(0)
+    tempCount = 0
     setCategory('')
     setQueryDifficulty('')
     setGameEnded(false)
