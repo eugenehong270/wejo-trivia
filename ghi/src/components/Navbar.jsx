@@ -1,6 +1,6 @@
 // import { NavLink } from "react-router-dom";
 import React from 'react'
-import { Nav, NavLink, NavMenu, NavBtn, NavBtnLink } from "./NavBarElements"
+import { Nav, NavLink, NavMenu } from "./NavBarElements"
 import Logo from "../images/logo-no-background.png"
 
 function Navbar() {
@@ -13,21 +13,24 @@ function Navbar() {
         </NavLink>
         {/* <Bars /> */}
         <NavMenu>
-          <NavLink to="user/login" activeStyle>
+          <NavLink to="user/login">
             Login
           </NavLink>
-          <NavLink to="user/signup" activeStyle>
+          <NavLink to="user/signup">
             Sign Up
           </NavLink>
-          <NavLink to="trivia/start" activeStyle>
+          <NavLink to="trivia/start">
             Trivia
           </NavLink>
-          <NavLink to="trivia/leaderboard" activeStyle>
+          <NavLink to="trivia/leaderboard">
             Leaderboard
           </NavLink>
-          <NavLink to="user/profile" activeStyle>
+          <NavLink to="user/profile">
             Profile
           </NavLink>
+          {/* <NavLink to="/" activeStyle>
+            Logout
+          </NavLink> */}
         </NavMenu>
       </Nav>
 

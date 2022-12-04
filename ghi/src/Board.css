@@ -84,5 +84,6 @@
 }
 
 .text-light {
+  align-content: center;
   color: white;
 }
