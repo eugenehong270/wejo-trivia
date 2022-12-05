@@ -14,8 +14,6 @@ class GameIn(BaseModel):
     category: str
     difficulty: str
     points: int
-    # user_id: int
-
 
 class GameOut(BaseModel):
     id: int

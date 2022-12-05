@@ -23,7 +23,7 @@ const UserProfile = () => {
         return (
             <div className="columns is-centered">
                 <div className="column is-narrow">
-                    <table className="table is-striped">
+                    <table className="table table-striped">
                         <thead>
                             <tr>
                                 <th>Date</th>

@@ -344,8 +344,8 @@ const TriviaGame = () => {
             </div>
           )
           }
+          <div style={{ 'visibility':'hidden'}}><Soundtrack /></div>
         </div >
-        <Soundtrack />
       </>
     );
   }
