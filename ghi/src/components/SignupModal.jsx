@@ -53,8 +53,9 @@ function SignupModal() {
                                     </div>
                                     <div className="field is-grouped">
                                         <input type="submit" name="login" defaultValue="Login" />
-                                        <h4>Already have an account? Login!</h4>
-                                        <Link to="/user/login">Login</Link>
+                                        <div className='myholder'>
+                                            <h4>Already have an account?<Link to="/user/login">Login</Link></h4>
+                                        </div>
                                     </div>
                                 </form>
 
@@ -69,4 +70,3 @@ function SignupModal() {
 }
 
 export default SignupModal
-

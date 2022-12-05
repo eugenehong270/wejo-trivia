@@ -55,8 +55,9 @@ function LoginModal() {
                   </div>
                   <div className="field is-grouped">
                     <input type="submit" name="login" defaultValue="Login" />
-                    <h4>Don't have an account? Signup now!</h4>
-                    <Link to="/user/signup">Create Account</Link>
+                    <div className='myholder'>
+                      <h4>Don't have an account?<Link to="/user/signup">Create Account</Link></h4>
+                    </div>
                   </div>
                 </form>
 
