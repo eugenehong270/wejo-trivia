@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDeleteScoreMutation, useGetTokenQuery, useGetUserGamesQuery } from "../store/api";
 import LoginModal from './LoginModal';
+import '../Frontend/profile.css'
 
 const UserProfile = () => {
     const { data: tokenData } = useGetTokenQuery();
@@ -21,15 +22,16 @@ const UserProfile = () => {
         )
     } else {
         return (
-            <div className="columns is-centered">
-                <div className="column is-narrow">
-                    <table className="table is-striped">
+            <div className="main">
+                <div>
+                    <table>
                         <thead>
                             <tr>
                                 <th>Date</th>
                                 <th>Category</th>
                                 <th>Difficulty</th>
                                 <th>Points</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>

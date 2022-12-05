@@ -1,5 +1,9 @@
 import React from "react";
 import { useGetUserGamesQuery } from "../store/api";
+// import "../Leaderboard.css"
+import "../Frontend/leaderboard.css"
+import Table from 'react-bootstrap/Table';
+
 
 
 
@@ -35,36 +39,31 @@ function GamesList() {
     } else {
         return (
             <>
-                <div className="d-flex justify-content-center">
+                <div className="header">
                     <h1>Leaderboard</h1>
                 </div>
-                <table>
-                    <thead >
-                        <tr>
-                            {/* <th>#</th> */}
-                            <th>Name</th>
-                            <th>Date</th>
-                            <th>Category</th>
-                            <th>Points</th>
-                        </tr>
-                    </thead>
-                    <tbody >
-                        {/* <tr>
-                                <td>Andrew Is The Greatest CSS GURU</td>
-                                <td>Andrew Is The Greatest CSS GURU</td>
-                                <td>Andrew Is The Greatest CSS GURU</td>
-                                <td>Andrew Is The Greatest CSS GURU</td>
-                            </tr> */}
-                        {data?.games.map(game => (
-                            <tr key={game.id}>
-                                <td>{game.user.username}</td>
-                                <td>{game.date}</td>
-                                <td>{game.category}</td>
-                                <td>{game.points}</td>
+                <div className="main">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>Category</th>
+                                <th>Points</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody >
+                            {data?.games.map(game => (
+                                <tr key={game.id}>
+                                    <td>{game.user.username}</td>
+                                    <td>{game.date}</td>
+                                    <td>{game.category}</td>
+                                    <td>{game.points}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </>
         )
     }
@@ -73,12 +72,3 @@ function GamesList() {
 };
 
 export default GamesList;
-
-
-
-{/* <div className="column is-narrow">
-                    <div className="duration">
-                        <button onClick={handleClick} data-id="7">7 Days</button>
-                        <button onClick={handleClick} data-id="30">30 Days</button>
-                        <button onClick={handleClick} data-id="0">All-Time</button>
-                    </div> */}

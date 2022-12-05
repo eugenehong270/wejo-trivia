@@ -1,8 +1,6 @@
 // import { NavLink } from "react-router-dom";
-import React from 'react'
-import { Nav, NavLink, NavMenu } from "./NavBarElements"
 import { React, useEffect } from 'react'
-import { Nav, NavLink, NavMenu, NavBtn, NavBtnLink } from "./NavBarElements"
+import { Nav, NavLink, NavMenu } from "./NavBarElements"
 import { useLogOutMutation, useGetTokenQuery } from '../store/api';
 import { useNavigate } from 'react-router-dom';
 import Logo from "../images/logo-no-background.png"
@@ -35,9 +33,6 @@ function Navbar() {
           <img src={Logo} width="100" alt="Logo" />
         </NavLink>
         <NavMenu>
-          <NavLink to="user/login">
-            Login
-          </NavLink>
           <NavLink to="user/signup">
             {tokenLoading
               ? <NavLink show={false} to="user/login" activeStyle>
