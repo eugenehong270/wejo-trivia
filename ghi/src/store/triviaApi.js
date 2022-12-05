@@ -11,7 +11,7 @@ export const triviaApiSlice = createApi({
             query: ({ category, difficulty }) => ({
                 url: `/api.php?amount=10&category=${category}&difficulty=${difficulty}`
             }),
-            providesTags: ['Trivia']
+            providesTags: ['Trivia'],
         }),
         getCategories: builder.query({
             query: () => ({

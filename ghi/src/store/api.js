@@ -110,18 +110,6 @@ export const apiSlice = createApi({
         return tags;
       }
     }),
-    // getTriviaQuestions: builder.query({
-    //   query: ({category, difficulty}) => ({
-    //     url: `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}`
-    //   }),
-    //   providesTags: ['Trivia']
-    // }),
-    // getCategories: builder.query({
-    //   query: () => ({
-    //     url: 'https://opentdb.com/api_category.php'
-    //   }),
-    //   providesTags: ['Trivia']
-    // }),
     addScore: builder.mutation({
       query: data => ({
         url: '/api/games',
@@ -154,6 +142,4 @@ export const {
   useGetTokenQuery,
   useGetUserGamesQuery,
   useDeleteScoreMutation,
-  // useGetTriviaQuestionsQuery,
-  // useGetCategoriesQuery
 } = apiSlice

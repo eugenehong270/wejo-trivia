@@ -1,7 +1,7 @@
 import React from "react";
-import Table from 'react-bootstrap/Table';
 import { useGetUserGamesQuery } from "../store/api";
-// import '../Board.css';
+
+
 
 
 function GamesList() {
@@ -30,44 +30,41 @@ function GamesList() {
     // };
     if (isLoading) {
         return (
-            <progress className="progress is-primary" max="100"></progress>
+            <progress className="progress is-primary" max="100">Loading</progress>
         );
     } else {
         return (
             <>
-                <div>
-                    <h1 className='leaderboard'>Leaderboard</h1>
+                <div className="d-flex justify-content-center">
+                    <h1>Leaderboard</h1>
                 </div>
-                <div>
-                    <Table striped bordered hover variant="dark">
-
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Date</th>
-                                <th>Category</th>
-                                <th>Points</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {/* <tr>
+                <table>
+                    <thead >
+                        <tr>
+                            {/* <th>#</th> */}
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        {/* <tr>
                                 <td>Andrew Is The Greatest CSS GURU</td>
                                 <td>Andrew Is The Greatest CSS GURU</td>
                                 <td>Andrew Is The Greatest CSS GURU</td>
                                 <td>Andrew Is The Greatest CSS GURU</td>
                             </tr> */}
-                            {data?.games.map(game => (
-                                <tr key={game.id}>
-                                    <td>{game.user.username}</td>
-                                    <td>{game.date}</td>
-                                    <td>{game.category}</td>
-                                    <td>{game.points}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-
-                    </Table>
-                </div >
+                        {data?.games.map(game => (
+                            <tr key={game.id}>
+                                <td>{game.user.username}</td>
+                                <td>{game.date}</td>
+                                <td>{game.category}</td>
+                                <td>{game.points}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </>
         )
     }
