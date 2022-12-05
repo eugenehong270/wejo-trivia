@@ -3,10 +3,31 @@
     height:100%;
     margin: auto;
     padding: 2em;
+    align-content: center;
 }
 
 #root{
     height: 70em;
+}
+
+.questionStyle{
+    color: white;
+	font-size: 2rem;
+	text-transform: uppercase;
+	display: block;
+	width: 100%;
+	text-align: center;
+    align-content: center;
+}
+
+.timerStyle{
+    color: white;
+	font-size: 1rem;
+	text-transform: uppercase;
+	display: block;
+	width: 100%;
+	text-align: center;
+    align-content: center;
 }
 
 .container{
@@ -17,6 +38,7 @@
 
 .font_large{
     font-size:large !important;
+
 }
 
 .container_question{
@@ -28,12 +50,16 @@
 
 .possbile_answer_div{
     height: 25%;
+    text-align: center;
+    align-content: center;
 }
 
 .possbile_answer{
      width:100% !important;
      height:100% !important;
      margin:1em !important;
+     text-align: center;
+     align-content: center;
 }
 
 .score_container{
@@ -41,6 +67,12 @@
     width:10%;
     right: 5em;
     top: 5em;
+}
+
+.holder{
+    text-align: center;
+    align-content: center;
+    padding: 2em;
 }
 
 .score_btn{
@@ -59,17 +91,21 @@
     margin:auto;
     width: 20% !important;
     max-width: 20% !important;
+    padding:2em;
 }
 
 .selectlabel {
     font-size:30px !important;
     color:#F2F3F5 !important;
+    padding:2em;
 
 }
 
 .centeredDiv{
     margin:auto !important;
     width: 50% !important;
+    text-align: center;
+     align-content: center;
 }
 
 .whiteColored{

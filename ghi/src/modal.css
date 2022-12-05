@@ -31,10 +31,15 @@ button:hover{
   align-items: center;
 }
 
+.myholder{
+  text-align: center;
+  align-content: center;
+}
+
 #section-one .login-modal{
   background-color: #F2F2F2;
   width: 450px;
-  height: 620px;
+  height: 400px;
   margin: 60px 30px;
   -webkit-box-shadow: 0px 0px 19px -1px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 0px 19px -1px rgba(0,0,0,0.75);
@@ -52,7 +57,7 @@ button:hover{
   text-align:center;
   position: relative;
   top: 30px;
-  padding-bottom: 70px;
+  padding-bottom: 40px;
   color: #777;
   font-family: Arial;
   font-size: 1.6em;
@@ -88,7 +93,7 @@ button:hover{
 }
 
 #section-one .login-modal input[type="submit"]{
-  margin-top: 80px;
+  margin-top: 40px;
   width: 80%;
   padding: 15px 0;
   border-radius: 30px;
