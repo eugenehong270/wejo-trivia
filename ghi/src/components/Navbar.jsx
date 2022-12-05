@@ -16,9 +16,9 @@ function LogoutButton() {
   }, [data, navigate]);
 
   return (
-      <NavLink show={false} onClick={logOut}>
-        Logout
-      </NavLink>
+    <NavLink show={false} onClick={logOut}>
+      Logout
+    </NavLink>
   );
 }
 
@@ -30,7 +30,7 @@ function Navbar() {
 
       <Nav>
         <NavLink to="/">
-          <img src={Logo} width="100" alt="Logo" />
+          <img src={Logo} width="70" alt="Logo" />
         </NavLink>
         <NavMenu>
           {tokenLoading
