@@ -1,9 +1,30 @@
 // import { NavLink } from "react-router-dom";
-import React from 'react'
+import { React, useEffect } from 'react'
 import { Nav, NavLink, NavMenu, NavBtn, NavBtnLink } from "./NavBarElements"
+import { useLogOutMutation, useGetTokenQuery } from '../store/api';
+import { useNavigate } from 'react-router-dom';
 import Logo from "../images/logo-no-background.png"
 
+function LogoutButton() {
+  const navigate = useNavigate();
+  const [logOut, { data }] = useLogOutMutation();
+
+  useEffect(() => {
+    if (data) {
+      navigate('/');
+    }
+  }, [data, navigate]);
+
+  return (
+      <NavLink show={false} onClick={logOut}>
+        Logout
+      </NavLink>
+  );
+}
+
 function Navbar() {
+  const { data: token, isLoading: tokenLoading } = useGetTokenQuery();
+
   return (
     <>
 
@@ -11,11 +32,16 @@ function Navbar() {
         <NavLink to="/">
           <img src={Logo} width="100" alt="Logo" />
         </NavLink>
-        {/* <Bars /> */}
         <NavMenu>
-          <NavLink to="user/login" activeStyle>
-            Login
-          </NavLink>
+          {tokenLoading
+            ? <NavLink show={false} to="user/login" activeStyle>
+              Login
+            </NavLink>
+            : token
+              ? <LogoutButton />
+              : <NavLink show={false} to="user/login" activeStyle>
+                Login
+              </NavLink>}
           <NavLink to="user/signup" activeStyle>
             Sign Up
           </NavLink>
@@ -25,12 +51,10 @@ function Navbar() {
           <NavLink to="trivia/leaderboard" activeStyle>
             Leaderboard
           </NavLink>
+          <NavLink to="user/profile" activeStyle>
+            Profile
+          </NavLink>
         </NavMenu>
-        <NavBtn>
-          <NavBtnLink to="user/profile">
-            <h1>Profile</h1>
-          </NavBtnLink>
-        </NavBtn>
       </Nav>
 
     </>

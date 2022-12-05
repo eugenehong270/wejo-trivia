@@ -66,3 +66,24 @@
     color:#F2F3F5 !important;
 
 }
+
+.centeredDiv{
+    margin:auto !important;
+    width: 50% !important;
+}
+
+.whiteColored{
+    color:white !important;
+}
+
+.MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl  css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root{
+    color:white !important;
+}
+
+#demo-simple-selectCat{
+    color:white !important;
+}
+
+#demo-simple-selectDif{
+    color:white !important;
+}
