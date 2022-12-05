@@ -11,6 +11,7 @@ import "../trivia.css";
 import Soundtrack from "./Soundtrack";
 import LoginModal from "./LoginModal";
 
+
 const TriviaGame = () => {
 
   // state for user game api
@@ -234,11 +235,11 @@ const TriviaGame = () => {
             <div className="ended game">
               {quizStarted ? (
                 <div className="container d-flex">
-                  <h2>{timer}</h2>
-                  <Button className="font_large" variant="contained">
+                  <h4 className="timerStyle">{timer}</h4>
+                  <h3 className="questionStyle" variant="contained">
 
                     {parse(question)}
-                  </Button>
+                  </h3>
                   <div className="div_possible_answers">
                     {possibleAnswers?.map((ans, idx) => {
                       // for answer in response_answer make button
@@ -297,50 +298,54 @@ const TriviaGame = () => {
                     </FormControl>
                   </div>
 
-                  <Button
-                    className="font_large"
-                    variant="contained"
-                    onClick={async () => await startQuiz()}
-                  >
-                    {" "}
-                    Start Quiz{" "}
-                  </Button>
+                  <div className="holder">
+                    <Button
+                      className="holder"
+                      variant="contained"
+                      onClick={async () => await startQuiz()}
+                    >
+                      {" "}
+                      Start Quiz{" "}
+                    </Button>
+                  </div>
 
                 </div>
               )}
-              <Button
+              {/* <h1
                 className="font_large"
                 variant="contained"
                 onClick={showState}
               >
                 {" "}
                 PRINT STATE{" "}
-              </Button>
+              </h1> */}
               <div className="score_container">
-                <Button className="font_large score_btn" variant="contained">
+                <h1 className="timerStyle" variant="contained">
                   {" "}
                   {score}{" "}
-                </Button>
+                </h1>
               </div>
             </div>
           ) : (
             <div className="centeredDiv whiteColored">
+
+              <h1> GAME OVER! </h1>
+              <h1> Your final score is {score} points.</h1>
+              {/* <h1> ENDED GAME! Maximum score is: {maximumPossibleScore} !</h1> */}
               <Button
                 className="font_large centeredDiv"
                 variant="contained"
                 onClick={() => restartGame()}
               >
-                Play again!!!
+                Play again?
               </Button>
-              <h1> ENDED GAME! Your final score is: {score} !</h1>
-              <h1> ENDED GAME! Maximum score is: {maximumPossibleScore} !</h1>
-              <Button
+              {/* <Button
                 className="font_large"
                 variant="contained"
                 onClick={showState}
               >
                 PRINT STATE
-              </Button>
+              </Button> */}
             </div>
           )
           }
