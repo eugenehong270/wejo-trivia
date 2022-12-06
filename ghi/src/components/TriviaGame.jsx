@@ -7,8 +7,7 @@ import { useGetCategoriesQuery, useGetTriviaQuestionsQuery } from "../store/triv
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import wrongAudio from "../assets/audio/wrong.mp3";
 import correctAudio from "../assets/audio/correct.mp3";
-import "../trivia.css";
-import Soundtrack from "./Soundtrack";
+import "../style/trivia.css";
 import LoginModal from "./LoginModal";
 
 
@@ -16,29 +15,30 @@ const TriviaGame = () => {
 
   // state for user game api
 
-  const [category, setCategory] = useState('')
+  const [categoryID, setCategoryID] = useState('')
+  const [categoryName, setCategoryName] = useState('')
   const [createFinalScore] = useAddScoreMutation('')
   const [queryDifficulty, setQueryDifficulty] = useState('')
   const [difficulty, setDifficulty] = useState('');
 
   const { data: tokenData } = useGetTokenQuery();
-  const { data: questionData } = useGetTriviaQuestionsQuery({ category, difficulty: queryDifficulty });
+  const { data: questionData } = useGetTriviaQuestionsQuery({ category: categoryID, difficulty: queryDifficulty });
   const { data: categoryData } = useGetCategoriesQuery();
 
   // game play state
   const [score, setScore] = useState(0);
-  const [maximumPossibleScore, setMaximumPossibleScore] = useState(0);
   const [quizStarted, setQuizStarted] = useState(false); // Showing Start quiz if false, showing questions and answers if True
   const [correctAnswer, setCorrectAnswer] = useState("")
   const [question, setQuestion] = useState([]); // The current question
   const [possibleAnswers, setPossibleAnswers] = useState([]) // List of all answers ( correct + incorrect ones) for a specific question
   const [gameEnded, setGameEnded] = useState(false);
   const [isAnswerSelected, setIsAnswerSelected] = useState(false);
+
   const [count, setCount] = useState(0)
   let tempCount = 0
 
   const categories_list = categoryData?.trivia_categories
-  const difficultyDict = { 'Easy': 'easy', 'Medium': 'medium', 'Hard': 'hard', 'Mixed': '' }
+  const difficulties = { 'easy': 'Easy', 'medium': 'Medium', 'hard': 'Hard' }
 
   //timer state
   const Ref = useRef(null);
@@ -58,6 +58,9 @@ const TriviaGame = () => {
     let { total, minutes, seconds }
       = getTimeRemaining(e);
     if (total === 0) {
+      if (count || tempCount === 9) {
+        return
+      }
       tempCount = tempCount + 1
       getQuestion(tempCount);
     }
@@ -108,7 +111,6 @@ const TriviaGame = () => {
 
   const addScore = () => {
     setScore(score + 10 * scoresDictionary[difficulty]);
-    setMaximumPossibleScore(score + 10 * scoresDictionary[difficulty]);
   };
 
   const timeout = (delay) => {
@@ -126,7 +128,7 @@ const TriviaGame = () => {
     return array;
   };
 
-  const getQuestion = async (currCount) => {
+  const getQuestion = (currCount) => {
     if (tempCount > count) {
       setCount(tempCount + 1)
     }
@@ -145,20 +147,36 @@ const TriviaGame = () => {
       setPossibleAnswers(shuffle([...currQuestion.incorrect_answers, currQuestion.correct_answer]));
       onClickStart();
     } catch (e) {
-      console.log(e)
-      setGameEnded(true);
-      createFinalScore({ formattedDate, category, queryDifficulty, score })
+      setGameEnded(true)
+      sendFinalScore(categoryName, queryDifficulty)
+    };
+  }
+
+  const sendFinalScore = async (currCat, currDiff) => {
+    if (currCat === '') {
+      setCategoryName('Mixed')
     }
-  };
+    if (currDiff === '') {
+      setQueryDifficulty('Mixed')
+    } else {
+      setQueryDifficulty(difficulties[queryDifficulty])
+    }
+    await createFinalScore({ formattedDate, categoryName, queryDifficulty, score })
+    console.log('done');
+  }
+
 
   const startQuiz = async () => {
     setQuizStarted(true);
+    if (categoryID !== '') {
+      setCategoryName(categories_list[categoryID - 9]['name'])
+    }
     getQuestion(count);
     incrementCount();
   };
 
   const getCategoryValue = (e) => {
-    setCategory(e.target.value);
+    setCategoryID(e.target.value);
   };
 
   const getDifficultyValue = (e) => {
@@ -200,7 +218,8 @@ const TriviaGame = () => {
     setScore(0);
     setCount(0)
     tempCount = 0
-    setCategory('')
+    setCategoryID('')
+    setCategoryName('')
     setQueryDifficulty('')
     setGameEnded(false)
     setQuizStarted(false)
@@ -217,7 +236,6 @@ const TriviaGame = () => {
     )
   } else {
     return (
-      //hid the game div until category is selected, and start/play is pressed
       <>
         <div className="d-flex align-items-center">
           {!gameEnded ? (
@@ -226,7 +244,6 @@ const TriviaGame = () => {
                 <div className="container d-flex">
                   <h4 className="timerStyle">{timer}</h4>
                   <h3 className="questionStyle" variant="contained">
-
                     {parse(question)}
                   </h3>
                   <div className="div_possible_answers">
@@ -262,13 +279,13 @@ const TriviaGame = () => {
                         labelId="selectCategoryLabel"
                         id="demo-simple-selectCat"
                         label="Category"
-                        value={category}
+                        value={categoryID}
                         onChange={async (e) => getCategoryValue(e)}
-                        defaultValue={category}
+                        defaultValue={categoryID}
                       >
                         {categories_list?.map((c) => {
                           return (
-                            <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>
+                            <MenuItem key={c.id} value={c.id} label={c.name}>{c.name}</MenuItem>
                           )
                         })}
                       </Select>
@@ -291,7 +308,6 @@ const TriviaGame = () => {
                     </FormControl>
                   </div>
 
-
                   <div className="holder">
                     <Button
                       className="holder"
@@ -305,14 +321,6 @@ const TriviaGame = () => {
 
                 </div>
               )}
-              {/* <h1
-                className="font_large"
-                variant="contained"
-                onClick={showState}
-              >
-                {" "}
-                PRINT STATE{" "}
-              </h1> */}
               <div className="score_container">
                 <h1 className="timerStyle" variant="contained">
                   Score: {" "}
@@ -325,7 +333,6 @@ const TriviaGame = () => {
 
               <h1> GAME OVER! </h1>
               <h1> Your final score is {score} points.</h1>
-              {/* <h1> ENDED GAME! Maximum score is: {maximumPossibleScore} !</h1> */}
               <Button
                 className="font_large centeredDiv"
                 variant="contained"
@@ -333,17 +340,9 @@ const TriviaGame = () => {
               >
                 Play again?
               </Button>
-              {/* <Button
-                className="font_large"
-                variant="contained"
-                onClick={showState}
-              >
-                PRINT STATE
-              </Button> */}
             </div>
           )
           }
-          <div style={{ 'visibility':'hidden'}}><Soundtrack /></div>
         </div >
       </>
     );

@@ -1,16 +1,20 @@
-// import { NavLink } from "react-router-dom";
 import { React, useEffect } from 'react'
-import { Nav, NavLink, NavMenu } from "./NavBarElements"
+import { Nav, NavLink, NavMenu } from "../style/NavBarElements"
 import { useLogOutMutation, useGetTokenQuery } from '../store/api';
 import { useNavigate } from 'react-router-dom';
 import Logo from "../images/logo-no-background.png"
+import '../style/mainPage.css'
+import { apiSlice } from '../store/api';
+import { useDispatch } from 'react-redux';
 
 function LogoutButton() {
   const navigate = useNavigate();
   const [logOut, { data }] = useLogOutMutation();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (data) {
+      dispatch(apiSlice.util.resetApiState());
       navigate('/');
     }
   }, [data, navigate]);
@@ -27,39 +31,41 @@ function Navbar() {
 
   return (
     <>
-
       <Nav>
+        {token
+          ? <h3 className='welcome neonText'>Welcome, {token?.user.username}</h3>
+          : <h3></h3>}
         <NavLink to="/">
-          <img src={Logo} width="70" alt="Logo" />
+          <img className="logo" src={Logo} width="70" alt="Logo" />
         </NavLink>
         <NavMenu>
-          <NavLink to="user/signup">
-            {tokenLoading
-              ? <NavLink show={false} to="user/login" activeStyle>
+          {tokenLoading
+            ? <NavLink show={false} to="user/login" activeStyle>
+              Login
+            </NavLink>
+            : token
+              ? <LogoutButton />
+              : <NavLink show={false} to="user/login" activeStyle>
                 Login
-              </NavLink>
-              : token
-                ? <LogoutButton />
-                : <NavLink show={false} to="user/login" activeStyle>
-                  Login
-                </NavLink>}
-            <NavLink to="user/signup" activeStyle>
+              </NavLink>}
+          {!token
+            ? <NavLink show={true} to="user/signup" activeStyle >
               Sign Up
             </NavLink>
-            <NavLink to="trivia/start">
-              Trivia
-            </NavLink>
-            <NavLink to="trivia/leaderboard">
-              Leaderboard
-            </NavLink>
-            <NavLink to="user/profile">
+            : <h3></h3>}
+          <NavLink to="trivia/start">
+            Trivia
+          </NavLink>
+          <NavLink to="trivia/leaderboard">
+            Leaderboard
+          </NavLink>
+          {token
+            ? <NavLink show={true} to="user/profile">
               Profile
             </NavLink>
-
-          </NavLink>
+            : <h3></h3>}
         </NavMenu>
       </Nav>
-
     </>
   )
 };

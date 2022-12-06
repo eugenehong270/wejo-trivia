@@ -1,8 +1,10 @@
 h2 {
 	 color: #f1c40f;
-	 font-size: 4rem;
+	 font-size: 3rem;
 	 text-transform: uppercase;
 	 display: block;
+	 margin-top: 100px;
+	 margin-bottom: 10px;
 	 width: 100%;
 	 text-align: center;
 }

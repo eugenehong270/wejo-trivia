@@ -68,7 +68,7 @@ export const apiSlice = createApi({
         method: 'delete',
         credentials: 'include',
       }),
-      invalidatesTags: ['User', 'Token'],
+      invalidatesTags: ['User', 'Token','Games'],
     }),
     getToken: builder.query({
       query: () => ({
@@ -99,7 +99,7 @@ export const apiSlice = createApi({
         url: '/api/user/games',
         credentials: 'include'
       }),
-      providesTags: data => {
+      providesTags: [data => {
         const tags = [{ type: 'Games', id: 'LIST' }];
         if (!data || !data.games) return tags;
 
@@ -108,14 +108,21 @@ export const apiSlice = createApi({
           tags.concat(...games.map(({ id }) => ({ type: 'Games', id })));
         }
         return tags;
-      }
+      }]
+    }),
+    getUserStats: builder.query({
+      query: () => ({
+        url: '/api/user/stats',
+        credentials: 'include'
+      }),
+      providesTags: ['Games']
     }),
     addScore: builder.mutation({
       query: data => ({
         url: '/api/games',
         body: {
           date: data.formattedDate,
-          category: data.category,
+          category: data.categoryName,
           difficulty: data.queryDifficulty,
           points: data.score
         },
@@ -142,4 +149,5 @@ export const {
   useGetTokenQuery,
   useGetUserGamesQuery,
   useDeleteScoreMutation,
+  useGetUserStatsQuery
 } = apiSlice

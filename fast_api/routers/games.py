@@ -15,6 +15,7 @@ class GameIn(BaseModel):
     difficulty: str
     points: int
 
+
 class GameOut(BaseModel):
     id: int
     date: date
@@ -26,6 +27,13 @@ class GameOut(BaseModel):
 
 class GamesOut(BaseModel):
     games: list[GameOut]
+
+
+class GameStatsOut(BaseModel):
+    user_id: int
+    avg_score: int
+    total_games: int
+    highest_score: int
 
 
 @router.get("/api/games/{game_id}", response_model=GameOut)
@@ -52,6 +60,15 @@ def get_user_games(
     queries: GameQueries = Depends(),
 ):
     return {"games": queries.get_user_games(account_data.get("id"))}
+
+
+@router.get("/api/user/stats", response_model=GameStatsOut)
+def get_user_stats(
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    queries: GameQueries = Depends(),
+):
+    record = queries.get_user_stats(account_data.get("id"))
+    return record
 
 
 @router.post("/api/games", response_model=GameOut)
