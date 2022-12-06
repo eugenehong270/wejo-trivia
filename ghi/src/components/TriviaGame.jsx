@@ -115,17 +115,6 @@ const TriviaGame = () => {
     return new Promise((res) => setTimeout(res, delay));
   };
 
-  const showState = () => {
-    console.log("STATE QUESTION: ", question);
-    console.log("POSSIBLE ANSWERS:", possibleAnswers);
-    console.log("CORRECT ANSWER:", correctAnswer);
-    console.log("CURR CATEGORY:", category)
-    console.log("CURR DIFFICULTY:", difficulty);
-    console.log("COUNT:", count);
-    console.log("CURR CATEGORY list:", categories_list)
-    console.log("CURR DIFFICULTY obj:", difficultyDict);
-  };
-
   const shuffle = (array) => {
     /* Randomly interchanging the answers order */
     for (let i = array.length - 1; i > 0; i--) {
