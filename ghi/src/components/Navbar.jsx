@@ -59,9 +59,11 @@ function Navbar() {
           <NavLink to="trivia/leaderboard">
             Leaderboard
           </NavLink>
-          <NavLink to="user/profile">
-            Profile
-          </NavLink>
+          {token
+            ? <NavLink show={true} to="user/profile">
+              Profile
+            </NavLink>
+            : <h3></h3>}
         </NavMenu>
       </Nav>
     </>
