@@ -2,10 +2,6 @@ import React from "react";
 import { useGetUserGamesQuery } from "../store/api";
 // import "../Leaderboard.css"
 import "../Frontend/leaderboard.css"
-import Table from 'react-bootstrap/Table';
-
-
-
 
 
 function GamesList() {

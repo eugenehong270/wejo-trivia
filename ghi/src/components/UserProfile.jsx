@@ -22,15 +22,9 @@ const UserProfile = () => {
         )
     } else {
         return (
-<<<<<<< HEAD
             <div className="columns is-centered">
                 <div className="column is-narrow">
                     <table className="table table-striped">
-=======
-            <div className="main">
-                <div>
-                    <table>
->>>>>>> 5ac3463b1b18e4fafc48ec18e4981c58a82aed93
                         <thead>
                             <tr>
                                 <th>Date</th>
