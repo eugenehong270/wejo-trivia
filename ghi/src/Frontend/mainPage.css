@@ -72,6 +72,10 @@
   justify-content: left;
 }
 
+.logo{
+  align-items: center;
+}
+
 .neonText {
   color: #fff;
   text-shadow:

@@ -36,7 +36,7 @@ function Navbar() {
           ? <h3 className='welcome neonText'>Welcome, {token?.user.username}</h3>
           : <h3></h3>}
         <NavLink to="/">
-          <img src={Logo} width="70" alt="Logo" />
+          <img className="logo" src={Logo} width="70" alt="Logo" />
         </NavLink>
         <NavMenu>
           {tokenLoading
