@@ -22,8 +22,11 @@ const UserProfile = () => {
         )
     } else {
         return (
-            <div className="columns is-centered">
-                <div className="column is-narrow">
+            <>
+                <div className="profile-header">
+                    <h1>Profile</h1>
+                </div>
+                <div className="profile-main">
                     <table className="table table-striped">
                         <thead>
                             <tr>
@@ -47,7 +50,7 @@ const UserProfile = () => {
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </>
         )
     }
 }

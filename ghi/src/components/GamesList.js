@@ -1,7 +1,9 @@
 import React from "react";
 import { useGetUserGamesQuery } from "../store/api";
-// import "../Leaderboard.css"
 import "../Frontend/leaderboard.css"
+
+
+
 
 
 function GamesList() {
@@ -42,13 +44,13 @@ function GamesList() {
                     <table>
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Date</th>
-                                <th>Category</th>
-                                <th>Points</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Points</th>
                             </tr>
                         </thead>
-                        <tbody >
+                        <tbody>
                             {data?.games.map(game => (
                                 <tr key={game.id}>
                                     <td>{game.user.username}</td>
