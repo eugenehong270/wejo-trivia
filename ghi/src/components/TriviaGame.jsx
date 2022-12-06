@@ -27,7 +27,6 @@ const TriviaGame = () => {
 
   // game play state
   const [score, setScore] = useState(0);
-  const [maximumPossibleScore, setMaximumPossibleScore] = useState(0);
   const [quizStarted, setQuizStarted] = useState(false); // Showing Start quiz if false, showing questions and answers if True
   const [correctAnswer, setCorrectAnswer] = useState("")
   const [question, setQuestion] = useState([]); // The current question
@@ -38,7 +37,6 @@ const TriviaGame = () => {
   let tempCount = 0
 
   const categories_list = categoryData?.trivia_categories
-  const difficultyDict = { 'Easy': 'easy', 'Medium': 'medium', 'Hard': 'hard', 'Mixed': '' }
 
   //timer state
   const Ref = useRef(null);
@@ -58,6 +56,9 @@ const TriviaGame = () => {
     let { total, minutes, seconds }
       = getTimeRemaining(e);
     if (total === 0) {
+      if (count || tempCount === 9) {
+        return
+      }
       tempCount = tempCount + 1
       getQuestion(tempCount);
     }
@@ -108,7 +109,6 @@ const TriviaGame = () => {
 
   const addScore = () => {
     setScore(score + 10 * scoresDictionary[difficulty]);
-    setMaximumPossibleScore(score + 10 * scoresDictionary[difficulty]);
   };
 
   const timeout = (delay) => {
@@ -145,11 +145,28 @@ const TriviaGame = () => {
       setPossibleAnswers(shuffle([...currQuestion.incorrect_answers, currQuestion.correct_answer]));
       onClickStart();
     } catch (e) {
-      console.log(e)
-      setGameEnded(true);
-      createFinalScore({ formattedDate, category, queryDifficulty, score })
+      setGameEnded(true)
+      sendFinalScore(category, queryDifficulty)
+    };
+  }
+
+  const sendFinalScore = async (currCat, currDiff) => {
+    let queryCategory
+    if (currCat === '') {
+      queryCategory = 'Mixed'
+    } else {
+      for (let cat in categories_list) {
+        if (cat['id'] === category) {
+          queryCategory = cat['name']
+        }
+      }
+    } console.log(queryCategory);
+    if (currDiff === '') {
+      setQueryDifficulty('Mixed')
     }
-  };
+    createFinalScore({ formattedDate, queryCategory, queryDifficulty, score })
+  }
+
 
   const startQuiz = async () => {
     setQuizStarted(true);
@@ -217,7 +234,6 @@ const TriviaGame = () => {
     )
   } else {
     return (
-      //hid the game div until category is selected, and start/play is pressed
       <>
         <div className="d-flex align-items-center">
           {!gameEnded ? (
@@ -226,7 +242,6 @@ const TriviaGame = () => {
                 <div className="container d-flex">
                   <h4 className="timerStyle">{timer}</h4>
                   <h3 className="questionStyle" variant="contained">
-
                     {parse(question)}
                   </h3>
                   <div className="div_possible_answers">
@@ -291,7 +306,6 @@ const TriviaGame = () => {
                     </FormControl>
                   </div>
 
-
                   <div className="holder">
                     <Button
                       className="holder"
@@ -305,14 +319,6 @@ const TriviaGame = () => {
 
                 </div>
               )}
-              {/* <h1
-                className="font_large"
-                variant="contained"
-                onClick={showState}
-              >
-                {" "}
-                PRINT STATE{" "}
-              </h1> */}
               <div className="score_container">
                 <h1 className="timerStyle" variant="contained">
                   Score: {" "}
@@ -333,17 +339,10 @@ const TriviaGame = () => {
               >
                 Play again?
               </Button>
-              {/* <Button
-                className="font_large"
-                variant="contained"
-                onClick={showState}
-              >
-                PRINT STATE
-              </Button> */}
             </div>
           )
           }
-          <div style={{ 'visibility':'hidden'}}><Soundtrack /></div>
+          {/* <div><Soundtrack /></div> */}
         </div >
       </>
     );
