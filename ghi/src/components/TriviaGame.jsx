@@ -16,13 +16,14 @@ const TriviaGame = () => {
 
   // state for user game api
 
-  const [category, setCategory] = useState('')
+  const [categoryID, setCategoryID] = useState('')
+  const [categoryName, setCategoryName] = useState('')
   const [createFinalScore] = useAddScoreMutation('')
   const [queryDifficulty, setQueryDifficulty] = useState('')
   const [difficulty, setDifficulty] = useState('');
 
   const { data: tokenData } = useGetTokenQuery();
-  const { data: questionData } = useGetTriviaQuestionsQuery({ category, difficulty: queryDifficulty });
+  const { data: questionData } = useGetTriviaQuestionsQuery({ category: categoryID, difficulty: queryDifficulty });
   const { data: categoryData } = useGetCategoriesQuery();
 
   // game play state
@@ -37,6 +38,7 @@ const TriviaGame = () => {
   let tempCount = 0
 
   const categories_list = categoryData?.trivia_categories
+  const difficulties = { 'easy': 'Easy', 'medium': 'Medium', 'hard': 'Hard' }
 
   //timer state
   const Ref = useRef(null);
@@ -126,7 +128,7 @@ const TriviaGame = () => {
     return array;
   };
 
-  const getQuestion = async (currCount) => {
+  const getQuestion = (currCount) => {
     if (tempCount > count) {
       setCount(tempCount + 1)
     }
@@ -146,36 +148,33 @@ const TriviaGame = () => {
       onClickStart();
     } catch (e) {
       setGameEnded(true)
-      sendFinalScore(category, queryDifficulty)
+      sendFinalScore(categoryName, queryDifficulty)
     };
   }
 
   const sendFinalScore = async (currCat, currDiff) => {
-    let queryCategory
     if (currCat === '') {
-      queryCategory = 'Mixed'
-    } else {
-      for (let cat in categories_list) {
-        if (cat['id'] === category) {
-          queryCategory = cat['name']
-        }
-      }
-    } console.log(queryCategory);
+      setCategoryName('Mixed')
+    }
     if (currDiff === '') {
       setQueryDifficulty('Mixed')
+    } else {
+      setQueryDifficulty(difficulties[queryDifficulty])
     }
-    createFinalScore({ formattedDate, queryCategory, queryDifficulty, score })
+    await createFinalScore({ formattedDate, categoryName, queryDifficulty, score })
+    console.log('done');
   }
 
 
   const startQuiz = async () => {
     setQuizStarted(true);
+    setCategoryName(categories_list[categoryID - 9]['name'])
     getQuestion(count);
     incrementCount();
   };
 
   const getCategoryValue = (e) => {
-    setCategory(e.target.value);
+    setCategoryID(e.target.value);
   };
 
   const getDifficultyValue = (e) => {
@@ -217,7 +216,8 @@ const TriviaGame = () => {
     setScore(0);
     setCount(0)
     tempCount = 0
-    setCategory('')
+    setCategoryID('')
+    setCategoryName('')
     setQueryDifficulty('')
     setGameEnded(false)
     setQuizStarted(false)
@@ -277,13 +277,13 @@ const TriviaGame = () => {
                         labelId="selectCategoryLabel"
                         id="demo-simple-selectCat"
                         label="Category"
-                        value={category}
+                        value={categoryID}
                         onChange={async (e) => getCategoryValue(e)}
-                        defaultValue={category}
+                        defaultValue={categoryID}
                       >
                         {categories_list?.map((c) => {
                           return (
-                            <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>
+                            <MenuItem key={c.id} value={c.id} label={c.name}>{c.name}</MenuItem>
                           )
                         })}
                       </Select>

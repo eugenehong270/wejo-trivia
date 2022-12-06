@@ -115,7 +115,7 @@ export const apiSlice = createApi({
         url: '/api/games',
         body: {
           date: data.formattedDate,
-          category: data.queryCategory,
+          category: data.categoryName,
           difficulty: data.queryDifficulty,
           points: data.score
         },
