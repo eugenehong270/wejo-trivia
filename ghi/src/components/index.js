@@ -6,7 +6,6 @@ import Soundtrack from "./Soundtrack";
 import UserProfile from "./UserProfile";
 import GamesList from "./GamesList";
 import Navbar from "./Navbar";
-import TriviaPlay from "./TriviaPlay";
 
 export {
     MainPage,
@@ -17,5 +16,4 @@ export {
     UserProfile,
     GamesList,
     Navbar,
-    TriviaPlay,
 }

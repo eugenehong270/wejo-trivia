@@ -1,6 +1,6 @@
 // import { NavLink } from "react-router-dom";
 import { React, useEffect } from 'react'
-import { Nav, NavLink, NavMenu, NavBtn, NavBtnLink } from "./NavBarElements"
+import { Nav, NavLink, NavMenu } from "./NavBarElements"
 import { useLogOutMutation, useGetTokenQuery } from '../store/api';
 import { useNavigate } from 'react-router-dom';
 import Logo from "../images/logo-no-background.png"
@@ -33,32 +33,35 @@ function Navbar() {
           <img src={Logo} width="70" alt="Logo" />
         </NavLink>
         <NavMenu>
-          {tokenLoading
-            ? <NavLink show={false} to="user/login" activeStyle>
-              Login
-            </NavLink>
-            : token
-              ? <LogoutButton />
-              : <NavLink show={false} to="user/login" activeStyle>
+          <NavLink to="user/signup">
+            {tokenLoading
+              ? <NavLink show={false} to="user/login" activeStyle>
                 Login
-              </NavLink>}
-          <NavLink to="user/signup" activeStyle>
-            Sign Up
-          </NavLink>
-          <NavLink to="trivia/start" activeStyle>
-            Trivia
-          </NavLink>
-          <NavLink to="trivia/leaderboard" activeStyle>
-            Leaderboard
-          </NavLink>
-          <NavLink to="user/profile" activeStyle>
-            Profile
+              </NavLink>
+              : token
+                ? <LogoutButton />
+                : <NavLink show={false} to="user/login" activeStyle>
+                  Login
+                </NavLink>}
+            <NavLink to="user/signup" activeStyle>
+              Sign Up
+            </NavLink>
+            <NavLink to="trivia/start">
+              Trivia
+            </NavLink>
+            <NavLink to="trivia/leaderboard">
+              Leaderboard
+            </NavLink>
+            <NavLink to="user/profile">
+              Profile
+            </NavLink>
+
           </NavLink>
         </NavMenu>
       </Nav>
 
     </>
-  );
-}
+  )
+};
 
 export default Navbar;
