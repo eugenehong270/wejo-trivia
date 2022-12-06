@@ -262,6 +262,10 @@ const TriviaGame = () => {
                 </div>
               ) : (
                 <div>
+                  <div>
+                    <h2> Select game options</h2>
+                  </div>
+
                   <div className="categoryform">
                     <FormControl fullWidth>
                       <InputLabel id="selectCategoryLabel" className="selectlabel">Category:</InputLabel>
@@ -298,6 +302,7 @@ const TriviaGame = () => {
                     </FormControl>
                   </div>
 
+
                   <div className="holder">
                     <Button
                       className="holder"
@@ -321,7 +326,7 @@ const TriviaGame = () => {
               </h1> */}
               <div className="score_container">
                 <h1 className="timerStyle" variant="contained">
-                  {" "}
+                  Score: {" "}
                   {score}{" "}
                 </h1>
               </div>
