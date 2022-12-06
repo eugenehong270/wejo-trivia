@@ -22,9 +22,12 @@ const UserProfile = () => {
         )
     } else {
         return (
-            <div className="main">
-                <div>
-                    <table>
+            <>
+                <div className="profile-header">
+                    <h1>Profile</h1>
+                </div>
+                <div className="profile-main">
+                    <table className="table table-striped">
                         <thead>
                             <tr>
                                 <th>Date</th>
@@ -47,7 +50,7 @@ const UserProfile = () => {
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </>
         )
     }
 }

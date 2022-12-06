@@ -115,17 +115,6 @@ const TriviaGame = () => {
     return new Promise((res) => setTimeout(res, delay));
   };
 
-  const showState = () => {
-    console.log("STATE QUESTION: ", question);
-    console.log("POSSIBLE ANSWERS:", possibleAnswers);
-    console.log("CORRECT ANSWER:", correctAnswer);
-    console.log("CURR CATEGORY:", category)
-    console.log("CURR DIFFICULTY:", difficulty);
-    console.log("COUNT:", count);
-    console.log("CURR CATEGORY list:", categories_list)
-    console.log("CURR DIFFICULTY obj:", difficultyDict);
-  };
-
   const shuffle = (array) => {
     /* Randomly interchanging the answers order */
     for (let i = array.length - 1; i > 0; i--) {
@@ -262,6 +251,10 @@ const TriviaGame = () => {
                 </div>
               ) : (
                 <div>
+                  <div>
+                    <h2> Select game options</h2>
+                  </div>
+
                   <div className="categoryform">
                     <FormControl fullWidth>
                       <InputLabel id="selectCategoryLabel" className="selectlabel">Category:</InputLabel>
@@ -298,6 +291,7 @@ const TriviaGame = () => {
                     </FormControl>
                   </div>
 
+
                   <div className="holder">
                     <Button
                       className="holder"
@@ -321,7 +315,7 @@ const TriviaGame = () => {
               </h1> */}
               <div className="score_container">
                 <h1 className="timerStyle" variant="contained">
-                  {" "}
+                  Score: {" "}
                   {score}{" "}
                 </h1>
               </div>
@@ -349,6 +343,7 @@ const TriviaGame = () => {
             </div>
           )
           }
+          <div style={{ 'visibility':'hidden'}}><Soundtrack /></div>
         </div >
       </>
     );
