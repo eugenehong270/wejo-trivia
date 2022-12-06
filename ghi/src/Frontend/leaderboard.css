@@ -1,7 +1,7 @@
 .header {
   display: flex;
   justify-content: center;
-  color: white;
+  color: rgb(235, 121, 14);
 }
 
 .main {
