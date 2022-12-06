@@ -3,14 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../store/api';
 import { useEffect, useState } from 'react';
 import { eventTargetSelector as target, preventDefault } from '../store/utils';
-import { showModal, updateField, LOG_IN_MODAL } from '../store/userSlice';
+import { updateField, LOG_IN_MODAL } from '../store/userSlice';
 import Notification from './Notification';
 import { useNavigate, Link } from 'react-router-dom'
-import "../modal.css"
+import "../style/modal.css"
 
 function LoginModal() {
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const dispatch = useDispatch();
   const { show, setShow, username, password } = useSelector(state => state.user);
   const modalClass = `modal ${show === LOG_IN_MODAL ? 'is-active' : ''}`;

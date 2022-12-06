@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetGamesQuery } from "../store/api";
-import "../Frontend/leaderboard.css"
+import "../style/leaderboard.css"
 
 
 

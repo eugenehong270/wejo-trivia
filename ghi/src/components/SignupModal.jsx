@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useSignUpMutation } from '../store/api';
 import { useEffect, useState } from 'react';
 import { eventTargetSelector as target, preventDefault } from '../store/utils';
-import { showModal, updateField, SIGN_UP_MODAL } from '../store/userSlice';
+import { updateField, SIGN_UP_MODAL } from '../store/userSlice';
 import Notification from './Notification';
 import { useNavigate, Link } from 'react-router-dom'
 

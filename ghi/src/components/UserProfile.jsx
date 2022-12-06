@@ -1,15 +1,13 @@
 import React from 'react'
-import { useDeleteScoreMutation, useGetTokenQuery, useGetUserGamesQuery } from "../store/api";
+import { useDeleteScoreMutation, useGetTokenQuery, useGetUserGamesQuery, useGetUserStatsQuery } from "../store/api";
 import LoginModal from './LoginModal';
-import '../Frontend/profile.css'
+import '../style/profile.css'
 
 const UserProfile = () => {
     const { data: tokenData } = useGetTokenQuery();
     const { data } = useGetUserGamesQuery();
+    const { data: stats } = useGetUserStatsQuery();
     const [deleteScore] = useDeleteScoreMutation();
-
-    console.log(tokenData);
-    console.log(data);
 
     if (!tokenData) {
         return (

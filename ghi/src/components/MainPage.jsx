@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import "../Frontend/starsStyle.css"
-import "../Frontend/mainPage.css"
-import "../Frontend/newbutton.css"
+import "../style/starsStyle.css"
+import "../style/mainPage.css"
+import "../style/newbutton.css"
 
 
 const MainPage = () => {

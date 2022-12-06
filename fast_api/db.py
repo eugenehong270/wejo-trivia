@@ -5,8 +5,6 @@ pool = ConnectionPool(conninfo=os.environ["DATABASE_URL"])
 
 
 class GameQueries:
-    #  leaderboard by single game vs total (avg) points per user?
-    #  look into point scheme functionality using if "difficulty" conditions
     def get_user_games(self, user_id):
         with pool.connection() as conn:
             with conn.cursor() as cur:
@@ -29,6 +27,30 @@ class GameQueries:
                     game = self.game_record_to_dict(row, cur.description)
                     games.append(game)
                 return games
+
+    def get_user_stats(self, user_id):
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT u.id as user_id, AVG(g.points) as avg_score,
+                        COUNT(g.id) as total_games, MAX(g.points) as highest_score
+                    FROM users u
+                    INNER JOIN games g ON(u.id = g.user_id)
+                    WHERE g.user_id= %s
+                    GROUP BY u.id
+
+                    """,
+                    [user_id],
+                )
+
+                record = None
+                row = cur.fetchone()
+                if row is not None:
+                    record = {}
+                    for i, column in enumerate(cur.description):
+                        record[column.name] = row[i]
+                return record
 
     def get_games(self):
         with pool.connection() as conn:
@@ -105,6 +127,26 @@ class GameQueries:
                     """,
                     [game_id],
                 )
+
+    def stat_record_to_dict(self, row, description):
+        stat = None
+        if row is not None:
+            stat = {}
+            stat_fields = ["avg_score", "total_games", "highest_score"]
+            for i, column in enumerate(description):
+                if column.name in stat_fields:
+                    stat[column.name] = row[i]
+
+            user = {}
+            user_fields = ["user_id", "username"]
+            for i, column in enumerate(description):
+                if column.name in user_fields:
+                    user[column.name] = row[i]
+                user["id"] = user["user_id"]
+
+            stat["user"] = user
+
+        return stat
 
     def game_record_to_dict(self, row, description):
         game = None
