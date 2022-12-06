@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetUserGamesQuery } from "../store/api";
+import { useGetGamesQuery } from "../store/api";
 import "../Frontend/leaderboard.css"
 
 
@@ -8,7 +8,7 @@ import "../Frontend/leaderboard.css"
 
 function GamesList() {
     // const { data, error, isLoading } = useGetGamesQuery();
-    const { data, isLoading } = useGetUserGamesQuery();
+    const { data, isLoading } = useGetGamesQuery();
     // const handleClick = (e) => {
     //     console.log(e.target)
     // };

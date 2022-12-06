@@ -68,7 +68,7 @@ export const apiSlice = createApi({
         method: 'delete',
         credentials: 'include',
       }),
-      invalidatesTags: ['User', 'Token'],
+      invalidatesTags: ['User', 'Token','Games'],
     }),
     getToken: builder.query({
       query: () => ({

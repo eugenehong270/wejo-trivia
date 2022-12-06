@@ -1,17 +1,20 @@
-// import { NavLink } from "react-router-dom";
 import { React, useEffect } from 'react'
 import { Nav, NavLink, NavMenu } from "./NavBarElements"
 import { useLogOutMutation, useGetTokenQuery } from '../store/api';
 import { useNavigate } from 'react-router-dom';
 import Logo from "../images/logo-no-background.png"
 import '../Frontend/mainPage.css'
+import { apiSlice } from '../store/api';
+import { useDispatch } from 'react-redux';
 
 function LogoutButton() {
   const navigate = useNavigate();
   const [logOut, { data }] = useLogOutMutation();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (data) {
+      dispatch(apiSlice.util.resetApiState());
       navigate('/');
     }
   }, [data, navigate]);
