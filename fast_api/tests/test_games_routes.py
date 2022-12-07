@@ -16,6 +16,9 @@ class GameQueriesMock:
         response.update(game)
         return response
 
+    def get_user_games(self, user_id):
+        return []
+
 
 def test_list_games():
     # arrange
@@ -43,10 +46,25 @@ def test_create_game():
         "date": "2022-12-01",
         "category": "Random",
         "difficulty": "Mixed",
-        "points": 150
+        "points": 150,
     }
     response = client.post("/api/games", json.dumps(game))
 
     assert response.status_code == 200
     assert response.json()["category"] == "Random"
     assert response.json()["user"]["id"] == 123
+
+
+def test_list_user_games():
+    # Arrange
+    app.dependency_overrides[GameQueries] = GameQueriesMock
+    user = {"id": 123, "username": "waylen"}
+    app.dependency_overrides[
+        authenticator.get_current_account_data
+    ] = lambda: user
+    response = client.get("/api/user/games")
+
+    assert response.status_code == 200
+    assert response.json() == {"games": []}
+
+    app.dependency_overrides = {}
