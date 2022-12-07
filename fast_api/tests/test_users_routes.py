@@ -21,16 +21,10 @@ class UserQueriesMock:
 
 
 def test_create_user():
-    # Arrange
     app.dependency_overrides[UserQueries] = UserQueriesMock
     user = {
         "username": "Trivia God",
         "password": "Cheese",
     }
-
-    # Act
     response = client.post("/api/users", json.dumps(user))
-    # Assert
-    # 1. get a 200
-    # 2. should *call* queries.create_user
     assert response.status_code == 401
