@@ -13,3 +13,5 @@
 12/1/22: Today I made great progress on the nav bar and home page design. Kinking out some bugs.
 
 12/5/22: Significant progress was made on the front end. The login/signup modals look much cleaner as unecessary space was taken out. The game play page was improved as well. The project is at a point where I would be comfortable showing it to other people. Many improvements can be made.
+
+12/6/22: Today was a slow day. Progress was made on the front end and others made progress on the users profile page. The project is wrapping up nicely.
