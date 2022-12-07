@@ -37,7 +37,7 @@ build-front-end-job:
     - fast_api-unit-test-job
     - lint-test-job
   variables:
-    PUBLIC_URL: https://ehong270.gitlab.io/module3-project-gamma/
+    PUBLIC_URL: https://ehong270.gitlab.io/module3-project-gamma
     REACT_APP_SAMPLE_SERVICE_API_HOST: https://wejo-games.onrender.com
   script:
     - cd ghi
