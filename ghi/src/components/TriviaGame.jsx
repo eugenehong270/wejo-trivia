@@ -7,8 +7,7 @@ import { useGetCategoriesQuery, useGetTriviaQuestionsQuery } from "../store/triv
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import wrongAudio from "../assets/audio/wrong.mp3";
 import correctAudio from "../assets/audio/correct.mp3";
-import "../trivia.css";
-import Soundtrack from "./Soundtrack";
+import "../style/trivia.css";
 import LoginModal from "./LoginModal";
 
 
@@ -34,6 +33,7 @@ const TriviaGame = () => {
   const [possibleAnswers, setPossibleAnswers] = useState([]) // List of all answers ( correct + incorrect ones) for a specific question
   const [gameEnded, setGameEnded] = useState(false);
   const [isAnswerSelected, setIsAnswerSelected] = useState(false);
+
   const [count, setCount] = useState(0)
   let tempCount = 0
 
@@ -168,7 +168,9 @@ const TriviaGame = () => {
 
   const startQuiz = async () => {
     setQuizStarted(true);
-    setCategoryName(categories_list[categoryID - 9]['name'])
+    if (categoryID !== '') {
+      setCategoryName(categories_list[categoryID - 9]['name'])
+    }
     getQuestion(count);
     incrementCount();
   };
@@ -331,7 +333,6 @@ const TriviaGame = () => {
 
               <h1> GAME OVER! </h1>
               <h1> Your final score is {score} points.</h1>
-              {/* <h1> ENDED GAME! Maximum score is: {maximumPossibleScore} !</h1> */}
               <Button
                 className="font_large centeredDiv"
                 variant="contained"
@@ -342,7 +343,6 @@ const TriviaGame = () => {
             </div>
           )
           }
-          {/* <div><Soundtrack /></div> */}
         </div >
       </>
     );
