@@ -21,19 +21,14 @@ fast_api-unit-test-job:
     - python -m pytest
 
 
-
-
 # Build the React/JavaScript front-end
 build-front-end-job:
   stage: build
   image: node:lts-bullseye
   needs:
+    - fast_api-unit-test-job
     - lint-test-job
   variables:
-    # If either of these variables is defined in the GitLab
-    # CI/CD variables, that value will override the value here.
-    # You need to substitute in your real values for
-    # GROUP_NAME, PROJECT_NAME, & WEBSERVICE_NAME below.
     PUBLIC_URL: https://ehong270.gitlab.io/module3-project-gamma/
     REACT_APP_SAMPLE_SERVICE_API_HOST: https://WEBSERVICE_NAME.onrender.com
   script:

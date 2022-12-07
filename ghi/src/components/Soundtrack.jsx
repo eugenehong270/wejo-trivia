@@ -26,8 +26,8 @@ import jazz from '../assets/music/jazz_lofi_freestyle.mp3'
 
 // #region -------- Styled Components -----------------------------------------
 const Div = styled('div')(({ theme }) => ({
-  backgroundColor: 'black',
-  height: '100vh',
+  backgroundColor: 'none',
+  height: '50vh',
   width: '100vw',
   paddingTop: theme.spacing(6)
 }))
