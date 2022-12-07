@@ -52,14 +52,15 @@ async def create_user(
     token = await authenticator.login(response, request, form, queries)
     return UserToken(user=user, **token.dict())
 
+
 @router.get("/token", response_model=UserToken | None)
 async def get_token(
     request: Request,
-    user: dict = Depends(authenticator.try_get_current_account_data)
+    user: dict = Depends(authenticator.try_get_current_account_data),
 ) -> UserToken | None:
     if user and authenticator.cookie_name in request.cookies:
         return {
             "access_token": request.cookies[authenticator.cookie_name],
             "type": "Bearer",
-            "user": user
+            "user": user,
         }
