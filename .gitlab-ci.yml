@@ -22,6 +22,17 @@ lint-test-job:
 #     - pip install -r requirements.txt
 #     - python -m pytest
 
+fast_api-unit-test-job:
+  image: module3-project-gamma-fast_api
+  stage: test
+  script:
+    - fast_api
+    - pip install -r requirements.txt
+    - python -m pytest
+
+
+
+
 # Build the React/JavaScript front-end
 build-front-end-job:
   stage: build
