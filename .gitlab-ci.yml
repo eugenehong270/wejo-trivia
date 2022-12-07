@@ -3,6 +3,14 @@ stages:
   - build
   - deploy
 
+services:
+  - postgres:14.2-bullseye
+
+
+variables:
+  POSTGRES_PASSWORD: trivia
+  DATABASE_URL: postgresql://trivia:trivia@db/trivia
+
 fast_api-unit-test-job:
   image: python:3-bullseye
   stage: test
