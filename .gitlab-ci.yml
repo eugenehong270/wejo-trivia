@@ -3,12 +3,21 @@ stages:
   - build
   - deploy
 
+fast_api-unit-test-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - cd fast_api
+    - pip install -r requirements.txt
+    - python -m pytest
+
 # Run flake8 to check for code quality
 lint-test-job:
   image: python:3-bullseye
   stage: test
   script:
     - pip install flake8
+<<<<<<< HEAD
     - flake8 sample_service
 
 
@@ -20,6 +29,9 @@ fast_api-unit-test-job:
     - pip install -r requirements.txt
     - python -m pytest
 
+=======
+    - flake8 fast_api
+>>>>>>> 99f890a413e9e0ad6002b2a314c096dafef10ffe
 
 # Build the React/JavaScript front-end
 build-front-end-job:
