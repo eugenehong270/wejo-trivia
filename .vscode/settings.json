@@ -11,5 +11,7 @@
   },
   "[javascript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
-  }
+  },
+  "python.linting.flake8Enabled": true,
+  "python.linting.enabled": true
 }

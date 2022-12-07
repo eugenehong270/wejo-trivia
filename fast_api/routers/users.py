@@ -5,7 +5,7 @@ from db import UserQueries
 
 router = APIRouter()
 
-# shape of user data going in to database
+
 class UserIn(BaseModel):
     username: str
     password: str
@@ -29,6 +29,7 @@ def users_list(queries: UserQueries = Depends()):
     return {
         "users": queries.get_all_users(),
     }
+
 
 @router.get("/api/users/{user_id}", response_model=UserOut)
 def get_user(

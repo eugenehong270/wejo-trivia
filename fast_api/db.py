@@ -34,7 +34,8 @@ class GameQueries:
                 cur.execute(
                     """
                     SELECT u.id as user_id, AVG(g.points) as avg_score,
-                        COUNT(g.id) as total_games, MAX(g.points) as highest_score
+                        COUNT(g.id) as total_games,
+                        MAX(g.points) as highest_score
                     FROM users u
                     INNER JOIN games g ON(u.id = g.user_id)
                     WHERE g.user_id= %s
