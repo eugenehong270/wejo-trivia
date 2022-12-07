@@ -21,10 +21,14 @@
 ## Tests
 
 1. Waylen
-    [Test List Games](/fast_api/tests/test_games_routes.py)
-    [Test Create Game Score](/fast_api/tests/test_games_routes.py)
-    [Test Get Token Returns None For User Not Logged In](/fast_api/tests/test_get_token.py)
-    [Test Get Token Returns Token For User Logged In](/fast_api/tests/test_get_token.py)
+   [Test List Games](/fast_api/tests/test_games_routes.py)
+   [Test Create Game Score](/fast_api/tests/test_games_routes.py)
+   [Test Get Token Returns None For User Not Logged In](/fast_api/tests/test_get_token.py)
+   [Test Get Token Returns Token For User Logged In](/fast_api/tests/test_get_token.py);
+
+2. Jonathan
+   [Test Create User](/fast_api/tests/test_users_routes.py)
+
 ## Deliverables
 
 [X]Signup
@@ -38,8 +42,11 @@
 [X]User Profile
 
 [X]Leaderboard
+
 ## Stretch Goals
 
 []Social Network
 
 []Additional Games
+
+[]Musical Component

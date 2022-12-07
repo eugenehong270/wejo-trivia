@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   font-style: italic;
+  font-size: 3fr;
   letter-spacing: 3px;
   color: rgb(235, 121, 14);
 }
