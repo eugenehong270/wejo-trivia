@@ -18,18 +18,10 @@ class GameQueriesMock:
 
 
 def test_list_games():
-    # arrange
     app.dependency_overrides[GameQueries] = GameQueriesMock
-
-    # act
     response = client.get("/api/games")
-    # assert
-    # 1. get a 200
     assert response.status_code == 200
-    # 2. should *call* queries.get_games()
     assert response.json() == {"games": []}
-
-    # cleanup
     app.dependency_overrides = {}
 
 
@@ -43,7 +35,7 @@ def test_create_game():
         "date": "2022-12-01",
         "category": "Random",
         "difficulty": "Mixed",
-        "points": 150
+        "points": 150,
     }
     response = client.post("/api/games", json.dumps(game))
 
