@@ -13,7 +13,7 @@ lint-test-job:
 
 
 fast_api-unit-test-job:
-  image: module3-project-gamma-fast_api-1
+  image: module3-project-gamma-fast_api
   stage: test
   script:
     - cd fast_api
