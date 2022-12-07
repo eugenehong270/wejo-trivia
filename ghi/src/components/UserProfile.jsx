@@ -24,8 +24,8 @@ const UserProfile = () => {
                 <div className="profile-header">
                     <h1>Profile</h1>
                 </div>
-                <div className="profile-main" style={{ paddingBottom: '3em', color: 'white' }} >
-                    <h1 style={{ paddingLeft: '1em' }}>Your Stats  </h1>
+                <div className="profile-main" >
+                    <h1 className='your-stats'>Your Stats  </h1>
                     <table className="table table-striped">
                         <thead>
                             <tr>
@@ -47,7 +47,7 @@ const UserProfile = () => {
                 </div>
 
                 <div className="profile-main">
-                    <h1 className="profile-header" style={{ paddingLeft: '1em', color: 'white' }}>Game History </h1>
+                    <h1 className="game-history">Game History </h1>
                     <table className="table table-striped">
                         <thead>
                             <tr>
