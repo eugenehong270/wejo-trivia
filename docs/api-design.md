@@ -9,13 +9,12 @@
 
 * Response: Account information and a token
 * Response shape (JSON):
-    ```json
-    {
-      "account": {
+    `{
+      "user": {
         «key»: type»,
       },
       "token": varchar
-    }
+    }'
     ```
 
 ### Log out
@@ -34,7 +33,7 @@
 
 ### Sign up
 
-* Endpoint path: /signup
+* Endpoint path: /users
 * Endpoint method: POST
 
 * Request shape (form):
@@ -47,22 +46,14 @@
     ```json
     {
       "username": varchar,
-      "password": varchar,
-      "email": varchar
+      "password": varchar
     }
     ```
 
 ### Retrieve All Categories
 
-Endpoint path: /categories
+Endpoint path: https://opentdb.com/api_category.php
 Endpoint method : GET
-
-Query parameters:
-    * id: smallint
-    * name: varchar
-
-Headers:
-    content_type: application/json
 
 Response shape(JSON):
 '{   "categories": [
@@ -73,15 +64,12 @@ Response shape(JSON):
 }'
 ### Retrieve Trivia Questions
 
-Endpoint path: /questions
+Endpoint path: https://opentdb.com/api.php?amount=10&category=&difficulty=
 Endpoint method : GET
 
 Query parameters:
     * category: id
     * difficulty: varchar
-
-Headers:
-    content_type: application/json
 
 Response shape(JSON):
 '{   "results": [
@@ -97,7 +85,7 @@ Response shape(JSON):
 }'
 ### Create Game Score
 
-Endpoint path: /gamescores/
+Endpoint path: /games
 Endpoint method : POST
 
 Headers:
@@ -105,58 +93,78 @@ Headers:
     * content_type: application/json
 
 Request Shape (form):
-  * points: smallint
+  * date: date
+  * category: varchar
   * difficulty: varchar
-  * category: id
+  * points: smallint
+  * user_id: smallint
 
 Response Shape(JSON):
   {
-    "username": varchar,
-    "points": smallint,
+    "date" : date,
+    "category": varchar,
     "difficulty": varchar,
-    "category": id
-    "date" : date
+    "points": smallint,
+    "user": {
+      "id": smallint,
+      "username": varchar
+    }
   }
 
-## Retrieve Leader Game Scores
+## Retrieve Leaderboard Game Scores
 
-Endpoint path: /gamescores/leaders
+Endpoint path: /games
 Endpoint method: GET
 
-Headers:
-    * Authorization: Bearer token
-    * content_type: application/json
-
 Response Shape(JSON):
-'{  'leaders':  [
+'{  'games':  [
     {
-      "id" : serial,
-      "username" : varchar,
-      "points" : smallint,
-      "difficulty" : varchar,
-      "category" : varchar,
-      "date" : date
-    },
+    "date" : date,
+    "category": varchar,
+    "difficulty": varchar,
+    "points": smallint,
+    "user": {
+      "id": smallint,
+      "username": varchar
+      }
+    }
   ]
 }'
 ## Retrieve User Game Scores
 
-Endpoint path: /gamescores/me/
+Endpoint path: /user/games
 Endpoint method: GET
 
 Headers:
     * Authorization: Bearer token
-    * content_type: application/json
 
 Response Shape(JSON):
-'{  'my_games': [
+'{  'games':  [
     {
-      "id" : serial,
-      "username" : varchar,
-      "points" : smallint,
-      "difficulty" : varchar,
-      "category" : varchar,
-      "date" : date
-    },
+    "date" : date,
+    "category": varchar,
+    "difficulty": varchar,
+    "points": smallint,
+    "user": {
+      "id": smallint,
+      "username": varchar
+      }
+    }
   ]
+}'
+
+## Retrieve User Stats
+
+Endpoint path: /user/stats
+Endpoint method: GET
+
+Headers:
+    * Authorization: Bearer token
+
+Response Shape(JSON):
+'{
+  "user_id": smallint,
+  "avg_score": smallint,
+  "total_games": smallint,
+  "highest_score": 39
 }'

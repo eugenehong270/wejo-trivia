@@ -2,12 +2,7 @@ import React from "react";
 import { useGetGamesQuery } from "../store/api";
 import "../style/leaderboard.css"
 
-
-
-
-
 function GamesList() {
-    // const { data, error, isLoading } = useGetGamesQuery();
     const { data, isLoading } = useGetGamesQuery();
     // const handleClick = (e) => {
     //     console.log(e.target)

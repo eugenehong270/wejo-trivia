@@ -21,10 +21,33 @@ const UserProfile = () => {
     } else {
         return (
             <>
-                <div className="profile-header">
+                <div className="profile-header" style={{ paddingBottom: '5em' }}>
                     <h1>Profile</h1>
                 </div>
+                <div className="profile-header" style={{ paddingBottom: '5em', color: 'white' }} >
+                    <h1 style={{ paddingLeft: '2em' }}>Your stats  </h1>
+                    <table className="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Highest score</th>
+                                <th>Average Score</th>
+                                <th>Total Games</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr key={stats?.id}>
+                                <td>{stats?.highest_score}</td>
+                                <td>{stats?.avg_score}</td>
+                                <td>{stats?.total_games}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+
                 <div className="profile-main">
+                    <h1 className="profile-header" style={{ paddingLeft: '2em', color: 'white' }}>Game History </h1>
                     <table className="table table-striped">
                         <thead>
                             <tr>

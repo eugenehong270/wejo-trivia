@@ -15,7 +15,7 @@ def test_get_token_returns_none_for_user_not_logged_in():
     assert response.json() == None
 
 
-def test_get_token_returns_none_for_user_not_logged_in():
+def test_get_token_returns_token_for_user_logged_in():
     user = {"id": 123, "username": "waylen"}
     app.dependency_overrides[
         authenticator.try_get_current_account_data
