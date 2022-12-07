@@ -9,7 +9,7 @@ services:
 
 variables:
   POSTGRES_PASSWORD: trivia
-  DATABASE_URL: postgresql://trivia:trivia@db/trivia
+  DATABASE_URL: postgres://trivia_gbmj_user:0ltswBErYkmq0LmcfkQKpGBR775jJEqG@dpg-ce8gqgcgqg46a85fv88g-a/trivia_gbmj
 
 fast_api-unit-test-job:
   image: python:3-bullseye
