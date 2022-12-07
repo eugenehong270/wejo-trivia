@@ -17,7 +17,7 @@ function LogoutButton() {
       dispatch(apiSlice.util.resetApiState());
       navigate('/');
     }
-  }, [data, navigate]);
+  }, [data, dispatch, navigate]);
 
   return (
     <NavLink show={false} onClick={logOut}>
@@ -34,7 +34,7 @@ function Navbar() {
       <Nav>
         {token
           ? <h3 className='welcome neonText'>Welcome, {token?.user.username}</h3>
-          : <h3></h3>}
+          : <h3>{" "}</h3>}
         <NavLink to="/">
           <img className="logo" src={Logo} width="70" alt="Logo" />
         </NavLink>
@@ -52,7 +52,7 @@ function Navbar() {
             ? <NavLink show={true} to="user/signup" activeStyle >
               Sign Up
             </NavLink>
-            : <h3></h3>}
+            : <h3>{" "}</h3>}}
           <NavLink to="trivia/start">
             Trivia
           </NavLink>
@@ -63,7 +63,7 @@ function Navbar() {
             ? <NavLink show={true} to="user/profile">
               Profile
             </NavLink>
-            : <h3></h3>}
+            : <h3>{" "}</h3>}}
         </NavMenu>
       </Nav>
     </>

@@ -10,7 +10,7 @@ import "../style/modal.css"
 
 function LoginModal() {
   const dispatch = useDispatch();
-  const { show, setShow, username, password } = useSelector(state => state.user);
+  const { show, username, password } = useSelector(state => state.user);
   const modalClass = `modal ${show === LOG_IN_MODAL ? 'is-active' : ''}`;
   const [logIn, result] = useLoginMutation();
   const navigate = useNavigate()
@@ -38,10 +38,6 @@ function LoginModal() {
           <div className={modalClass} key="login-modal">
             <div className="modal-content">
               <div className="box content">
-                <div className="close-btn">
-                  <a href="#">×</a>
-
-                </div>
                 <h1>Login</h1>
                 {error ? <Notification type="danger">{error.data.detail}</Notification> : null}
                 <form method="POST" onSubmit={preventDefault(logIn, target)}>

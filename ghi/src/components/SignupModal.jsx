@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSignUpMutation } from '../store/api';
 import { useEffect, useState } from 'react';
-import { eventTargetSelector as target, preventDefault } from '../store/utils';
+import { preventDefault } from '../store/utils';
 import { updateField, SIGN_UP_MODAL } from '../store/userSlice';
 import Notification from './Notification';
 import { useNavigate, Link } from 'react-router-dom'
@@ -20,7 +20,6 @@ function SignupModal() {
     )
 
     useEffect(() => {
-        console.log(username, password)
         if (result.isSuccess) {
             navigate("/trivia/start")
         } else if (result.isError) {
@@ -36,10 +35,6 @@ function SignupModal() {
                     <div className={modalClass} key="signup-modal">
                         <div className="modal-content">
                             <div className="box content">
-                                <div className="close-btn">
-                                    <a href="#">×</a>
-
-                                </div>
                                 <h1>Sign Up</h1>
                                 {error ? <Notification type="danger">{error.data.detail}</Notification> : null}
                                 <form method="POST" onSubmit={preventDefault(signUp, () => ({
