@@ -22,8 +22,7 @@ function LoginModal() {
 
   useEffect(() => {
     if (result.isSuccess) {
-      // handleClose()
-      navigate("/trivia/start");
+      navigate("/module3-project-gamma/trivia/start");
     } else if (result.isError) {
       setError(result.error);
     }
@@ -50,7 +49,7 @@ function LoginModal() {
                   <div className="field is-grouped">
                     <input type="submit" name="login" defaultValue="Login" />
                     <div className='myholder'>
-                      <h4>Don't have an account?<Link to="/user/signup">Create Account</Link></h4>
+                      <h4>Don't have an account?<Link to="/module3-project-gamma/user/signup">Create Account</Link></h4>
                     </div>
                   </div>
                 </form>

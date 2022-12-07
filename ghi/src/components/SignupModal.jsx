@@ -21,7 +21,7 @@ function SignupModal() {
 
     useEffect(() => {
         if (result.isSuccess) {
-            navigate("/trivia/start")
+            navigate("/module3-project-gamma/trivia/start")
         } else if (result.isError) {
             setError(result.error)
         }

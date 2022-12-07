@@ -35,32 +35,32 @@ function Navbar() {
         {token
           ? <h3 className='welcome neonText'>Welcome, {token?.user.username}</h3>
           : <h3>{" "}</h3>}
-        <NavLink to="/">
+        <NavLink to="/module3-project-gamma/">
           <img className="logo" src={Logo} width="70" alt="Logo" />
         </NavLink>
         <NavMenu>
           {tokenLoading
-            ? <NavLink show={false} to="user/login" activeStyle>
+            ? <NavLink show={false} to="/module3-project-gamma/user/login" activeStyle>
               Login
             </NavLink>
             : token
               ? <LogoutButton />
-              : <NavLink show={false} to="user/login" activeStyle>
+              : <NavLink show={false} to="/module3-project-gamma/user/login" activeStyle>
                 Login
               </NavLink>}
           {!token
-            ? <NavLink show={true} to="user/signup" activeStyle >
+            ? <NavLink show={true} to="/module3-project-gamma/user/signup" activeStyle >
               Sign Up
             </NavLink>
             : <h3>{" "}</h3>}}
-          <NavLink to="trivia/start">
+          <NavLink to="/module3-project-gamma/trivia/start">
             Trivia
           </NavLink>
-          <NavLink to="trivia/leaderboard">
+          <NavLink to="/module3-project-gamma/trivia/leaderboard">
             Leaderboard
           </NavLink>
           {token
-            ? <NavLink show={true} to="user/profile">
+            ? <NavLink show={true} to="/module3-project-gamma/user/profile">
               Profile
             </NavLink>
             : <h3>{" "}</h3>}}
