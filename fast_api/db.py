@@ -230,7 +230,6 @@ class UserQueries:
                     params,
                 )
 
-                # Why do we set user = None here?
                 user = None
                 row = cur.fetchone()
                 if row is not None:
