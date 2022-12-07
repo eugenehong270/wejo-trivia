@@ -5,7 +5,7 @@ from db import GameQueries
 from routers.auth import authenticator
 
 
-client = TestClient(app)  # replacing swagger in code
+client = TestClient(app)
 
 
 class GameQueriesMock:
@@ -22,7 +22,7 @@ class GameQueriesMock:
 
     def get_user_games(self, user_id):
         return []
-    #Ovidiu
+
     def get_user_stats(self, user_id):
         highest_score = -1
         total_games = 0
@@ -39,8 +39,9 @@ class GameQueriesMock:
             "user_id": user_id,
             "avg_score": average_score,
             "total_games": total_games,
-            "highest_score": highest_score
+            "highest_score": highest_score,
         }
+
 
 def test_list_games():
     app.dependency_overrides[GameQueries] = GameQueriesMock
@@ -70,7 +71,6 @@ def test_create_game():
 
 
 def test_list_user_games():
-    # Arrange
     app.dependency_overrides[GameQueries] = GameQueriesMock
     user = {"id": 123, "username": "waylen"}
     app.dependency_overrides[
@@ -82,12 +82,13 @@ def test_list_user_games():
     assert response.json() == {"games": []}
 
     app.dependency_overrides = {}
-#Ovidiu
+
+
 def test_get_user_stats():
     app.dependency_overrides[GameQueries] = GameQueriesMock
     user = {"id": 1213, "username": "Ovidiu"}
     app.dependency_overrides[
-    authenticator.get_current_account_data
+        authenticator.get_current_account_data
     ] = lambda: user
 
     # Added a game

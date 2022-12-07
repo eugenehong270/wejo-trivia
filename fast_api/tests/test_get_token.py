@@ -2,7 +2,7 @@ from fastapi.testclient import TestClient
 from main import app
 from routers.auth import authenticator
 
-client = TestClient(app)  # replacing swagger in code
+client = TestClient(app)
 
 
 def test_get_token_returns_none_for_user_not_logged_in():
