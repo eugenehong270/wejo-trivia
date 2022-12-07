@@ -40,8 +40,11 @@ Yesterday and today we polished aspects of the game, implementing the drop down 
 We have to finish styling the site, write up our docs, compose our tests and implement our CI/CD next week. A lot to do, but I'm confident we will get there as a team!
 
 2022-12-04
-Spent all day today trying to fix the issue with the timer not correclty updating the count. Was still running into the issue of asynchronous state update calls. After another hellishly frustrating day of working on it I realized I shouldn’t be trying to do EITHER OR (either state for count-only works for selection or let / variable for count-only works for timer). I should be doing BOTH AND.
+Spent all day today trying to fix the issue with the timer not correctly updating the count. Was still running into the issue of asynchronous state update calls. After another hellishly frustrating day of working on it I realized I shouldn’t be trying to do EITHER OR (either state for count-only works for selection or let / variable for count-only works for timer). I should be doing BOTH AND.
 So I changed getQuestion to accept current count, which has to be passed in when that’s called. Then initialized a tempCount variable not in state that updates upon timer reaching 0, and “talks” to state count. They basically respond to each other updating so they stay current but this way the selection can update state and the timer can increment the variable and both get passed into getQuestion when needed.
 
 2022-12-05
 We have come so far, but it still feels like we have a lot to do over the final four days of our sprint. The user profile is lacking style and some basic functionality that I believe are important parts of the MVP. The leaderboard is similarly lacking style and any sort of filters. I'd be lying if I said I wasn't disappointed by the progress on those two components, as I've put all my efforts into getting the back end functionality, front end RTK integration, and game play to work properly. I am optimistic we will still get across the finish line with a decent suite of features, but am worried it will come down to the wire. Today, I discovered late that the final score mutation was triggering twice, both times in the get question's try/catch block. Finally figured out this was because the timer was reaching 0 after the final score was sent, triggering getQuestion again and thus sending the score a second time. Added a conditional to the timer===0 block that took care of this.
+
+2022-12-06
+Closing in our final push towards CI/CD and project submission. 
