@@ -12,7 +12,7 @@ def test_get_token_returns_none_for_user_not_logged_in():
     response = client.get("/token")
     app.dependency_overrides = {}
     assert response.status_code == 200
-    assert response.json() == None
+    assert response.json() is None
 
 
 def test_get_token_returns_token_for_user_logged_in():

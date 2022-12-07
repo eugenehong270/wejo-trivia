@@ -11,7 +11,8 @@ class UserQueriesMock:
         response = {
             "id": 9876,
             "username": username,
-            "hash": "$2b$12$ypo/y5z324bpRx9Nh.VRF.tklSBEIVfPUOOez1ujd8HJLUEuoZgue",
+            "hash":
+            "$2b$12$ypo/y5z324bpRx9Nh.VRF.tklSBEIVfPUOOez1ujd8HJLUEuoZgue"
         }
         return response
 

@@ -114,7 +114,6 @@ def test_get_user_stats():
 
     _response = client.get("/api/user/stats")
 
-    # Should be 3 games, two from this function, and one from test_create_game():
     assert _response.status_code == 200
     assert _response.json()["avg_score"] == 160
     assert _response.json()["total_games"] == 3
