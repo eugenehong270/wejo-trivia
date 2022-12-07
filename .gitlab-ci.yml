@@ -20,9 +20,6 @@ fast_api-unit-test-job:
     - pip install -r requirements.txt
     - python -m pytest
 
-
-
-
 # Build the React/JavaScript front-end
 build-front-end-job:
   stage: build
