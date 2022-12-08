@@ -2,7 +2,7 @@ import "./App.css";
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from './components/Navbar'
-import { MainPage, UserProfile, TriviaGame, SignupModal, Soundtrack } from './components'
+import { MainPage, UserProfile, TriviaGame, SignupModal } from './components'
 import LoginModal from "./components/LoginModal";
 import GamesList from "./components/GamesList";
 
@@ -37,7 +37,7 @@ function App() {
           </Routes>
         </div>
       </Router>
-      <div><Soundtrack /></div>
+      {/* <div><Soundtrack /></div> */}
     </>
 
   );
