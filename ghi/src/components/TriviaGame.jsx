@@ -43,7 +43,7 @@ const TriviaGame = () => {
 
   //timer state
   const Ref = useRef(null);
-  const [timer, setTimer] = useState('00:10');
+  const [timer, setTimer] = useState('00:15');
 
   //timer functionality
   const getTimeRemaining = (e) => {
@@ -75,7 +75,7 @@ const TriviaGame = () => {
 
 
   const clearTimer = (e) => {
-    setTimer('00:10');
+    setTimer('00:15');
     if (Ref.current) clearInterval(Ref.current);
     const id = setInterval(() => {
       startTimer(e);
@@ -85,7 +85,7 @@ const TriviaGame = () => {
 
   const getDeadTime = () => {
     let deadline = new Date();
-    deadline.setSeconds(deadline.getSeconds() + 10);
+    deadline.setSeconds(deadline.getSeconds() + 15);
     return deadline;
   }
 
