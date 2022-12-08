@@ -173,6 +173,9 @@ const TriviaGame = () => {
     } else {
       setCategoryName('Mixed')
     }
+    if (queryDifficulty === '') {
+      setQueryDifficulty('Mixed')
+    }
     getQuestion(count);
     incrementCount();
   };
