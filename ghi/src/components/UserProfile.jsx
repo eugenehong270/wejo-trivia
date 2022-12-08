@@ -25,7 +25,7 @@ const UserProfile = () => {
                     <h1>Profile</h1>
                 </div>
                 <div className="profile-main" >
-                    <h1 className='your-stats'>Your Stats  </h1>
+                    <h1 className='your-stats'>Your Stats</h1>
                     <table className="table table-striped">
                         <thead>
                             <tr>
