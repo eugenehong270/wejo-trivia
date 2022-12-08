@@ -1,5 +1,9 @@
 .size {
-  font-size: 62px;
+  font-size: 50px;
+}
+
+.but{
+  text-decoration: none;
 }
 .content10 {
   font-family: "Times New Roman", Times, serif;
