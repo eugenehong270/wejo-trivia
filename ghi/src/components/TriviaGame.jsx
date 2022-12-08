@@ -11,7 +11,6 @@ import "../style/trivia.css";
 import LoginModal from "./LoginModal";
 import { useDispatch } from "react-redux";
 import { triviaApiSlice } from "../store/triviaApi";
-import { useNavigate } from 'react-router-dom';
 
 
 const TriviaGame = () => {
@@ -39,7 +38,6 @@ const TriviaGame = () => {
   const [isAnswerSelected, setIsAnswerSelected] = useState(false);
 
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const [count, setCount] = useState(0)
 
