@@ -148,19 +148,19 @@ const TriviaGame = () => {
       onClickStart();
     } catch (e) {
       setGameEnded(true)
-      sendFinalScore(score)
+      sendFinalScore(categoryName, queryDifficulty, score)
     };
   }
 
-  const sendFinalScore = async (currScore) => {
-    // if (currCat === '') {
-    //   setCategoryName('Mixed')
-    // }
-    // if (currDiff === '') {
-    //   setScoreDifficulty('Mixed')
-    // } else {
-    //   setScoreDifficulty(difficulties[queryDifficulty])
-    // }
+  const sendFinalScore = async (currCat, currDiff, currScore) => {
+    if (currCat === '') {
+      setCategoryName('Mixed')
+    }
+    if (currDiff === '') {
+      setScoreDifficulty('Mixed')
+    } else {
+      setScoreDifficulty(difficulties[currDiff])
+    }
     await createFinalScore({ formattedDate, categoryName, scoreDifficulty, currScore })
   }
 
@@ -228,7 +228,6 @@ const TriviaGame = () => {
     setQueryDifficulty('')
     setGameEnded(false)
     setQuizStarted(false)
-    dispatch(triviaApiSlice.util.resetApiState())
   }
 
   if (!tokenData) {
