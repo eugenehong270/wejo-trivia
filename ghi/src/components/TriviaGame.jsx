@@ -10,7 +10,7 @@ import correctAudio from "../assets/audio/correct.mp3";
 import "../style/trivia.css";
 import LoginModal from "./LoginModal";
 import { useDispatch } from "react-redux";
-import { apiSlice } from "../store/triviaApi";
+import { triviaApiSlice } from "../store/triviaApi";
 import { useNavigate } from "react-router-dom";
 
 
@@ -39,7 +39,6 @@ const TriviaGame = () => {
   const [isAnswerSelected, setIsAnswerSelected] = useState(false);
 
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const [count, setCount] = useState(0)
 
@@ -224,15 +223,14 @@ const TriviaGame = () => {
   };
 
   const restartGame = () => {
-    // setScore(0);
-    // setCount(0)
-    // setCategoryID('')
-    // setCategoryName('')
-    // setQueryDifficulty('')
-    // setGameEnded(false)
-    // setQuizStarted(false)
-    dispatch(apiSlice.util.resetApiState());
-    navigate('/module3-project-gamma/trivia/start')
+    dispatch(triviaApiSlice.util.invalidateTags());
+    setScore(0);
+    setCount(0);
+    setCategoryID('');
+    setCategoryName('');
+    setQueryDifficulty('');
+    setGameEnded(false);
+    setQuizStarted(false);
   }
 
   if (!tokenData) {
