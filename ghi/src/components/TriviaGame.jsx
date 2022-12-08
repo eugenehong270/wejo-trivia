@@ -113,7 +113,7 @@ const TriviaGame = () => {
   };
 
   const addScore = (currDiff) => {
-    setScore(score + 10 * scoresDictionary[currDiff]);
+    setScore((s) => s + 10 * scoresDictionary[currDiff]);
   };
 
   const timeout = (delay) => {
