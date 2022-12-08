@@ -200,7 +200,7 @@ const TriviaGame = () => {
 
     if (_curr_correct_answer === ans) {
       selectedAnswerButtonEl.classList.add("correct_btn");
-      addScore(difficulty);
+      setScore((s) => s + 10 * scoresDictionary[difficulty]);
       correctAudio_obj.play();
     } else {
       selectedAnswerButtonEl.classList.add("wrong_btn");
@@ -210,7 +210,7 @@ const TriviaGame = () => {
     setTimeout(() => {
       selectedAnswerButtonEl.classList.remove("correct_btn");
       selectedAnswerButtonEl.classList.remove("wrong_btn");
-    }, 1950);
+    }, 3000);
     incrementCount();
   };
 

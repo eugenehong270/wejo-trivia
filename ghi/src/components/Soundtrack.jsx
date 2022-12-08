@@ -24,6 +24,7 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 // #region ------- Tracts -------------------------------------------------------
 import charm from '../assets/music/charmaggedon.mp3';
 import jazz from '../assets/music/jazz_lofi_freestyle.mp3'
+import perfect from '../assets/music/a_perfect_love_wejo.mp3';
 // #endregion ---------------------------------------------------------------
 
 // #region -------- Styled Components -----------------------------------------
@@ -38,7 +39,7 @@ const Div = styled('div')(({ theme }) => ({
 // #endregion ---------------------------------------------------------------
 
 
-const playlist = [charm, jazz];
+const playlist = [charm, jazz, perfect];
 
 
 export default function Soundtrack() {
