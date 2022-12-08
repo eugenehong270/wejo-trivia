@@ -16,7 +16,7 @@
 }
 
 table {
-  table-layout: fixed;
+  table-layout: flex;
   width: 100%;
   border-collapse: collapse;
   /* background-color: lightsalmon;
@@ -24,23 +24,26 @@ table {
 }
 
 thead th:nth-child(1) {
-  width: 25%;
+  width: 20%;
 }
 
 thead th:nth-child(2) {
-  width: 25%;
+  width: 20%;
 }
 
 thead th:nth-child(3) {
-  width: 25%;
+  width: 20%;
 }
 
 thead th:nth-child(4) {
-  width: 25%;
+  width: 20%;
 }
 
+thead th:nth-child(5) {
+  width: 20%;
+}
 th {
-  letter-spacing: 2px;
+  letter-spacing: 4px;
 }
 
 td {

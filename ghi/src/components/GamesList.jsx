@@ -42,6 +42,7 @@ function GamesList() {
                                 <th scope="col">Name</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Category</th>
+                                <th scope="col">Difficulty</th>
                                 <th scope="col">Points</th>
                             </tr>
                         </thead>
@@ -51,6 +52,7 @@ function GamesList() {
                                     <td>{game.user.username}</td>
                                     <td>{game.date}</td>
                                     <td>{game.category}</td>
+                                    <td>{game.difficulty}</td>
                                     <td>{game.points}</td>
                                 </tr>
                             ))}
