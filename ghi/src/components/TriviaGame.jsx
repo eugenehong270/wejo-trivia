@@ -17,9 +17,10 @@ const TriviaGame = () => {
 
   const [categoryID, setCategoryID] = useState('')
   const [categoryName, setCategoryName] = useState('')
-  const [createFinalScore] = useAddScoreMutation('')
+  const [scoreDifficulty, setScoreDifficulty] = useState('')
   const [queryDifficulty, setQueryDifficulty] = useState('')
   const [difficulty, setDifficulty] = useState('');
+  const [createFinalScore] = useAddScoreMutation('')
 
   const { data: tokenData } = useGetTokenQuery();
   const { data: questionData } = useGetTriviaQuestionsQuery({ category: categoryID, difficulty: queryDifficulty });
@@ -42,7 +43,7 @@ const TriviaGame = () => {
 
   //timer state
   const Ref = useRef(null);
-  const [timer, setTimer] = useState('00:10');
+  const [timer, setTimer] = useState('00:15');
 
   //timer functionality
   const getTimeRemaining = (e) => {
@@ -74,7 +75,7 @@ const TriviaGame = () => {
 
 
   const clearTimer = (e) => {
-    setTimer('00:10');
+    setTimer('00:15');
     if (Ref.current) clearInterval(Ref.current);
     const id = setInterval(() => {
       startTimer(e);
@@ -84,7 +85,7 @@ const TriviaGame = () => {
 
   const getDeadTime = () => {
     let deadline = new Date();
-    deadline.setSeconds(deadline.getSeconds() + 10);
+    deadline.setSeconds(deadline.getSeconds() + 15);
     return deadline;
   }
 
@@ -157,11 +158,11 @@ const TriviaGame = () => {
       setCategoryName('Mixed')
     }
     if (currDiff === '') {
-      setQueryDifficulty('Mixed')
+      setScoreDifficulty('Mixed')
     } else {
-      setQueryDifficulty(difficulties[queryDifficulty])
+      setScoreDifficulty(difficulties[queryDifficulty])
     }
-    await createFinalScore({ formattedDate, categoryName, queryDifficulty, score })
+    await createFinalScore({ formattedDate, categoryName, scoreDifficulty, score })
     console.log('done');
   }
 
@@ -172,6 +173,11 @@ const TriviaGame = () => {
       setCategoryName(categories_list[categoryID - 9]['name'])
     } else {
       setCategoryName('Mixed')
+    }
+    if (queryDifficulty === '') {
+      setScoreDifficulty('Mixed')
+    } else {
+      setScoreDifficulty(difficulties[queryDifficulty])
     }
     getQuestion(count);
     incrementCount();
