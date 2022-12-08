@@ -337,13 +337,13 @@ const TriviaGame = () => {
             </div>
           ) : (
             <div className="centeredDiv whiteColored">
-
               <h2>Game Over</h2>
               <h3>
                 Your score is: {score}{" "}
                 {score >= 180 && <span role="img" aria-label="emoji">🥇</span>}
                 {score >= 100 && score < 180 && <span role="img" aria-label="emoji">🥈</span>}
-                {score < 100 && <span role="img" aria-label="emoji">🥉</span>}
+                {score >= 50 && score < 100 && <span role="img" aria-label="emoji">🥉</span>}
+                {score < 50 && <span role="img" aria-label="emoji">💩</span>}
               </h3>
               <Button
                 className="font_large centeredDiv"
