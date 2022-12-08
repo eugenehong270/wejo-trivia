@@ -15,7 +15,7 @@ function LogoutButton() {
   useEffect(() => {
     if (data) {
       dispatch(apiSlice.util.resetApiState());
-      navigate('/');
+      navigate('/module3-project-gamma/');
     }
   }, [data, dispatch, navigate]);
 
