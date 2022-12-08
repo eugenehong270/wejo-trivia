@@ -63,7 +63,7 @@ function Navbar() {
             ? <NavLink show={true} to="/module3-project-gamma/user/profile">
               Profile
             </NavLink>
-            : <h3>{" "}</h3>}}
+            : <h3>{" "}</h3>}
         </NavMenu>
       </Nav>
     </>

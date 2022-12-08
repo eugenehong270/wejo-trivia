@@ -13,7 +13,7 @@ const MainPage = () => {
         <h1 className='size'>Choose your game:</h1>
       </div>
       <div className='content20'>
-        <NavLink to="trivia/start" activeStyle>
+        <NavLink to="/module3-project-gamma/trivia/start" activeStyle>
           <button className="btn third">Trivia</button>
         </NavLink>
       </div>
