@@ -29,7 +29,7 @@ function App() {
         <div className="container">
           <Routes>
             <Route path="/module3-project-gamma/" element={<MainPage />} />
-            <Route path="/module3-project-gamma//user/login" element={<LoginModal />} />
+            <Route path="/module3-project-gamma/user/login" element={<LoginModal />} />
             <Route path="/module3-project-gamma/user/signup" element={<SignupModal />} />
             <Route path="/module3-project-gamma/trivia/start" element={<TriviaGame />} />
             <Route path="/module3-project-gamma/user/profile" element={<UserProfile />} />
