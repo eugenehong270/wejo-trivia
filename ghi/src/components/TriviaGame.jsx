@@ -9,7 +9,7 @@ import wrongAudio from "../assets/audio/wrong.mp3";
 import correctAudio from "../assets/audio/correct.mp3";
 import "../style/trivia.css";
 import LoginModal from "./LoginModal";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 // import { triviaApiSlice } from "../store/triviaApi";
 
 
