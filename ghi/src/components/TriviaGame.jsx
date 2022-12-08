@@ -131,7 +131,7 @@ const TriviaGame = () => {
     return array;
   };
 
-  const getQuestion = (currCount) => {
+  const getQuestion = async (currCount) => {
     try {
       setIsAnswerSelected(false);
       setQuestion([]);
@@ -148,7 +148,8 @@ const TriviaGame = () => {
       onClickStart();
     } catch (e) {
       setGameEnded(true)
-      sendFinalScore(categoryName, queryDifficulty, score)
+      console.log(score);
+      await sendFinalScore(categoryName, queryDifficulty, score)
     };
   }
 
