@@ -212,13 +212,13 @@ const TriviaGame = () => {
       selectedAnswerButtonEl.classList.remove("wrong_btn");
     }, 1950);
     incrementCount();
-    getQuestion(count);
   };
 
   const onSelectAnswer = async (idx, ans) => {
     if (isAnswerSelected) return;
     setQuestionAnswer(idx, ans);
     await timeout(2000);
+    getQuestion(count);
   };
 
   const restartGame = () => {
@@ -337,7 +337,6 @@ const TriviaGame = () => {
             </div>
           ) : (
             <div className="centeredDiv whiteColored">
-
               <h2>Game Over</h2>
               <h3>
                 Your score is: {score}{" "}
