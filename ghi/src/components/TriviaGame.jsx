@@ -9,6 +9,8 @@ import wrongAudio from "../assets/audio/wrong.mp3";
 import correctAudio from "../assets/audio/correct.mp3";
 import "../style/trivia.css";
 import LoginModal from "./LoginModal";
+import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 
 const TriviaGame = () => {
@@ -35,8 +37,10 @@ const TriviaGame = () => {
   const [gameEnded, setGameEnded] = useState(false);
   const [isAnswerSelected, setIsAnswerSelected] = useState(false);
 
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const [count, setCount] = useState(0)
-  let tempCount = 0
 
   const categories_list = categoryData?.trivia_categories
   const difficulties = { 'easy': 'Easy', 'medium': 'Medium', 'hard': 'Hard' }
@@ -56,14 +60,14 @@ const TriviaGame = () => {
   }
 
   const startTimer = async (e) => {
-    let { total, minutes, seconds }
+    const { total, minutes, seconds }
       = getTimeRemaining(e);
     if (total === 0) {
-      if (count || tempCount === 9) {
-        return
+      if (count === 9) {
+        return;
       }
-      tempCount = tempCount + 1
-      getQuestion(tempCount);
+      setCount((c) => c + 1)
+      getQuestion(count + 1);
     }
     if (total >= 0) {
       setTimer(
@@ -106,12 +110,11 @@ const TriviaGame = () => {
   const wrongAudio_obj = new Audio(wrongAudio);
 
   const incrementCount = () => {
-    setCount(prev => prev + 1)
-    tempCount = count
+    setCount((c) => c + 1)
   };
 
-  const addScore = () => {
-    setScore(score + 10 * scoresDictionary[difficulty]);
+  const addScore = (currDiff) => {
+    setScore(score + 10 * scoresDictionary[currDiff]);
   };
 
   const timeout = (delay) => {
@@ -130,9 +133,6 @@ const TriviaGame = () => {
   };
 
   const getQuestion = (currCount) => {
-    if (tempCount > count) {
-      setCount(tempCount + 1)
-    }
     try {
       setIsAnswerSelected(false);
       setQuestion([]);
@@ -149,21 +149,20 @@ const TriviaGame = () => {
       onClickStart();
     } catch (e) {
       setGameEnded(true)
-      sendFinalScore(categoryName, queryDifficulty)
+      sendFinalScore(score)
     };
   }
 
-  const sendFinalScore = async (currCat, currDiff) => {
-    if (currCat === '') {
-      setCategoryName('Mixed')
-    }
-    if (currDiff === '') {
-      setScoreDifficulty('Mixed')
-    } else {
-      setScoreDifficulty(difficulties[queryDifficulty])
-    }
-    await createFinalScore({ formattedDate, categoryName, scoreDifficulty, score })
-    console.log('done');
+  const sendFinalScore = async (currScore) => {
+    // if (currCat === '') {
+    //   setCategoryName('Mixed')
+    // }
+    // if (currDiff === '') {
+    //   setScoreDifficulty('Mixed')
+    // } else {
+    //   setScoreDifficulty(difficulties[queryDifficulty])
+    // }
+    await createFinalScore({ formattedDate, categoryName, scoreDifficulty, currScore })
   }
 
 
@@ -201,7 +200,7 @@ const TriviaGame = () => {
 
     if (_curr_correct_answer === ans) {
       selectedAnswerButtonEl.classList.add("correct_btn");
-      addScore();
+      addScore(difficulty);
       correctAudio_obj.play();
     } else {
       selectedAnswerButtonEl.classList.add("wrong_btn");
@@ -223,14 +222,16 @@ const TriviaGame = () => {
   };
 
   const restartGame = () => {
-    setScore(0);
-    setCount(0)
-    tempCount = 0
-    setCategoryID('')
-    setCategoryName('')
-    setQueryDifficulty('')
-    setGameEnded(false)
-    setQuizStarted(false)
+    // setScore(0);
+    // setCount(0)
+    // tempCount = 0
+    // setCategoryID('')
+    // setCategoryName('')
+    // setQueryDifficulty('')
+    // setGameEnded(false)
+    // setQuizStarted(false)
+    dispatch(apiSlice.util.resetApiState())
+    navigate('/module3-project-gamma/trivia/start')
   }
 
   if (!tokenData) {
