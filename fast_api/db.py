@@ -18,6 +18,7 @@ class GameQueries:
                     WHERE g.user_id = %s
 
                     ORDER BY g.date DESC, g.points DESC
+                    LIMIT 10
                     """,
                     [user_id],
                 )
@@ -65,6 +66,7 @@ class GameQueries:
                     JOIN games g ON(u.id = g.user_id)
 
                     ORDER BY g.points DESC
+                    LIMIT 10
                     """,
                 )
                 games = []

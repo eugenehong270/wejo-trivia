@@ -68,7 +68,7 @@ export const apiSlice = createApi({
         method: 'delete',
         credentials: 'include',
       }),
-      invalidatesTags: ['User', 'Token','Games'],
+      invalidatesTags: ['User', 'Token', 'Games'],
     }),
     getToken: builder.query({
       query: () => ({
@@ -123,11 +123,11 @@ export const apiSlice = createApi({
           date: data.formattedDate,
           category: data.categoryName,
           difficulty: data.scoreDifficulty,
-          points: data.score
+          points: data.currScore
         },
         method: 'post',
       }),
-      invalidatesTags: ['Games']
+      invalidatesTags: ['Games', 'Trivia']
     }),
     deleteScore: builder.mutation({
       query: game_id => ({

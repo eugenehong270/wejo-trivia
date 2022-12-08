@@ -3,9 +3,10 @@
 ## About
 
 A trivia game site built using FastAPI, PostgreSQL, React JS and Redux Tool Kit, which allows users to sign up, login/logout, and play a trivia game.
-They can then see their profile page to access a list of their game scores along with aggregate stats, and can access a leaderboard that shows all users in descending score order. The game play is intuitive, fast, run and responsive, and lends itself to friendly competition. Our goal for further development is to incorporate team play, and social networking into the app, allowing friends to compete and compare stats.
+They can then see their profile page to access a list of their game scores along with aggregate stats, and can access a leaderboard that shows all users in descending score order. The game play is intuitive, fast, run and responsive, and lends itself to friendly competition. Our goal for further development is to incorporate team play and social networking into the app, allowing friends to compete and compare stats.
 
 ## Set Up
+# is this the same now that we are deployed on Render?
 
 1. From your terminal, cd into project root directory.
 
@@ -51,10 +52,13 @@ They can then see their profile page to access a list of their game scores along
 
 [X]Leaderboard
 
+[X]Musical Component
 ## Stretch Goals
 
 []Social Network
 
 []Additional Games
 
-[]Musical Component
+[]Team Play
+
+[]Filters/Sorting for Leaderboard and User Profile
