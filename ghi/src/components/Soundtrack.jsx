@@ -1,19 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react'
+// import {
+//   styled, Typography, Slider,
+//   Paper, Stack, Box
 import {
-  styled, Typography, Slider,
-  Paper, Stack, Box
+  styled, Stack, Box
 } from '@mui/material';
 
 
 // #region ------------ ICONS ---------
-import VolumeDownIcon from '@mui/icons-material/VolumeDown';
-import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import VolumeOffIcon from '@mui/icons-material/VolumeOff';
-import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
+// import VolumeDownIcon from '@mui/icons-material/VolumeDown';
+// import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+// import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+// import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 
 import PauseIcon from '@mui/icons-material/Pause';
-import FastRewindIcon from '@mui/icons-material/FastRewind';
-import FastForwardIcon from '@mui/icons-material/FastForward';
+// import FastRewindIcon from '@mui/icons-material/FastRewind';
+// import FastForwardIcon from '@mui/icons-material/FastForward';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
@@ -47,41 +49,41 @@ export default function Soundtrack() {
   const [currentSong] = useState(playlist[index]);
 
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(30);
-  const [mute, setMute] = useState(false);
+  // const [volume, setVolume] = useState(30);
+  // const [mute, setMute] = useState(false);
 
-  const [elapsed, setElapsed] = useState(0);
-  const [duration, setDuration] = useState(0);
+  // const [elapsed, setElapsed] = useState(0);
+  // const [duration, setDuration] = useState(0);
 
-  useEffect(() => {
-    if (audioPlayer) {
-      audioPlayer.current.volume = volume / 100;
-    }
+  // useEffect(() => {
+  //   if (audioPlayer) {
+  //     audioPlayer.current.volume = volume / 100;
+  //   }
 
 
-    if (isPlaying) {
-      setInterval(() => {
-        const _duration = Math.floor(audioPlayer?.current?.duration);
-        const _elapsed = Math.floor(audioPlayer?.current?.currentTime);
+  //   if (isPlaying) {
+  //     setInterval(() => {
+  //       const _duration = Math.floor(audioPlayer?.current?.duration);
+  //       const _elapsed = Math.floor(audioPlayer?.current?.currentTime);
 
-        setDuration(_duration);
-        setElapsed(_elapsed);
-      }, 100);
-    }
+  //       setDuration(_duration);
+  //       setElapsed(_elapsed);
+  //     }, 100);
+  //   }
 
-  }, [
-    volume, isPlaying
-  ]);
+  // }, [
+  //   volume, isPlaying
+  // ]);
 
-  function formatTime(time) {
-    if (time && !isNaN(time)) {
-      const minutes = Math.floor(time / 60) < 10 ? `0${Math.floor(time / 60)}` : Math.floor(time / 60);
-      const seconds = Math.floor(time % 60) < 10 ? `0${Math.floor(time % 60)}` : Math.floor(time % 60);
+  // function formatTime(time) {
+  //   if (time && !isNaN(time)) {
+  //     const minutes = Math.floor(time / 60) < 10 ? `0${Math.floor(time / 60)}` : Math.floor(time / 60);
+  //     const seconds = Math.floor(time % 60) < 10 ? `0${Math.floor(time % 60)}` : Math.floor(time % 60);
 
-      return `${minutes}:${seconds}`;
-    }
-    return '00:00';
-  }
+  //     return `${minutes}:${seconds}`;
+  //   }
+  //   return '00:00';
+  // }
 
   const togglePlay = () => {
     if (!isPlaying) {
@@ -112,10 +114,10 @@ export default function Soundtrack() {
     }
   }
 
-  function VolumeBtns() {
-    return mute
+  // function VolumeBtns() {
+  //   return mute
 
-  }
+  // }
   return (
     <Div>
       <audio src={currentSong} ref={audioPlayer} muted={mute} />
