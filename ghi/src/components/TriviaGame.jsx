@@ -37,7 +37,7 @@ const TriviaGame = () => {
   const [gameEnded, setGameEnded] = useState(false);
   const [isAnswerSelected, setIsAnswerSelected] = useState(false);
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   const [count, setCount] = useState(0)
 
