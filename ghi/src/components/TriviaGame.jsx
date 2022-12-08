@@ -17,9 +17,10 @@ const TriviaGame = () => {
 
   const [categoryID, setCategoryID] = useState('')
   const [categoryName, setCategoryName] = useState('')
-  const [createFinalScore] = useAddScoreMutation('')
+  const [scoreDifficulty, setScoreDifficulty] = useState('')
   const [queryDifficulty, setQueryDifficulty] = useState('')
   const [difficulty, setDifficulty] = useState('');
+  const [createFinalScore] = useAddScoreMutation('')
 
   const { data: tokenData } = useGetTokenQuery();
   const { data: questionData } = useGetTriviaQuestionsQuery({ category: categoryID, difficulty: queryDifficulty });
@@ -157,11 +158,11 @@ const TriviaGame = () => {
       setCategoryName('Mixed')
     }
     if (currDiff === '') {
-      setQueryDifficulty('Mixed')
+      setScoreDifficulty('Mixed')
     } else {
-      setQueryDifficulty(difficulties[queryDifficulty])
+      setScoreDifficulty(difficulties[queryDifficulty])
     }
-    await createFinalScore({ formattedDate, categoryName, queryDifficulty, score })
+    await createFinalScore({ formattedDate, categoryName, scoreDifficulty, score })
     console.log('done');
   }
 
@@ -174,7 +175,9 @@ const TriviaGame = () => {
       setCategoryName('Mixed')
     }
     if (queryDifficulty === '') {
-      setQueryDifficulty('Mixed')
+      setScoreDifficulty('Mixed')
+    } else {
+      setScoreDifficulty(difficulties[queryDifficulty])
     }
     getQuestion(count);
     incrementCount();
