@@ -5,8 +5,8 @@
   font-size: 3fr;
   letter-spacing: 3px;
   padding-top: 2em;
-  padding-bottom: 5em;
-  color: rgb(235, 121, 14);
+  padding-bottom: 3em;
+  color: whitesmoke;
 }
 
 .main {
@@ -19,8 +19,8 @@ table {
   table-layout: fixed;
   width: 100%;
   border-collapse: collapse;
-  /* background-color: lightsalmon; */
-  /* border: 3px solid purple; */
+  /* background-color: lightsalmon;
+  border: 3px solid purple; */
 }
 
 thead th:nth-child(1) {

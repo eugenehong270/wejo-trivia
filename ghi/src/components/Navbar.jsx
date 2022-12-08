@@ -7,6 +7,7 @@ import '../style/mainPage.css'
 import { apiSlice } from '../store/api';
 import { useDispatch } from 'react-redux';
 
+
 function LogoutButton() {
   const navigate = useNavigate();
   const [logOut, { data }] = useLogOutMutation();

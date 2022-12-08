@@ -48,7 +48,7 @@ const UserProfile = () => {
 
                 <div className="profile-main">
                     <h1 className="game-history">Game History </h1>
-                    <table className="table table-striped">
+                    <table>
                         <thead>
                             <tr>
                                 <th>Date</th>
