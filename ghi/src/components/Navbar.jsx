@@ -52,7 +52,7 @@ function Navbar() {
             ? <NavLink show={true} to="/module3-project-gamma/user/signup" activeStyle >
               Sign Up
             </NavLink>
-            : <h3>{" "}</h3>}}
+            : <h3>{" "}</h3>}
           <NavLink to="/module3-project-gamma/trivia/start">
             Trivia
           </NavLink>
