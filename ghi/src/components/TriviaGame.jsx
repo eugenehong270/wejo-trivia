@@ -223,7 +223,7 @@ const TriviaGame = () => {
   };
 
   const restartGame = () => {
-    dispatch(triviaApiSlice.util.invalidateTags());
+    dispatch(triviaApiSlice.util.invalidateTags(['Trivia']));
     setScore(0);
     setCount(0);
     setCategoryID('');
