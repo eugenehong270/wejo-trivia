@@ -18,6 +18,7 @@ class GameQueries:
                     WHERE g.user_id = %s
 
                     ORDER BY g.date DESC, g.points DESC
+                    LIMIT 10
                     """,
                     [user_id],
                 )
