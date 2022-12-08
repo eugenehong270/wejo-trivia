@@ -26,7 +26,7 @@ const UserProfile = () => {
                 </div>
                 <div className="profile-main" >
                     <h1 className='your-stats'>Your Stats</h1>
-                    <table className="table table-striped">
+                    <table>
                         <thead>
                             <tr>
                                 <th>Highest score</th>

@@ -24,3 +24,11 @@
   padding-left: 3em;
   color: white;
 }
+
+table {
+  table-layout: flex;
+  width: 100%;
+  border-collapse: collapse;
+  /* background-color: lightsalmon;
+  border: 3px solid purple; */
+}

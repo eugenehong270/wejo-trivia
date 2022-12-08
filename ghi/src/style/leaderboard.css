@@ -25,22 +25,37 @@ table {
 
 thead th:nth-child(1) {
   width: 20%;
+  font-size: 20px;
+  text-decoration: underline white;
+  text-decoration-thickness: 3px;
 }
 
 thead th:nth-child(2) {
   width: 20%;
+  font-size: 20px;
+  text-decoration: underline white;
+  text-decoration-thickness: 3px;
 }
 
 thead th:nth-child(3) {
   width: 20%;
+  font-size: 20px;
+  text-decoration: underline white;
+  text-decoration-thickness: 3px;
 }
 
 thead th:nth-child(4) {
   width: 20%;
+  font-size: 20px;
+  text-decoration: underline white;
+  text-decoration-thickness: 3px;
 }
 
 thead th:nth-child(5) {
   width: 20%;
+  font-size: 20px;
+  text-decoration: underline white;
+  text-decoration-thickness: 3px;
 }
 th {
   letter-spacing: 4px;
