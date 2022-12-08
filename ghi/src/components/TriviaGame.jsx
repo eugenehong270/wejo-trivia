@@ -170,6 +170,8 @@ const TriviaGame = () => {
     setQuizStarted(true);
     if (categoryID !== '') {
       setCategoryName(categories_list[categoryID - 9]['name'])
+    } else {
+      setCategoryName('Mixed')
     }
     getQuestion(count);
     incrementCount();
