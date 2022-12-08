@@ -166,7 +166,7 @@ const TriviaGame = () => {
   }
 
 
-  const startQuiz = async () => {
+  const startQuiz = () => {
     setQuizStarted(true);
     if (categoryID !== '') {
       setCategoryName(categories_list[categoryID - 9]['name'])
