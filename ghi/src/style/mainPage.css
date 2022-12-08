@@ -1,11 +1,15 @@
 .size {
-  font-size: 62px;
+  font-size: 50px;
+}
+
+.but{
+  text-decoration: none;
 }
 .content10 {
   font-family: "Times New Roman", Times, serif;
-  position: absolute;
-  width: 100%;
-  height: 33%;
+  /* position: relative; */
+  width: 50%;
+  height: 50%;
   top: 0;
   display: flex;
   flex-direction: column;
@@ -22,20 +26,20 @@
 
 .content20 {
   font-family: "Times New Roman", Times, serif;
-  position: absolute;
+  /* position: relative; */
   width: 100%;
-  height: 33%;
+  height: 100%;
   top: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: white;
-  animation: fade-in2 6s;
+  animation: fade-in2 4s;
   opacity: 100;
   z-index: 1;
   width: 100vw;
-  height: 100vh;
+  height: 50vh;
   object-fit: cover;
 }
 
@@ -58,8 +62,8 @@
   from {
     opacity: 0;
   }
-  60% {
-    opacity: 0;
+  70% {
+    opacity: 1;
   }
   100% {
     opacity: 1;

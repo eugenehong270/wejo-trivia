@@ -1,11 +1,12 @@
 import { React, useEffect } from 'react'
-import { Nav, NavLink, NavMenu } from "../style/NavBarElements"
+import { Nav, NavLink, NavMenu, Bars } from "../style/NavBarElements"
 import { useLogOutMutation, useGetTokenQuery } from '../store/api';
 import { useNavigate } from 'react-router-dom';
 import Logo from "../images/logo-no-background.png"
 import '../style/mainPage.css'
 import { apiSlice } from '../store/api';
 import { useDispatch } from 'react-redux';
+import Soundtrack from './Soundtrack.jsx';
 
 
 function LogoutButton() {
@@ -33,12 +34,23 @@ function Navbar() {
   return (
     <>
       <Nav>
-        {token
-          ? <h3 className='welcome neonText'>Welcome, {token?.user.username}</h3>
-          : <h3>{" "}</h3>}
+
+        <NavLink>
+          {token
+            ? <h3 className='welcome neonText'>Welcome, {token?.user.username}</h3>
+            : <h3>{" "}</h3>}
+        </NavLink>
+
+        <NavLink>
+          <Soundtrack />
+        </NavLink>
+
         <NavLink to="/module3-project-gamma/">
           <img className="logo" src={Logo} width="70" alt="Logo" />
         </NavLink>
+
+        <Bars />
+
         <NavMenu>
           {tokenLoading
             ? <NavLink show={false} to="/module3-project-gamma/user/login" activeStyle>
@@ -66,6 +78,7 @@ function Navbar() {
             </NavLink>
             : <h3>{" "}</h3>}
         </NavMenu>
+
       </Nav>
     </>
   )

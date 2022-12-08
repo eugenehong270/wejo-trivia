@@ -200,7 +200,7 @@ const TriviaGame = () => {
 
     if (_curr_correct_answer === ans) {
       selectedAnswerButtonEl.classList.add("correct_btn");
-      addScore(difficulty);
+      setScore((s) => s + 10 * scoresDictionary[difficulty]);
       correctAudio_obj.play();
     } else {
       selectedAnswerButtonEl.classList.add("wrong_btn");
@@ -210,7 +210,7 @@ const TriviaGame = () => {
     setTimeout(() => {
       selectedAnswerButtonEl.classList.remove("correct_btn");
       selectedAnswerButtonEl.classList.remove("wrong_btn");
-    }, 1950);
+    }, 3000);
     incrementCount();
   };
 
@@ -337,9 +337,14 @@ const TriviaGame = () => {
             </div>
           ) : (
             <div className="centeredDiv whiteColored">
-
-              <h1> GAME OVER! </h1>
-              <h1> Your final score is {score} points.</h1>
+              <h2>Game Over</h2>
+              <h3>
+                Your score is: {score}{" "}
+                {score >= 180 && <span role="img" aria-label="emoji">🥇</span>}
+                {score >= 100 && score < 180 && <span role="img" aria-label="emoji">🥈</span>}
+                {score >= 50 && score < 100 && <span role="img" aria-label="emoji">🥉</span>}
+                {score < 50 && <span role="img" aria-label="emoji">💩</span>}
+              </h3>
               <Button
                 className="font_large centeredDiv"
                 variant="contained"

@@ -35,6 +35,9 @@ They can then see their profile page to access a list of their game scores along
 2. Jonathan
    [Test Create User](/fast_api/tests/test_users_routes.py)
 
+3. Eugene
+   [Test List User Games](/fast_api/tests/test_games_routes.py)
+
 ## Deliverables
 
 [X]Signup
