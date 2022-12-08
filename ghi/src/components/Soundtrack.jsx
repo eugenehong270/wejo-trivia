@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 // import {
 //   styled, Typography, Slider,
 //   Paper, Stack, Box
@@ -120,7 +120,8 @@ export default function Soundtrack() {
   // }
   return (
     <Div>
-      <audio src={currentSong} ref={audioPlayer} muted={mute} />
+      {/* <audio src={currentSong} ref={audioPlayer} muted={mute} /> */}
+      <audio src={currentSong} ref={audioPlayer} />
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Stack direction='row' spacing={1}
           sx={{
