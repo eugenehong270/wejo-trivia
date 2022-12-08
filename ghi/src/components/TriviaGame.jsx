@@ -10,7 +10,8 @@ import correctAudio from "../assets/audio/correct.mp3";
 import "../style/trivia.css";
 import LoginModal from "./LoginModal";
 import { useDispatch } from "react-redux";
-// import { triviaApiSlice } from "../store/triviaApi";
+import { apiSlice } from "../store/triviaApi";
+import { useNavigate } from "react-router-dom";
 
 
 const TriviaGame = () => {
@@ -37,7 +38,8 @@ const TriviaGame = () => {
   const [gameEnded, setGameEnded] = useState(false);
   const [isAnswerSelected, setIsAnswerSelected] = useState(false);
 
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [count, setCount] = useState(0)
 
@@ -131,7 +133,7 @@ const TriviaGame = () => {
     return array;
   };
 
-  const getQuestion = (currCount) => {
+  const getQuestion = async (currCount) => {
     try {
       setIsAnswerSelected(false);
       setQuestion([]);
@@ -148,7 +150,8 @@ const TriviaGame = () => {
       onClickStart();
     } catch (e) {
       setGameEnded(true)
-      sendFinalScore(categoryName, queryDifficulty, score)
+      console.log(score);
+      await sendFinalScore(categoryName, queryDifficulty, score)
     };
   }
 
@@ -221,13 +224,15 @@ const TriviaGame = () => {
   };
 
   const restartGame = () => {
-    setScore(0);
-    setCount(0)
-    setCategoryID('')
-    setCategoryName('')
-    setQueryDifficulty('')
-    setGameEnded(false)
-    setQuizStarted(false)
+    // setScore(0);
+    // setCount(0)
+    // setCategoryID('')
+    // setCategoryName('')
+    // setQueryDifficulty('')
+    // setGameEnded(false)
+    // setQuizStarted(false)
+    dispatch(apiSlice.util.resetApiState());
+    navigate('/module3-project-gamma/trivia/start')
   }
 
   if (!tokenData) {
