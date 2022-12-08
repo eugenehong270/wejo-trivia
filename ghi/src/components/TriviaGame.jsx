@@ -10,7 +10,7 @@ import correctAudio from "../assets/audio/correct.mp3";
 import "../style/trivia.css";
 import LoginModal from "./LoginModal";
 import { useDispatch } from "react-redux";
-import { triviaApiSlice } from "../store/triviaApi";
+// import { triviaApiSlice } from "../store/triviaApi";
 
 
 const TriviaGame = () => {
