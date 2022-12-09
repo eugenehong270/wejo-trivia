@@ -72,6 +72,7 @@ const UserProfile = () => {
                                         <td>{game.category}</td>
                                         <td>{game.difficulty}</td>
                                         <td>{game.points}</td>
+                                        {console.log(game.date)}
                                         <th><button onClick={() => deleteScore(game.id)}>Delete</button></th>
                                     </tr>
                                 ))}
