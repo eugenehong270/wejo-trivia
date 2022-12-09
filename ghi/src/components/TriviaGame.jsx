@@ -106,9 +106,9 @@ const TriviaGame = () => {
   const correctAudio_obj = new Audio(correctAudio);
   const wrongAudio_obj = new Audio(wrongAudio);
 
-  const incrementCount = () => {
-    setCount((c) => c + 1)
-  };
+  // const incrementCount = () => {
+  //   setCount((c) => c + 1)
+  // };
 
   const timeout = (delay) => {
     return new Promise((res) => setTimeout(res, delay));
@@ -126,6 +126,7 @@ const TriviaGame = () => {
   };
 
   const getQuestion = (currCount) => {
+    setCount(currCount)
     try {
       setIsAnswerSelected(false);
       setQuestion([]);
@@ -211,14 +212,14 @@ const TriviaGame = () => {
       selectedAnswerButtonEl.classList.remove("correct_btn");
       selectedAnswerButtonEl.classList.remove("wrong_btn");
     }, 1950);
-    incrementCount();
+    // incrementCount();
   };
 
   const onSelectAnswer = async (idx, ans) => {
     if (isAnswerSelected) return;
     setQuestionAnswer(idx, ans);
     await timeout(2000);
-    getQuestion(count);
+    getQuestion(count + 1);
   };
 
   const restartGame = () => {
