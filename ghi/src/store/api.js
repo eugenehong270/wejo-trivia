@@ -123,7 +123,7 @@ export const apiSlice = createApi({
           date: data.formattedDate,
           category: data.categoryName,
           difficulty: data.scoreDifficulty,
-          points: data.currScore
+          points: data.score
         },
         method: 'post',
       }),

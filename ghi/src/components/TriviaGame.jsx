@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { format } from "date-fns";
 import Button from "@mui/material/Button";
 import parse from "html-react-parser";
@@ -148,23 +148,24 @@ const TriviaGame = () => {
     };
   }
 
-  useEffect(() => {
-    const sendFinalScore = async (currCat, currDiff, currScore) => {
-      if (currCat === '') {
-        setCategoryName('Mixed')
-      }
-      if (currDiff === '') {
-        setScoreDifficulty('Mixed')
-      } else {
-        setScoreDifficulty(difficulties[currDiff])
-      }
-      await createFinalScore({ formattedDate, categoryName, scoreDifficulty, currScore })
+  const sendFinalScore = useCallback(() => {
+    if (categoryName === '') {
+      setCategoryName('Mixed')
     }
-    if (count === 10) {
-      sendFinalScore(categoryName, queryDifficulty, score);
+    if (queryDifficulty === '') {
+      setScoreDifficulty('Mixed')
+    } else {
+      setScoreDifficulty(difficulties[queryDifficulty])
+    }
+    createFinalScore({ formattedDate, categoryName, scoreDifficulty, score })
+  },[categoryName, formattedDate, scoreDifficulty, queryDifficulty, score, difficulties])
+
+  useEffect(() => {
+    if(count === 10){
+      sendFinalScore();
       setCount(0)
     }
-  }, [count, score, categoryName, queryDifficulty, formattedDate, scoreDifficulty, difficulties, createFinalScore])
+  },[count, sendFinalScore])
 
 
   const startQuiz = () => {
