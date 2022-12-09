@@ -163,7 +163,7 @@ const TriviaGame = () => {
       sendFinalScore();
       setCount(0)
     }
-  }, [count, gameEnded, sendFinalScore])
+  }, [count, gameEnded])
 
 
   const startQuiz = () => {
