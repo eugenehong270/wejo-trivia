@@ -15,8 +15,6 @@ import { triviaApiSlice } from "../store/triviaApi";
 
 const TriviaGame = () => {
 
-  // state for user game api
-
   const [categoryID, setCategoryID] = useState('')
   const [categoryName, setCategoryName] = useState('')
   const [scoreDifficulty, setScoreDifficulty] = useState('')
@@ -127,7 +125,7 @@ const TriviaGame = () => {
     return array;
   };
 
-  const getQuestion = async (currCount) => {
+  const getQuestion = (currCount) => {
     try {
       setIsAnswerSelected(false);
       setQuestion([]);
@@ -176,7 +174,6 @@ const TriviaGame = () => {
       setScoreDifficulty(difficulties[queryDifficulty])
     }
     getQuestion(count);
-    incrementCount();
   };
 
   const getCategoryValue = (e) => {
