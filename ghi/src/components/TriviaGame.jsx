@@ -112,10 +112,6 @@ const TriviaGame = () => {
     setCount((c) => c + 1)
   };
 
-  const addScore = (currDiff) => {
-    setScore((s) => s + 10 * scoresDictionary[currDiff]);
-  };
-
   const timeout = (delay) => {
     return new Promise((res) => setTimeout(res, delay));
   };
