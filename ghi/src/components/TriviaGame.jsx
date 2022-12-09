@@ -125,7 +125,7 @@ const TriviaGame = () => {
     return array;
   };
 
-  const getQuestion = (currCount) => {
+  const getQuestion = async (currCount) => {
     setCount(currCount)
     console.log({ currCount });
     console.log({ count });
@@ -146,8 +146,6 @@ const TriviaGame = () => {
       onClickStart();
     } catch (e) {
       setGameEnded(true)
-      console.log(score);
-      // await sendFinalScore(categoryName, queryDifficulty, score)
     };
   }
 
@@ -162,6 +160,12 @@ const TriviaGame = () => {
     }
     await createFinalScore({ formattedDate, categoryName, scoreDifficulty, currScore })
   }
+
+  useEffect(() => {
+    if(gameEnded === true){
+      sendFinalScore(categoryName, queryDifficulty, score)
+    }
+  },[gameEnded])
 
 
   const startQuiz = () => {
@@ -199,15 +203,9 @@ const TriviaGame = () => {
       selectedAnswerButtonEl.classList.add("correct_btn");
       setScore((s) => s + 10 * scoresDictionary[difficulty]);
       correctAudio_obj.play();
-      if (idx === 9) {
-        sendFinalScore(categoryName, queryDifficulty, score)
-      }
     } else {
       selectedAnswerButtonEl.classList.add("wrong_btn");
       wrongAudio_obj.play();
-      if (idx === 9) {
-        sendFinalScore(categoryName, queryDifficulty, score)
-      }
     }
 
     setTimeout(() => {
@@ -322,7 +320,7 @@ const TriviaGame = () => {
                     <Button
                       className="holder"
                       variant="contained"
-                      onClick={async () => await startQuiz()}
+                      onClick={() => startQuiz()}
                     >
                       {" "}
                       Start Quiz{" "}
