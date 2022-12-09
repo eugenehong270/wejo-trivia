@@ -139,16 +139,14 @@ const TriviaGame = () => {
       setQuestion(currQuestion.question);
       setDifficulty(currQuestion.difficulty);
       setCorrectAnswer(currQuestion.correct_answer);
-      console.log(correctAnswer);
       setPossibleAnswers(shuffle([...currQuestion.incorrect_answers, currQuestion.correct_answer]));
       onClickStart();
     } catch (e) {
       setGameEnded(true)
-      incrementCount()
     };
   }
 
-  const sendFinalScore = useCallback(() => {
+  const sendFinalScore = () => {
     if (categoryName === '') {
       setCategoryName('Mixed')
     }
@@ -158,14 +156,14 @@ const TriviaGame = () => {
       setScoreDifficulty(difficulties[queryDifficulty])
     }
     createFinalScore({ formattedDate, categoryName, scoreDifficulty, score })
-  },[createFinalScore, categoryName, formattedDate, scoreDifficulty, queryDifficulty, score, difficulties])
+  }
 
   useEffect(() => {
-    if(count === 10){
+    if (count === 10 && gameEnded === true) {
       sendFinalScore();
       setCount(0)
     }
-  },[count, sendFinalScore])
+  }, [count, gameEnded, sendFinalScore])
 
 
   const startQuiz = () => {
