@@ -165,7 +165,7 @@ const TriviaGame = () => {
       sendFinalScore(categoryName, queryDifficulty, score);
       setCount(0)
     }
-  },[count, categoryName, queryDifficulty, sendFinalScore])
+  },[count, score, categoryName, queryDifficulty, sendFinalScore])
 
 
   const startQuiz = () => {
