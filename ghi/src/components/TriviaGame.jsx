@@ -148,24 +148,23 @@ const TriviaGame = () => {
     };
   }
 
-  const sendFinalScore = async (currCat, currDiff, currScore) => {
-    if (currCat === '') {
-      setCategoryName('Mixed')
-    }
-    if (currDiff === '') {
-      setScoreDifficulty('Mixed')
-    } else {
-      setScoreDifficulty(difficulties[currDiff])
-    }
-    await createFinalScore({ formattedDate, categoryName, scoreDifficulty, currScore })
-  }
-
   useEffect(() => {
-    if(count === 10){
+    const sendFinalScore = async (currCat, currDiff, currScore) => {
+      if (currCat === '') {
+        setCategoryName('Mixed')
+      }
+      if (currDiff === '') {
+        setScoreDifficulty('Mixed')
+      } else {
+        setScoreDifficulty(difficulties[currDiff])
+      }
+      await createFinalScore({ formattedDate, categoryName, scoreDifficulty, currScore })
+    }
+    if (count === 10) {
       sendFinalScore(categoryName, queryDifficulty, score);
       setCount(0)
     }
-  },[count, score, categoryName, queryDifficulty, sendFinalScore])
+  }, [count, score, categoryName, queryDifficulty, sendFinalScore])
 
 
   const startQuiz = () => {
