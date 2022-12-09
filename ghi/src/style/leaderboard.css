@@ -1,11 +1,12 @@
-.header {
+.leaderboard {
   display: flex;
   justify-content: center;
+  font-size: x-large;
   font-style: italic;
-  font-size: 3fr;
   letter-spacing: 3px;
-  padding-top: 2em;
-  padding-bottom: 3em;
+  padding-bottom: 2em;
+  text-decoration: underline whitesmoke;
+  text-decoration-thickness: 3px;
   color: whitesmoke;
 }
 
@@ -19,8 +20,6 @@ table {
   table-layout: flex;
   width: 100%;
   border-collapse: collapse;
-  /* background-color: lightsalmon;
-  border: 3px solid purple; */
 }
 
 thead th:nth-child(1) {

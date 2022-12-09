@@ -21,55 +21,63 @@ const UserProfile = () => {
     } else {
         return (
             <>
-                <div className="profile-header">
+                {/* <div className="profile-header">
                     <h1>Profile</h1>
-                </div>
-                <div className="profile-main" >
-                    <h1 className='your-stats'>Your Stats</h1>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Highest score</th>
-                                <th>Average Score</th>
-                                <th>Total Games</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr key={stats?.id}>
-                                <td>{stats?.highest_score}</td>
-                                <td>{stats?.avg_score}</td>
-                                <td>{stats?.total_games}</td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-
-                </div>
-
-                <div className="profile-main">
-                    <h1 className="game-history">Game History </h1>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Category</th>
-                                <th>Difficulty</th>
-                                <th>Points</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data?.games.map(game => (
-                                <tr key={game.id}>
-                                    <td>{game.date}</td>
-                                    <td>{game.category}</td>
-                                    <td>{game.difficulty}</td>
-                                    <td>{game.points}</td>
-                                    <th><button onClick={() => deleteScore(game.id)}>Delete</button></th>
+                </div> */}
+                <div  >
+                    <div>
+                        <h2 className='profile-stats'>Profile Stats</h2>
+                    </div>
+                    <div className='profile-main'>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope='col'>Highest score</th>
+                                    <th scope='col'>Average Score</th>
+                                    <th scope='col'>Total Games</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <tr key={stats?.id}>
+                                    <td>{stats?.highest_score}</td>
+                                    <td>{stats?.avg_score}</td>
+                                    <td>{stats?.total_games}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <div >
+                    <div>
+                        <h2 className='game-history'>Game History </h2>
+                    </div>
+                    <div className='profile-main'>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope='col'>Date</th>
+                                    <th scope='col'>Category</th>
+                                    <th scope='col'>Difficulty</th>
+                                    <th scope='col'>Points</th>
+                                    <th scope='col'>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {data?.games.map(game => (
+                                    <tr key={game.id}>
+                                        <td>{game.date}</td>
+                                        <td>{game.category}</td>
+                                        <td>{game.difficulty}</td>
+                                        <td>{game.points}</td>
+                                        <th><button onClick={() => deleteScore(game.id)}>Delete</button></th>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </>
         )

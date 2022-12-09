@@ -3,36 +3,38 @@
   justify-content: center;
   font-style: italic;
   font-size: 20px;
-  letter-spacing: 3px;
-  padding-top: 1em;
-  padding-bottom: 2em;
+
   color: whitesmoke;
 }
 
 .profile-main {
   display: flex;
   justify-content: center;
-  padding-bottom: 1em;
-  color: white;
+
+  color: whitesmoke;
 }
 
-.your-stats {
+.profile-stats {
+  display: flex;
   justify-content: center;
   font-style: italic;
-  padding-left: 2em;
-  padding-bottom: 1em;
-  color: white;
-}
-.game-history {
-  font-style: italic;
-  padding-left: 2em;
-  color: white;
+  text-decoration: underline whitesmoke;
+  text-decoration-thickness: 3px;
+  color: whitesmoke;
 }
 
-table {
-  table-layout: flex;
-  width: 100%;
-  border-collapse: collapse;
-  /* background-color: lightsalmon;
-  border: 3px solid purple; */
+.profile-stats-data {
+  display: flex;
+  justify-content: center;
+  font-style: italic;
+  color: whitesmoke;
+}
+.game-history {
+  display: flex;
+  justify-content: center;
+  font-style: italic;
+  /* padding-left: 2em; */
+  text-decoration: underline white;
+  text-decoration-thickness: 3px;
+  color: whitesmoke;
 }
