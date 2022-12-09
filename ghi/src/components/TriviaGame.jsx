@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { format } from "date-fns";
 import Button from "@mui/material/Button";
 import parse from "html-react-parser";
@@ -146,6 +146,7 @@ const TriviaGame = () => {
       onClickStart();
     } catch (e) {
       setGameEnded(true)
+      incrementCount()
     };
   }
 
@@ -162,10 +163,11 @@ const TriviaGame = () => {
   }
 
   useEffect(() => {
-    if(gameEnded === true){
-      sendFinalScore(categoryName, queryDifficulty, score)
+    if(count === 10){
+      sendFinalScore(categoryName, queryDifficulty, score);
+      setCount(0)
     }
-  },[gameEnded])
+  },[count])
 
 
   const startQuiz = () => {
