@@ -15,3 +15,7 @@
 12/5/22: Significant progress was made on the front end. The login/signup modals look much cleaner as unecessary space was taken out. The game play page was improved as well. The project is at a point where I would be comfortable showing it to other people. Many improvements can be made.
 
 12/6/22: Today was a slow day. Progress was made on the front end and others made progress on the users profile page. The project is wrapping up nicely.
+
+12/7/22: Progress was made on refining the home page and nav bar. Spacing is better and overall the sight is looking less choppy due to CSS slopiness. We also got our project deployed! a few bugs were found however its for the most part a functional website.
+
+12/8/22: Now that our project has been deployed, we decided to spend more time working on refining the css and the bugs that happened during deployment. The music section has been added to the nav bar and the nav bar is now dynamic. As in, if you make the browser window narrower, the nav bar will display itself dynamically.
