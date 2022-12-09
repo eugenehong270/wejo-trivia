@@ -4,7 +4,7 @@
   font-style: italic;
   font-size: 20px;
   letter-spacing: 3px;
-  padding-top: 2em;
+  padding-top: 1em;
   padding-bottom: 2em;
   color: whitesmoke;
 }
@@ -12,16 +12,20 @@
 .profile-main {
   display: flex;
   justify-content: center;
+  padding-bottom: 1em;
   color: white;
 }
 
 .your-stats {
-  padding-left: 3em;
-  padding-bottom: 3em;
+  justify-content: center;
+  font-style: italic;
+  padding-left: 2em;
+  padding-bottom: 1em;
   color: white;
 }
 .game-history {
-  padding-left: 3em;
+  font-style: italic;
+  padding-left: 2em;
   color: white;
 }
 
