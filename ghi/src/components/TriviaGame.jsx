@@ -140,12 +140,13 @@ const TriviaGame = () => {
       setQuestion(currQuestion.question);
       setDifficulty(currQuestion.difficulty);
       setCorrectAnswer(currQuestion.correct_answer);
+      console.log(correctAnswer);
       setPossibleAnswers(shuffle([...currQuestion.incorrect_answers, currQuestion.correct_answer]));
       onClickStart();
     } catch (e) {
       setGameEnded(true)
       console.log(score);
-      await sendFinalScore(categoryName, queryDifficulty, score)
+      // await sendFinalScore(categoryName, queryDifficulty, score)
     };
   }
 
@@ -198,15 +199,21 @@ const TriviaGame = () => {
       selectedAnswerButtonEl.classList.add("correct_btn");
       setScore((s) => s + 10 * scoresDictionary[difficulty]);
       correctAudio_obj.play();
+      if(idx === 9) {
+        sendFinalScore(categoryName, queryDifficulty, score)
+      }
     } else {
       selectedAnswerButtonEl.classList.add("wrong_btn");
       wrongAudio_obj.play();
+      if (idx === 9) {
+        sendFinalScore(categoryName, queryDifficulty, score)
+      }
     }
 
     setTimeout(() => {
       selectedAnswerButtonEl.classList.remove("correct_btn");
       selectedAnswerButtonEl.classList.remove("wrong_btn");
-    }, 3000);
+    }, 1950);
     incrementCount();
   };
 
