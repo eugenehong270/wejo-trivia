@@ -15,8 +15,6 @@ import { triviaApiSlice } from "../store/triviaApi";
 
 const TriviaGame = () => {
 
-  // state for user game api
-
   const [categoryID, setCategoryID] = useState('')
   const [categoryName, setCategoryName] = useState('')
   const [scoreDifficulty, setScoreDifficulty] = useState('')
@@ -127,7 +125,10 @@ const TriviaGame = () => {
     return array;
   };
 
-  const getQuestion = async (currCount) => {
+  const getQuestion = (currCount) => {
+    setCount(currCount)
+    console.log({ currCount });
+    console.log({ count });
     try {
       setIsAnswerSelected(false);
       setQuestion([]);
@@ -176,7 +177,6 @@ const TriviaGame = () => {
       setScoreDifficulty(difficulties[queryDifficulty])
     }
     getQuestion(count);
-    incrementCount();
   };
 
   const getCategoryValue = (e) => {
@@ -199,7 +199,7 @@ const TriviaGame = () => {
       selectedAnswerButtonEl.classList.add("correct_btn");
       setScore((s) => s + 10 * scoresDictionary[difficulty]);
       correctAudio_obj.play();
-      if(idx === 9) {
+      if (idx === 9) {
         sendFinalScore(categoryName, queryDifficulty, score)
       }
     } else {
@@ -221,7 +221,7 @@ const TriviaGame = () => {
     if (isAnswerSelected) return;
     setQuestionAnswer(idx, ans);
     await timeout(2000);
-    getQuestion(count);
+    getQuestion(count + 1);
   };
 
   const restartGame = () => {
