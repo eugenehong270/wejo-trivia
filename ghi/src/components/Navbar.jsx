@@ -45,7 +45,7 @@ function Navbar() {
           <Soundtrack />
         </NavLink>
 
-        <NavLink to="/module3-project-gamma/">
+        <NavLink to="/">
           <img className="logo" src={Logo} width="70" alt="Logo" />
         </NavLink>
 
