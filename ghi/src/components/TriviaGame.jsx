@@ -158,7 +158,7 @@ const TriviaGame = () => {
       setScoreDifficulty(difficulties[queryDifficulty])
     }
     createFinalScore({ formattedDate, categoryName, scoreDifficulty, score })
-  },[categoryName, formattedDate, scoreDifficulty, queryDifficulty, score, difficulties])
+  },[createFinalScore, categoryName, formattedDate, scoreDifficulty, queryDifficulty, score, difficulties])
 
   useEffect(() => {
     if(count === 10){
