@@ -144,7 +144,7 @@ const TriviaGame = () => {
     };
   }
 
-  const sendFinalScore = () => {
+  const sendFinalScore = (currScore) => {
     if (categoryName === '') {
       setCategoryName('Mixed')
     }
@@ -153,16 +153,8 @@ const TriviaGame = () => {
     } else {
       setScoreDifficulty(difficulties[queryDifficulty])
     }
-    createFinalScore({ formattedDate, categoryName, scoreDifficulty, score })
+    createFinalScore({ formattedDate, categoryName, scoreDifficulty, currScore })
   }
-
-  // useEffect(() => {
-  //   if (count === 10 && gameEnded === true) {
-  //     sendFinalScore();
-  //     setCount(0)
-  //   }
-  // }, [count, gameEnded])
-
 
   const startQuiz = () => {
     setQuizStarted(true);
@@ -198,13 +190,15 @@ const TriviaGame = () => {
     if (_curr_correct_answer === ans) {
       selectedAnswerButtonEl.classList.add("correct_btn");
       console.log(count);
-      setScore((s) => s + 10 * scoresDictionary[difficulty], count === 9 ? sendFinalScore() : () => {});
+      let tempScore = score + 10 * scoresDictionary[difficulty]
+      setScore((s) => s + 10 * scoresDictionary[difficulty], count === 9 ? sendFinalScore(tempScore) : () => {});
       correctAudio_obj.play();
     } else {
       selectedAnswerButtonEl.classList.add("wrong_btn");
       wrongAudio_obj.play();
       if (count === 9) {
-        sendFinalScore()
+        let currScore = score
+        sendFinalScore(currScore)
       }
     }
 
