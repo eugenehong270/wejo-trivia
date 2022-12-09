@@ -28,12 +28,12 @@ function App() {
         <Navbar />
         <div className="container">
           <Routes>
-            <Route path="" element={<MainPage />} />
-            <Route path="user/login" element={<LoginModal />} />
-            <Route path="user/signup" element={<SignupModal />} />
-            <Route path="trivia/start" element={<TriviaGame />} />
-            <Route path="user/profile" element={<UserProfile />} />
-            <Route path="trivia/leaderboard" element={<GamesList />} />
+            <Route path="/module3-project-gamma/" element={<MainPage />} />
+            <Route path="/module3-project-gamma/user/login" element={<LoginModal />} />
+            <Route path="/module3-project-gamma/user/signup" element={<SignupModal />} />
+            <Route path="/module3-project-gamma/trivia/start" element={<TriviaGame />} />
+            <Route path="/module3-project-gamma/user/profile" element={<UserProfile />} />
+            <Route path="/module3-project-gamma/trivia/leaderboard" element={<GamesList />} />
           </Routes>
         </div>
       </Router>
