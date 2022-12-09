@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef } from "react";
 import { format } from "date-fns";
 import Button from "@mui/material/Button";
 import parse from "html-react-parser";
@@ -158,12 +158,12 @@ const TriviaGame = () => {
     createFinalScore({ formattedDate, categoryName, scoreDifficulty, score })
   }
 
-  useEffect(() => {
-    if (count === 10 && gameEnded === true) {
-      sendFinalScore();
-      setCount(0)
-    }
-  }, [count, gameEnded])
+  // useEffect(() => {
+  //   if (count === 10 && gameEnded === true) {
+  //     sendFinalScore();
+  //     setCount(0)
+  //   }
+  // }, [count, gameEnded])
 
 
   const startQuiz = () => {
@@ -201,9 +201,15 @@ const TriviaGame = () => {
       selectedAnswerButtonEl.classList.add("correct_btn");
       setScore((s) => s + 10 * scoresDictionary[difficulty]);
       correctAudio_obj.play();
+      if (count === 10) {
+        sendFinalScore()
+      }
     } else {
       selectedAnswerButtonEl.classList.add("wrong_btn");
       wrongAudio_obj.play();
+      if (count === 10) {
+        sendFinalScore()
+      }
     }
 
     setTimeout(() => {
