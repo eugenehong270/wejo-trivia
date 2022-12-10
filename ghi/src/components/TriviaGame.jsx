@@ -219,7 +219,7 @@ const TriviaGame = () => {
     if (isAnswerSelected) return;
     setQuestionAnswer(idx, ans);
     await timeout(2000);
-    getQuestion(count);
+    getQuestion(count + 1);
   };
 
   const restartGame = () => {
