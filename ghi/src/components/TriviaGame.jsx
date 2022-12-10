@@ -108,7 +108,7 @@ const TriviaGame = () => {
   const wrongAudio_obj = new Audio(wrongAudio);
 
   const incrementCount = () => {
-    setCount((c) => c + 1)
+    setCount(c => c + 1)
     tempCount = count
   };
 
@@ -128,7 +128,7 @@ const TriviaGame = () => {
   };
 
   const getQuestion = async (currCount) => {
-    if(tempCount > count){
+    if (tempCount > count) {
       setCount(tempCount + 1)
     }
     try {
@@ -197,7 +197,7 @@ const TriviaGame = () => {
       selectedAnswerButtonEl.classList.add("correct_btn");
       console.log(count);
       let tempScore = score + 10 * scoresDictionary[difficulty]
-      setScore((s) => s + 10 * scoresDictionary[difficulty], count === 9 ? sendFinalScore(tempScore) : () => {});
+      setScore((s) => s + 10 * scoresDictionary[difficulty], count === 9 ? sendFinalScore(tempScore) : () => { });
       correctAudio_obj.play();
     } else {
       selectedAnswerButtonEl.classList.add("wrong_btn");
@@ -219,7 +219,7 @@ const TriviaGame = () => {
     if (isAnswerSelected) return;
     setQuestionAnswer(idx, ans);
     await timeout(2000);
-    getQuestion(count + 1);
+    getQuestion(count);
   };
 
   const restartGame = () => {
