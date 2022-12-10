@@ -7,7 +7,6 @@ const UserProfile = () => {
     const { data: tokenData } = useGetTokenQuery();
     const { data } = useGetUserGamesQuery();
     const { data: stats } = useGetUserStatsQuery();
-    const [deleteScore] = useDeleteScoreMutation();
 
     if (!tokenData) {
         return (
