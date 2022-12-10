@@ -38,6 +38,7 @@ const TriviaGame = () => {
   const dispatch = useDispatch()
 
   const [count, setCount] = useState(0)
+  let tempCount = 0
 
   const categories_list = categoryData?.trivia_categories
   const difficulties = { 'easy': 'Easy', 'medium': 'Medium', 'hard': 'Hard' }
@@ -63,7 +64,8 @@ const TriviaGame = () => {
       if (count === 9) {
         return;
       }
-      setCount((c) => c + 1, getQuestion(count + 1));
+      tempCount = tempCount + 1;
+      getQuestion(tempCount);
     }
     if (total >= 0) {
       setTimer(
@@ -107,6 +109,7 @@ const TriviaGame = () => {
 
   const incrementCount = () => {
     setCount((c) => c + 1)
+    tempCount = count
   };
 
   const timeout = (delay) => {
@@ -125,6 +128,9 @@ const TriviaGame = () => {
   };
 
   const getQuestion = async (currCount) => {
+    if(tempCount > count){
+      setCount(tempCount + 1)
+    }
     try {
       setIsAnswerSelected(false);
       setQuestion([]);
