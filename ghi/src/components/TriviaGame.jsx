@@ -63,8 +63,7 @@ const TriviaGame = () => {
       if (count === 9) {
         return;
       }
-      incrementCount()
-      getQuestion(count + 1);
+      setCount((c) => c + 1, getQuestion(count))
     }
     if (total >= 0) {
       setTimer(
