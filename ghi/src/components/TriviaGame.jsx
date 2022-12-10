@@ -129,7 +129,7 @@ const TriviaGame = () => {
 
   const getQuestion = async (currCount) => {
     if (tempCount > count) {
-      setCount(tempCount + 1)
+      setCount(tempCount)
     }
     try {
       setIsAnswerSelected(false);
