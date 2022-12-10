@@ -62,7 +62,6 @@ const UserProfile = () => {
                                     <th scope='col'>Category</th>
                                     <th scope='col'>Difficulty</th>
                                     <th scope='col'>Points</th>
-                                    <th scope='col'>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,8 +71,6 @@ const UserProfile = () => {
                                         <td>{game.category}</td>
                                         <td>{game.difficulty}</td>
                                         <td>{game.points}</td>
-                                        {console.log(game.date)}
-                                        <th><button onClick={() => deleteScore(game.id)}>Delete</button></th>
                                     </tr>
                                 ))}
                             </tbody>
