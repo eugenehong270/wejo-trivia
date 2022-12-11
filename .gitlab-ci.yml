@@ -41,6 +41,7 @@ build-front-end-job:
     REACT_APP_FAST_API: https://wejo-games.onrender.com
   script:
     - cd ghi
+    - npm install --save-dev redux-devtools-extension
     - npm install
     - npm run build
     - cp build/index.html build/404.html
