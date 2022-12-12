@@ -18,7 +18,7 @@ export const store = configureStore({
             .concat(apiSlice.middleware)
             .concat(triviaApiSlice.middleware)
             .concat(gamesApi.middleware),
-    devTools: provess.env.NODE_ENV !== 'production',
+    devTools: process.env.NODE_ENV !== 'production',
     enhancers: [persistState()]
 });
 
