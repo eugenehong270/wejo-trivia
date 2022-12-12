@@ -189,7 +189,6 @@ const TriviaGame = () => {
 
     if (_curr_correct_answer === ans) {
       selectedAnswerButtonEl.classList.add("correct_btn");
-      console.log(count);
       let tempScore = score + 10 * scoresDictionary[difficulty]
       setScore((s) => s + 10 * scoresDictionary[difficulty], count === 9 ? sendFinalScore(tempScore) : () => { });
       correctAudio_obj.play();

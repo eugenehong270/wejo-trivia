@@ -4,7 +4,6 @@ import { triviaApiSlice } from './triviaApi'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
 import { userSlice } from './userSlice'
 import { gamesApi } from './leaderboardApi'
-import { persistState } from 'redux-devtools-extension'
 
 export const store = configureStore({
     reducer: {
@@ -17,9 +16,7 @@ export const store = configureStore({
         getDefaultMiddleware()
             .concat(apiSlice.middleware)
             .concat(triviaApiSlice.middleware)
-            .concat(gamesApi.middleware),
-    devTools: process.env.NODE_ENV !== 'production',
-    enhancers: [persistState()]
-});
+            .concat(gamesApi.middleware)
+})
 
 setupListeners(store.dispatch)
