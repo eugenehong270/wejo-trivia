@@ -300,6 +300,7 @@ const TriviaGame = () => {
                         value={queryDifficulty}
                         onChange={async (e) => getDifficultyValue(e)}
                         defaultValue={queryDifficulty}
+                        borderColor='white'
                       >
                         <MenuItem value={'easy'}>Easy</MenuItem>
                         <MenuItem value={'medium'}>Medium</MenuItem>

@@ -20,9 +20,6 @@ const UserProfile = () => {
     } else {
         return (
             <>
-                {/* <div className="profile-header">
-                    <h1>Profile</h1>
-                </div> */}
                 <div  >
                     <div>
                         <h2 className='profile-stats'>Profile Stats</h2>

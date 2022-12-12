@@ -4,27 +4,6 @@ import "../style/leaderboard.css"
 
 function GamesList() {
     const { data, isLoading } = useGetGamesQuery();
-    // const handleClick = (e) => {
-    //     console.log(e.target)
-    // };
-    // const between = (data, between) => {
-    //     const today = new Date();
-    //     const previous = new Date(today);
-    //     previous.setDate(previous.getDate() - (between + 1));
-
-    //     let filter = data.filter(val => {
-    //         let userDate = new Date(val.date);
-    //         return previous <= userDate && today >= userDate;
-    //     })
-
-    //     return filter.sort((a, b) => {
-    //         if (a.points === b.points) {
-    //             return b.points - a.points;
-    //         } else {
-    //             return b.points - a.points;
-    //         };
-    //     })
-    // };
     if (isLoading) {
         return (
             <progress className="progress is-primary" max="100">Loading</progress>
