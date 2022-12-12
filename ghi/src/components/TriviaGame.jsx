@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef } from "react";
 import { format } from "date-fns";
 import Button from "@mui/material/Button";
 import parse from "html-react-parser";
@@ -63,8 +63,7 @@ const TriviaGame = () => {
       if (count === 9) {
         return;
       }
-      setCount((c) => c + 1)
-      getQuestion(count + 1);
+      setCount((c) => c + 1, getQuestion(count))
     }
     if (total >= 0) {
       setTimer(
@@ -126,7 +125,6 @@ const TriviaGame = () => {
   };
 
   const getQuestion = async (currCount) => {
-    setCount(currCount)
     try {
       setIsAnswerSelected(false);
       setQuestion([]);
@@ -139,16 +137,14 @@ const TriviaGame = () => {
       setQuestion(currQuestion.question);
       setDifficulty(currQuestion.difficulty);
       setCorrectAnswer(currQuestion.correct_answer);
-      console.log(correctAnswer);
       setPossibleAnswers(shuffle([...currQuestion.incorrect_answers, currQuestion.correct_answer]));
       onClickStart();
     } catch (e) {
       setGameEnded(true)
-      incrementCount()
     };
   }
 
-  const sendFinalScore = useCallback(() => {
+  const sendFinalScore = (currScore) => {
     if (categoryName === '') {
       setCategoryName('Mixed')
     }
@@ -157,16 +153,8 @@ const TriviaGame = () => {
     } else {
       setScoreDifficulty(difficulties[queryDifficulty])
     }
-    createFinalScore({ formattedDate, categoryName, scoreDifficulty, score })
-  },[createFinalScore, categoryName, formattedDate, scoreDifficulty, queryDifficulty, score, difficulties])
-
-  useEffect(() => {
-    if(count === 10){
-      sendFinalScore();
-      setCount(0)
-    }
-  },[count, sendFinalScore])
-
+    createFinalScore({ formattedDate, categoryName, scoreDifficulty, currScore })
+  }
 
   const startQuiz = () => {
     setQuizStarted(true);
@@ -201,11 +189,16 @@ const TriviaGame = () => {
 
     if (_curr_correct_answer === ans) {
       selectedAnswerButtonEl.classList.add("correct_btn");
-      setScore((s) => s + 10 * scoresDictionary[difficulty]);
+      let tempScore = score + 10 * scoresDictionary[difficulty]
+      setScore((s) => s + 10 * scoresDictionary[difficulty], count === 9 ? sendFinalScore(tempScore) : () => { });
       correctAudio_obj.play();
     } else {
       selectedAnswerButtonEl.classList.add("wrong_btn");
       wrongAudio_obj.play();
+      if (count === 9) {
+        let currScore = score
+        sendFinalScore(currScore)
+      }
     }
 
     setTimeout(() => {
@@ -307,6 +300,7 @@ const TriviaGame = () => {
                         value={queryDifficulty}
                         onChange={async (e) => getDifficultyValue(e)}
                         defaultValue={queryDifficulty}
+                        borderColor='white'
                       >
                         <MenuItem value={'easy'}>Easy</MenuItem>
                         <MenuItem value={'medium'}>Medium</MenuItem>

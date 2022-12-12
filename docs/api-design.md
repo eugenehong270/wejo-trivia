@@ -15,7 +15,6 @@
       },
       "token": varchar
     }'
-    ```
 
 ### Log out
 
@@ -27,9 +26,9 @@
 
 * Response: Always true
 * Response shape (JSON):
-    ```json
+    `
     true
-    ```
+    `
 
 ### Sign up
 
@@ -43,12 +42,12 @@
 
 * Response: Always true
 * Response shape (JSON):
-    ```json
+    `
     {
       "username": varchar,
       "password": varchar
     }
-    ```
+    `
 
 ### Retrieve All Categories
 
@@ -56,12 +55,12 @@ Endpoint path: https://opentdb.com/api_category.php
 Endpoint method : GET
 
 Response shape(JSON):
-'{   "categories": [
+`{   "categories": [
 		{
 			"id": smallint,
       "name": varchar
 			]
-}'
+}`
 ### Retrieve Trivia Questions
 
 Endpoint path: https://opentdb.com/api.php?amount=10&category=&difficulty=
@@ -72,7 +71,7 @@ Query parameters:
     * difficulty: varchar
 
 Response shape(JSON):
-'{   "results": [
+`{   "results": [
 		{
 			"category": varchar,
 			"type": varchar,
@@ -82,7 +81,7 @@ Response shape(JSON):
 			"incorrect_answers": [
 				varchar, varchar, etc.
 			]
-}'
+}`
 ### Create Game Score
 
 Endpoint path: /games
@@ -100,7 +99,7 @@ Request Shape (form):
   * user_id: smallint
 
 Response Shape(JSON):
-  {
+  `{
     "date" : date,
     "category": varchar,
     "difficulty": varchar,
@@ -109,7 +108,7 @@ Response Shape(JSON):
       "id": smallint,
       "username": varchar
     }
-  }
+  }`
 
 ## Retrieve Leaderboard Game Scores
 
@@ -117,7 +116,7 @@ Endpoint path: /games
 Endpoint method: GET
 
 Response Shape(JSON):
-'{  'games':  [
+`{  'games':  [
     {
     "date" : date,
     "category": varchar,
@@ -129,7 +128,7 @@ Response Shape(JSON):
       }
     }
   ]
-}'
+}`
 ## Retrieve User Game Scores
 
 Endpoint path: /user/games
@@ -139,7 +138,7 @@ Headers:
     * Authorization: Bearer token
 
 Response Shape(JSON):
-'{  'games':  [
+`{  'games':  [
     {
     "date" : date,
     "category": varchar,
@@ -151,7 +150,7 @@ Response Shape(JSON):
       }
     }
   ]
-}'
+}`
 
 ## Retrieve User Stats
 
@@ -162,9 +161,10 @@ Headers:
     * Authorization: Bearer token
 
 Response Shape(JSON):
-'{
+`{
   "user_id": smallint,
   "avg_score": smallint,
   "total_games": smallint,
   "highest_score": 39
-}'
+}`
+

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDeleteScoreMutation, useGetTokenQuery, useGetUserGamesQuery, useGetUserStatsQuery } from "../store/api";
+import { useGetTokenQuery, useGetUserGamesQuery, useGetUserStatsQuery } from "../store/api";
 import LoginModal from './LoginModal';
 import '../style/profile.css'
 
@@ -7,7 +7,6 @@ const UserProfile = () => {
     const { data: tokenData } = useGetTokenQuery();
     const { data } = useGetUserGamesQuery();
     const { data: stats } = useGetUserStatsQuery();
-    const [deleteScore] = useDeleteScoreMutation();
 
     if (!tokenData) {
         return (
@@ -21,9 +20,6 @@ const UserProfile = () => {
     } else {
         return (
             <>
-                {/* <div className="profile-header">
-                    <h1>Profile</h1>
-                </div> */}
                 <div  >
                     <div>
                         <h2 className='profile-stats'>Profile Stats</h2>
@@ -62,7 +58,6 @@ const UserProfile = () => {
                                     <th scope='col'>Category</th>
                                     <th scope='col'>Difficulty</th>
                                     <th scope='col'>Points</th>
-                                    <th scope='col'>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,7 +67,6 @@ const UserProfile = () => {
                                         <td>{game.category}</td>
                                         <td>{game.difficulty}</td>
                                         <td>{game.points}</td>
-                                        <th><button onClick={() => deleteScore(game.id)}>Delete</button></th>
                                     </tr>
                                 ))}
                             </tbody>
